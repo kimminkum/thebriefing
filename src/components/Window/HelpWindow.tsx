@@ -1,13 +1,13 @@
 // src/components/Window/HelpWindow.tsx
 import React from "react";
-import { useTheme } from "../../utils/ThemeContext";
 import styled from "styled-components";
 
 interface HelpWindowProps {
   toggleUi: () => void;
   isUiMode: boolean;
   typingSpeed: number;
-  setTypingSpeed: React.Dispatch<React.SetStateAction<number>>; // 🔥 이걸로 교체
+  setTypingSpeed: React.Dispatch<React.SetStateAction<number>>;
+  reopenTutorial: () => void;
 }
 
 const Container = styled.div<{ isUiMode: boolean }>`
@@ -49,30 +49,33 @@ const CloseButton = styled.button`
   cursor: pointer;
 `;
 
-// 토글 진행 에 대한 설명 모달창으로로
+const RangeLabel = styled.label`
+  display: block;
+  margin-top: 20px;
+`;
 
 const HelpWindow: React.FC<HelpWindowProps> = ({
   isUiMode,
   toggleUi,
   typingSpeed,
-  setTypingSpeed
+  setTypingSpeed,
+  reopenTutorial
 }) => {
-  const { isDarkMode, toggleTheme } = useTheme();
-
   return (
     <Container isUiMode={isUiMode}>
-      <Button onClick={toggleTheme}>
-        {isDarkMode ? "Light Mode" : "Dark Mode"}
-      </Button>
+      <Button onClick={reopenTutorial}>📘 튜토리얼 다시 보기</Button>
 
-      <input
-        type="range"
-        min={10}
-        max={100}
-        step={10}
-        value={typingSpeed}
-        onChange={(e) => setTypingSpeed(Number(e.target.value))}
-      />
+      <RangeLabel>
+        ✍️ 타이핑 속도 조절
+        <input
+          type="range"
+          min={10}
+          max={100}
+          step={10}
+          value={typingSpeed}
+          onChange={(e) => setTypingSpeed(Number(e.target.value))}
+        />
+      </RangeLabel>
 
       <CloseButton onClick={toggleUi}>×</CloseButton>
     </Container>

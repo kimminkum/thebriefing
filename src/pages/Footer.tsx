@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useGlobalContext } from "../query/GlobalContext";
+import { useGlobalContext } from "../utils/GlobalContext";
 import Btn from "../components/Button";
 
 const FooterContainer = styled.div<{ height: number }>`

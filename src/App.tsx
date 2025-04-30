@@ -16,8 +16,6 @@ const RelativeContainer = styled.div`
   height: auto;
   width: 100%;
   overflow-x: hidden;
-  padding-bottom: 60px;
-  padding-top: 48px;
 `;
 
 const App: React.FC = () => {

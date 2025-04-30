@@ -1,4 +1,3 @@
-// src/styles/styled.d.ts
 import "styled-components";
 
 declare module "styled-components" {
@@ -7,5 +6,11 @@ declare module "styled-components" {
     text: string;
     textBg: string;
     textTxt: string;
+    lightGray: string;
+    ui: {
+      border: string;
+      background: string;
+      text: string;
+    };
   }
 }

@@ -17,7 +17,7 @@ const Container = styled.div`
   background: ${({ theme }) => theme.textBg};
   color: ${({ theme }) => theme.textTxt};
   width: 100%;
-  max-width: 768px;
+  max-width: 750px;
   position: absolute;
   bottom: 0;
   height: 20%;
@@ -41,7 +41,7 @@ const TextWindow: React.FC<TextWindowProps> = ({
   handleClick,
   typingSpeed,
   setIsTyping,
-  playSound,
+  playSound
 }) => {
   const maxTextLength = 20;
   const currentText =
@@ -90,7 +90,7 @@ const TextWindow: React.FC<TextWindowProps> = ({
           transition={{
             duration: animationDuration,
             ease: "easeOut",
-            delay: 0.2,
+            delay: 0.2
           }}
         >
           <p className="font-24">{displayText}</p>

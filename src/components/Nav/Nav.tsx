@@ -27,7 +27,7 @@ const NavContainer = styled.nav<NavContainerProps>`
   color: ${(props) => props.theme.lightGray};
   height: 48px;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 750px) {
     ${(props) => {
       if (props.toggle) {
         return `
@@ -52,7 +52,7 @@ const Content = styled.div`
   padding: 0 20px;
   height: 48px;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 750px) {
     height: 48px;
     position: relative;
   }
@@ -73,7 +73,7 @@ const Logo = styled.div`
     transition: opacity 0.3s;
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 750px) {
     height: 48px;
     position: absolute;
     left: 50%;
@@ -96,7 +96,7 @@ const CartIcon = styled.div`
     transition: opacity 0.3s;
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 750px) {
     height: 48px;
     position: fixed;
     right: 22px;
@@ -116,7 +116,7 @@ const MenuToggle = styled.div`
     transition: opacity 0.3s;
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 750px) {
     display: block;
   }
 `;
@@ -168,7 +168,7 @@ const Links = styled.ul<LinksProps>`
     }
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 750px) {
     flex-direction: column;
     align-items: flex-start;
     height: 100%;

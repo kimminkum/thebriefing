@@ -5,7 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import GlobalStyle from "./styles/GlobalStyles";
 import GlobalFont from "./styles/GlobalFonts";
-import { lightTheme } from "./styles/theme"; // 🔥 아까 만든 테마
+import { theme } from "./styles/theme"; // 🔥 아까 만든 테마
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -13,7 +13,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter basename={process.env.PUBLIC_URL}>
-      <ThemeProvider theme={lightTheme}>
+      <ThemeProvider theme={theme}>
         <GlobalStyle />
         <GlobalFont />
         <App />
