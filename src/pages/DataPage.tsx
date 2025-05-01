@@ -9,6 +9,7 @@ import useIntersectionObserver from "../styles/useIntersectionObserver";
 const Container = styled.div`
   padding: 20px;
   max-width: 750px;
+  min-width: 375px;
   margin: 0 auto;
 `;
 

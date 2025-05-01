@@ -5,7 +5,7 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
   position: relative;
-  padding: 40px;
+  padding: calc(32 / 750 * 100%) calc(16 / 750 * 100%);
 
   &::before {
     content: "";
@@ -59,12 +59,16 @@ const Resume: React.FC = () => {
             </Td>
             <Th>이름</Th>
             <Td>김민겸</Td>
+          </Tr>
+          <Tr>
             <Th>생년월일</Th>
             <Td>1994 07 19</Td>
           </Tr>
           <Tr>
             <Th>이메일</Th>
             <Td>h24breaker@gmail.com</Td>
+          </Tr>
+          <Tr>
             <Th>휴대폰</Th>
             <Td>010-9567-3391</Td>
           </Tr>

@@ -21,6 +21,30 @@ export const contentData: ContentItem[] = [
     type: "image",
     src: "image1.jpg",
     alt: "첫 번째 이미지"
+  },
+  {
+    id: 3,
+    type: "image",
+    src: "image1.jpg",
+    alt: "2 번째 이미지"
+  },
+  {
+    id: 4,
+    type: "image",
+    src: "image1.jpg",
+    alt: "3 번째 이미지"
+  },
+  {
+    id: 5,
+    type: "image",
+    src: "image1.jpg",
+    alt: "4 번째 이미지"
+  },
+  {
+    id: 6,
+    type: "image",
+    src: "image1.jpg",
+    alt: "5 번째 이미지"
   }
   // {
   //   id: 3,

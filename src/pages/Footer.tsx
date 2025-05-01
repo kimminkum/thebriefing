@@ -42,14 +42,10 @@ const Footer: React.FC = () => {
         <FooterIner>
           Footer Page
           <BtnBox>
-            <Btn onClick={increaseHeight} height={36}>
-              증가 100
-            </Btn>
+            <Btn onClick={increaseHeight}>증가 100</Btn>
           </BtnBox>
           <BtnBox>
-            <Btn onClick={decreaseHeight} height={36}>
-              감소 100
-            </Btn>
+            <Btn onClick={decreaseHeight}>감소 100</Btn>
           </BtnBox>
         </FooterIner>
       </FooterContainer>

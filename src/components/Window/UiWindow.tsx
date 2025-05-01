@@ -1,6 +1,7 @@
-// src/pages/MainWindow.tsx
+// src/components/Window/UiWindow.tsx
 import React from "react";
 import styled from "styled-components";
+import Button from "../Button";
 
 interface UiWindowProps {
   isUiMode: boolean;
@@ -17,35 +18,26 @@ const Container = styled.div`
   pointer-events: none;
 `;
 
-const QuestionButton = styled.button<{ isUiMode: boolean }>`
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
-  background-color: ${({ theme }) => theme.textBg};
-  color: ${({ theme }) => theme.textTxt};
-  font-size: 20px;
-  cursor: pointer;
-  border: none;
-  pointer-events: auto; /* 👉 버튼만 클릭 가능 */
-`;
-
-// text 창 하단부부
-
 const UiWindow: React.FC<UiWindowProps> = ({ isUiMode, toggleUi }) => {
   return (
     <Container>
-      <QuestionButton
-        isUiMode={isUiMode}
+      <Button
+        type="button"
         onClick={(e) => {
           e.stopPropagation(); // 클릭 이벤트 전파 방지
           toggleUi();
         }}
+        style={{
+          position: "absolute",
+          top: "10px",
+          right: "10px",
+          width: "40px",
+          height: "40px",
+          pointerEvents: "auto"
+        }}
       >
         ?
-      </QuestionButton>
+      </Button>
     </Container>
   );
 };

@@ -4,99 +4,139 @@ import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 import { textData } from "../../data/textData";
 
-interface TextWindowProps {
+interface Props {
   currentId: number;
   textIndex: number;
   handleClick: () => void;
   typingSpeed: number;
   setIsTyping: React.Dispatch<React.SetStateAction<boolean>>;
   playSound: (src: string) => void;
+  isVisible: boolean;
+  setIsVisible: React.Dispatch<React.SetStateAction<boolean>>; // ✅ 왼쪽 버튼 토글용
 }
 
-const Container = styled.div`
-  background: ${({ theme }) => theme.textBg};
-  color: ${({ theme }) => theme.textTxt};
-  width: 100%;
-  max-width: 750px;
+const Container = styled.div<{ isVisible: boolean }>`
   position: absolute;
   bottom: 0;
-  height: 20%;
+  width: 100%;
+  padding: 16px 24px;
+  min-height: 140px;
+  background: #fdfdfd;
+  color: #111;
+  font-family: "DotGothic16", "Press Start 2P", "Pretendard", "Courier",
+    monospace;
+  border-top: 4px solid #000;
+  border-bottom: 8px solid #000;
+  border-left: 4px solid #000;
+  border-right: 4px solid #000;
+  box-shadow: 4px 4px 0 #000;
+  box-shadow: 4px 4px 0 #000;
+
+  opacity: ${({ isVisible }) => (isVisible ? 1 : 0)};
+  transition: opacity 0.4s ease;
+  z-index: 4;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 4;
+  text-align: left;
+  letter-spacing: -0.02em;
+`;
+
+const ClickHint = styled.span`
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  opacity: 0.8;
+  animation: blink 1.2s infinite;
+
+  @keyframes blink {
+    0%,
+    100% {
+      opacity: 0.3;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+`;
+
+const ControlRow = styled.div`
+  position: absolute;
+  bottom: 8px;
+  left: 16px;
+  right: 16px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #555;
+  pointer-events: auto;
 `;
 
 const MotionContainer = styled(motion.div)`
-  position: absolute;
   width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
 `;
 
-const TextWindow: React.FC<TextWindowProps> = ({
+const TextWindow: React.FC<Props> = ({
   currentId,
   textIndex,
   handleClick,
   typingSpeed,
   setIsTyping,
-  playSound
+  playSound,
+  isVisible,
+  setIsVisible
 }) => {
-  const maxTextLength = 20;
+  const maxTextLength = 24;
   const currentText =
     textData.find((item) => item.id === currentId)?.text || "";
   const textChunks =
     currentText.match(new RegExp(`.{1,${maxTextLength}}`, "g")) || [];
-
-  const [displayText, setDisplayText] = useState("");
   const fullText = textChunks[textIndex] || "데이터 없음";
 
-  useEffect(() => {
-    setDisplayText("");
+  const [displayText, setDisplayText] = useState("");
 
+  useEffect(() => {
+    if (!isVisible) return;
+
+    setDisplayText("");
+    setIsTyping(true);
     let i = 0;
-    const startTimeout = setTimeout(() => {
+
+    const timeout = setTimeout(() => {
       const interval = setInterval(() => {
         setDisplayText(fullText.slice(0, i + 1));
-
-        // if (i % 2 === 0) {
-        //   playSound("/sounds/typing.mp3");
-        // }
-
+        if (i % 2 === 0) playSound("/sounds/typing.mp3");
         i++;
         if (i >= fullText.length) {
           clearInterval(interval);
-          setIsTyping(false); // ✅ 타이핑 끝났을 때만 false로
+          setIsTyping(false);
         }
       }, typingSpeed);
+    }, 150);
 
-      // clean-up
-      return () => clearInterval(interval);
-    }, 200); // ✨ 등장 후 약간 텍스트 지연
-  }, [fullText, typingSpeed, setIsTyping, playSound]);
-
-  // 🕒 애니메이션 속도 = 기본 0.2초 + typingSpeed에 비례
-  const animationDuration = 0.2 + typingSpeed / 1000;
+    return () => clearTimeout(timeout);
+  }, [fullText, typingSpeed, isVisible]);
 
   return (
-    <Container onClick={handleClick}>
-      <AnimatePresence mode="wait">
+    <AnimatePresence>
+      <Container isVisible={isVisible} onClick={handleClick}>
         <MotionContainer
           key={`${currentId}-${textIndex}`}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 0 }}
-          transition={{
-            duration: animationDuration,
-            ease: "easeOut",
-            delay: 0.2
-          }}
+          transition={{ duration: 0.3, ease: "easeOut", delay: 0.1 }}
         >
-          <p className="font-24">{displayText}</p>
+          <p>{displayText}</p>
+          <ControlRow>
+            <HideButton onClick={() => setIsVisible((prev) => !prev)}>
+              {isVisible ? "창 숨기기" : "창 보기"}
+            </HideButton>
+
+            {!isTyping && <ClickHint>▶</ClickHint>}
+          </ControlRow>
         </MotionContainer>
-      </AnimatePresence>
-    </Container>
+      </Container>
+    </AnimatePresence>
   );
 };
 
