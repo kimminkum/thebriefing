@@ -45,7 +45,7 @@ const Td = styled.td`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding: 12px 8px;
+  padding: 0.8rem 0.5rem;
 `;
 
 const Resume: React.FC = () => {
@@ -53,25 +53,27 @@ const Resume: React.FC = () => {
     <Container>
       <File>
         <Table>
-          <Tr>
-            <Td rowSpan={2}>
-              <img src="profile.jpg" alt="지원자 사진" width="100" />
-            </Td>
-            <Th>이름</Th>
-            <Td>김민겸</Td>
-          </Tr>
-          <Tr>
-            <Th>생년월일</Th>
-            <Td>1994 07 19</Td>
-          </Tr>
-          <Tr>
-            <Th>이메일</Th>
-            <Td>h24breaker@gmail.com</Td>
-          </Tr>
-          <Tr>
-            <Th>휴대폰</Th>
-            <Td>010-9567-3391</Td>
-          </Tr>
+          <tbody>
+            <Tr>
+              <Td rowSpan={2}>
+                <img src="profile.jpg" alt="지원자 사진" width="100" />
+              </Td>
+              <Th>이름</Th>
+              <Td>김민겸</Td>
+            </Tr>
+            <Tr>
+              <Th>생년월일</Th>
+              <Td>1994 07 19</Td>
+            </Tr>
+            <Tr>
+              <Th>이메일</Th>
+              <Td>h24breaker@gmail.com</Td>
+            </Tr>
+            <Tr>
+              <Th>휴대폰</Th>
+              <Td>010-9567-3391</Td>
+            </Tr>
+          </tbody>
         </Table>
       </File>
     </Container>

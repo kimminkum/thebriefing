@@ -17,15 +17,8 @@ const Container = styled.div`
   margin: 0 auto;
   position: relative;
   overflow: hidden;
-  background: repeating-linear-gradient(
-    0deg,
-    #fdf7e3,
-    #fdf7e3 4px,
-    #f7f1db 4px,
-    #f7f1db 8px
-  );
-  border: 2px solid #d4b28c;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #d4b28c;
+  border-right: 4px solid #d4b28c;
 `;
 
 const Main: React.FC = () => {

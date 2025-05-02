@@ -23,8 +23,6 @@ const Container = styled.div<{ isVisible: boolean }>`
   min-height: 140px;
   background: #fdfdfd;
   color: #111;
-  font-family: "DotGothic16", "Press Start 2P", "Pretendard", "Courier",
-    monospace;
   border-top: 4px solid #000;
   border-bottom: 8px solid #000;
   border-left: 4px solid #000;
@@ -40,35 +38,6 @@ const Container = styled.div<{ isVisible: boolean }>`
   justify-content: center;
   text-align: left;
   letter-spacing: -0.02em;
-`;
-
-const ClickHint = styled.span`
-  font-family: "Press Start 2P", monospace;
-  font-size: 10px;
-  opacity: 0.8;
-  animation: blink 1.2s infinite;
-
-  @keyframes blink {
-    0%,
-    100% {
-      opacity: 0.3;
-    }
-    50% {
-      opacity: 1;
-    }
-  }
-`;
-
-const ControlRow = styled.div`
-  position: absolute;
-  bottom: 8px;
-  left: 16px;
-  right: 16px;
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
-  color: #555;
-  pointer-events: auto;
 `;
 
 const MotionContainer = styled(motion.div)`
@@ -127,13 +96,6 @@ const TextWindow: React.FC<Props> = ({
           transition={{ duration: 0.3, ease: "easeOut", delay: 0.1 }}
         >
           <p>{displayText}</p>
-          <ControlRow>
-            <HideButton onClick={() => setIsVisible((prev) => !prev)}>
-              {isVisible ? "창 숨기기" : "창 보기"}
-            </HideButton>
-
-            {!isTyping && <ClickHint>▶</ClickHint>}
-          </ControlRow>
         </MotionContainer>
       </Container>
     </AnimatePresence>

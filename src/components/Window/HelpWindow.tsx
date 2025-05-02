@@ -1,6 +1,6 @@
-// src/components/Window/HelpWindow.tsx
 import React from "react";
 import styled from "styled-components";
+import Button from "../Button";
 
 interface HelpWindowProps {
   toggleUi: () => void;
@@ -20,7 +20,7 @@ const Container = styled.div<{ isUiMode: boolean }>`
   background: ${({ theme }) => theme.textTxt};
   color: ${({ theme }) => theme.textBg};
   border-radius: 10px;
-  padding: 20px;
+  padding: 1.4rem;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease-in-out;
   z-index: 8;
@@ -28,30 +28,21 @@ const Container = styled.div<{ isUiMode: boolean }>`
     isUiMode ? "translateY(0%)" : "translateY(100%)"};
 `;
 
-const Button = styled.button`
-  padding: 10px 0;
-  background: ${({ theme }) => theme.text};
-  color: ${({ theme }) => theme.background};
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  margin-top: 20px;
-`;
-
 const CloseButton = styled.button`
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 1rem;
+  right: 1rem;
   background: transparent;
   border: none;
   color: ${({ theme }) => theme.textBg};
-  font-size: 20px;
+  font-size: 1.25rem;
   cursor: pointer;
 `;
 
 const RangeLabel = styled.label`
   display: block;
-  margin-top: 20px;
+  margin-top: 1.25rem;
+  font-size: 0.95rem;
 `;
 
 const HelpWindow: React.FC<HelpWindowProps> = ({
@@ -63,7 +54,9 @@ const HelpWindow: React.FC<HelpWindowProps> = ({
 }) => {
   return (
     <Container isUiMode={isUiMode}>
-      <Button onClick={reopenTutorial}>📘 튜토리얼 다시 보기</Button>
+      <Button variant="primary" onClick={reopenTutorial}>
+        📘 튜토리얼 다시 보기
+      </Button>
 
       <RangeLabel>
         ✍️ 타이핑 속도 조절

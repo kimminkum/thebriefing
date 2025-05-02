@@ -1,5 +1,5 @@
 // src/components/TutorialModal.tsx
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
@@ -23,7 +23,7 @@ const ModalBox = styled.div`
   max-width: 480px;
   background: ${({ theme }) => theme.textBg};
   color: ${({ theme }) => theme.textTxt};
-  padding: 20px;
+  padding: 1.4rem;
   border-radius: 10px;
   text-align: center;
   position: relative;
@@ -35,7 +35,7 @@ const CloseBtn = styled.button`
   background: ${({ theme }) => theme.text};
   color: ${({ theme }) => theme.background};
   border: none;
-  padding: 10px 20px;
+  padding: 0.6rem 1.2rem;
   cursor: pointer;
   border-radius: 5px;
 `;
@@ -70,6 +70,7 @@ interface Props {
 const TutorialModal: React.FC<Props> = ({ onClose }) => {
   const swiperRef = useRef<SwiperType | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const modalRef = useRef<HTMLDivElement | null>(null);
 
   const handleNext = () => {
     swiperRef.current?.slideNext();
@@ -79,42 +80,54 @@ const TutorialModal: React.FC<Props> = ({ onClose }) => {
     swiperRef.current?.slidePrev();
   };
 
+  useEffect(() => {
+    const handleOutsideClick = (e: MouseEvent) => {
+      if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+        onClose();
+      }
+    };
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, []);
+
   return (
     <Overlay>
-      <ModalBox>
-        <Swiper
-          spaceBetween={20}
-          slidesPerView={1}
-          pagination={{ type: "fraction" }}
-          modules={[Pagination]}
-          onSwiper={(swiper: SwiperType) => {
-            swiperRef.current = swiper;
-          }}
-          onSlideChange={(swiper: SwiperType) =>
-            setActiveIndex(swiper.activeIndex)
-          }
-        >
-          <SwiperSlide>
-            <TutoTitle>📄 인터랙션 안내</TutoTitle>
-            <TutoTxt>클릭하면 서류가 넘어가고 텍스트가 타이핑됩니다.</TutoTxt>
-          </SwiperSlide>
-          <SwiperSlide>
-            <TutoTitle>🎵 효과음 & 타이핑</TutoTitle>
-            <TutoTxt>텍스트마다 타이핑 효과와 효과음이 재생됩니다.</TutoTxt>
-          </SwiperSlide>
-          <SwiperSlide>
-            <TutoTitle>💡 도움말 보기</TutoTitle>
-            <TutoTxt>
-              '?' 버튼을 눌러 언제든 도움말을 다시 확인할 수 있어요.
-            </TutoTxt>
-          </SwiperSlide>
-        </Swiper>
+      <ModalBox ref={modalRef}>
+        <ModalBox>
+          <Swiper
+            spaceBetween={20}
+            slidesPerView={1}
+            pagination={{ type: "fraction" }}
+            modules={[Pagination]}
+            onSwiper={(swiper: SwiperType) => {
+              swiperRef.current = swiper;
+            }}
+            onSlideChange={(swiper: SwiperType) =>
+              setActiveIndex(swiper.activeIndex)
+            }
+          >
+            <SwiperSlide>
+              <TutoTitle>📄 인터랙션 안내</TutoTitle>
+              <TutoTxt>클릭하면 서류가 넘어가고 텍스트가 타이핑됩니다.</TutoTxt>
+            </SwiperSlide>
+            <SwiperSlide>
+              <TutoTitle>🎵 효과음 & 타이핑</TutoTitle>
+              <TutoTxt>텍스트마다 타이핑 효과와 효과음이 재생됩니다.</TutoTxt>
+            </SwiperSlide>
+            <SwiperSlide>
+              <TutoTitle>💡 도움말 보기</TutoTitle>
+              <TutoTxt>
+                '?' 버튼을 눌러 언제든 도움말을 다시 확인할 수 있어요.
+              </TutoTxt>
+            </SwiperSlide>
+          </Swiper>
 
-        <FlexBox style={{ marginTop: "20px" }}>
-          {activeIndex > 0 && <NavBtn onClick={handlePrev}>← 이전</NavBtn>}
-          {activeIndex < 2 && <NavBtn onClick={handleNext}>다음 →</NavBtn>}
-        </FlexBox>
-        <CloseBtn onClick={onClose}>닫기</CloseBtn>
+          <FlexBox style={{ marginTop: "20px" }}>
+            {activeIndex > 0 && <NavBtn onClick={handlePrev}>← 이전</NavBtn>}
+            {activeIndex < 2 && <NavBtn onClick={handleNext}>다음 →</NavBtn>}
+          </FlexBox>
+          <CloseBtn onClick={onClose}>닫기</CloseBtn>
+        </ModalBox>
       </ModalBox>
     </Overlay>
   );

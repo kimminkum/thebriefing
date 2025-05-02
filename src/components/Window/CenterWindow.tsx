@@ -1,7 +1,6 @@
-// src/components/Window/CenterWindow.tsx
 import React from "react";
 import styled from "styled-components";
-import { contentData } from "../../data/contentData";
+import { scenarioData } from "../../data/scenarioData";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface Props {
@@ -13,8 +12,8 @@ interface Props {
 const Container = styled.div`
   width: auto;
   height: 100%;
-  padding: 16px;
-  margin: 16px;
+  padding: 1rem;
+  margin: 1rem;
   box-sizing: border-box;
   background: #f8f8f8;
   border: 1px solid #ccc;
@@ -34,9 +33,10 @@ const CenterWindow: React.FC<Props> = ({
   textIndex,
   handleClick
 }) => {
-  const currentContent = contentData.find((item) => item.id === currentId);
+  const currentScenario = scenarioData.find((item) => item.id === currentId);
+  const content = currentScenario?.content;
 
-  if (!currentContent) return <Container>콘텐츠 없음</Container>;
+  if (!currentScenario) return <Container>콘텐츠 없음</Container>;
 
   return (
     <Container onClick={handleClick}>
@@ -48,15 +48,11 @@ const CenterWindow: React.FC<Props> = ({
           exit={{ opacity: 0, y: -20, rotateZ: 3 }}
           transition={{ duration: 0.6, ease: "easeInOut" }}
         >
-          {currentContent.type === "image" && currentContent.src && (
-            <img
-              src={currentContent.src}
-              alt={currentContent.alt || ""}
-              width="100%"
-            />
+          {content?.type === "image" && content.src && (
+            <img src={content.src} alt={content.alt || ""} width="100%" />
           )}
-          {currentContent.type === "component" && currentContent.component && (
-            <currentContent.component {...currentContent.props} />
+          {content?.type === "component" && content.component && (
+            <content.component {...content.props} />
           )}
         </MotionBox>
       </AnimatePresence>

@@ -2,22 +2,26 @@
 import React from "react";
 import styled from "styled-components";
 
+type Variant = "primary" | "outline";
+
 type ButtonProps = {
   children: React.ReactNode;
   onClick: React.MouseEventHandler<HTMLButtonElement>; // ✅ 이벤트 객체 받기
   className?: string;
   type?: "button" | "submit" | "reset";
   style?: React.CSSProperties;
+  variant?: Variant;
 };
 
-const Btn = styled.button`
-  background-color: black;
-  color: white;
-  font-family: "Press Start 2P", monospace;
+const Btn = styled.button<{ variant?: Variant }>`
+  background: ${({ variant }) =>
+    variant === "outline" ? "transparent" : "black"};
+  color: ${({ variant }) => (variant === "outline" ? "#333" : "white")};
+  border: ${({ variant }) =>
+    variant === "outline" ? "1px solid #ccc" : "none"};
   opacity: 0.6;
-  border: none;
   border-radius: 0;
-  padding: 8px;
+  padding: 0.6rem;
   transition: opacity 0.2s ease-in-out;
   cursor: pointer;
   display: inline-flex;
@@ -39,10 +43,17 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
   className = "",
   type = "button",
-  style
+  style,
+  variant
 }) => {
   return (
-    <Btn type={type} className={className} onClick={onClick} style={style}>
+    <Btn
+      type={type}
+      className={className}
+      onClick={onClick}
+      style={style}
+      variant={variant}
+    >
       {children}
     </Btn>
   );

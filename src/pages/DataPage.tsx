@@ -1,13 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import { textData } from "../data/textData";
-import { contentData } from "../data/contentData";
+import { scenarioData } from "../data/scenarioData";
 import useIntersectionObserver from "../styles/useIntersectionObserver";
 
 // api 같은거 쓰기
 
 const Container = styled.div`
-  padding: 20px;
+  padding: 1.2rem;
   max-width: 750px;
   min-width: 375px;
   margin: 0 auto;
@@ -21,13 +20,13 @@ const Table = styled.table`
 
 const Th = styled.th`
   border: 1px solid #ddd;
-  padding: 10px;
+  padding: 0.6rem;
   background-color: #f4f4f4;
 `;
 
 const Td = styled.td`
   border: 1px solid #ddd;
-  padding: 10px;
+  padding: 0.6rem;
   text-align: center;
 `;
 
@@ -52,7 +51,7 @@ const DataPage: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {textData.map((item) => (
+          {scenarioData.map((item) => (
             <tr key={item.id}>
               <Td>{item.id}</Td>
               <Td>{item.text}</Td>
@@ -72,16 +71,18 @@ const DataPage: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {contentData.map((item) => (
+          {scenarioData.map((item) => (
             <tr key={item.id}>
               <Td>{item.id}</Td>
-              <Td>{item.type}</Td>
+              <Td>{item.content?.type || "없음"}</Td>
               <Td>
-                {item.type === "image" ? (
-                  <img src={item.src} alt="preview" width="50" />
+                {item.content?.type === "image" ? (
+                  <img src={item.content.src} width="50" />
+                ) : item.content?.type === "component" ? (
+                  "component: " +
+                  ((item.content.component as React.FC)?.name || "Unknown")
                 ) : (
-                  "component : " +
-                  ((item.component as React.FC)?.name || "Unknown")
+                  "none"
                 )}
               </Td>
             </tr>

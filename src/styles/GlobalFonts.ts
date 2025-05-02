@@ -6,12 +6,27 @@ import PretendardRegular from "../fonts/Pretendard-Regular.woff";
 
 const GlobalFont = createGlobalStyle`
   ${reset}
+  @font-face {
+    font-family: 'Pretendard';
+    src: url('../fonts/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Pretendard';
+    src: url('../fonts/Pretendard-Regular.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
 
   @font-face {
     font-family: 'Pretendard';
-    src: url(${PretendardRegular}) format('woff');
-    font-weight: normal;
+    src: url('../fonts/Pretendard-Bold.woff') format('woff');
+    font-weight: 600;
     font-style: normal;
+    font-display: swap;
   }
 
   * {
@@ -20,9 +35,6 @@ const GlobalFont = createGlobalStyle`
 
   body {
     font-family: 'Pretendard', sans-serif;
-    background-color: #fff;
-    color: #111;
-    line-height: 1.6;
   }
 
   button, input, textarea {

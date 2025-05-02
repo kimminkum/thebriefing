@@ -8,7 +8,7 @@ interface UiWindowProps {
   toggleUi: () => void;
 }
 
-const Container = styled.div`
+const Container = styled.div<{ isUiMode: boolean }>`
   position: absolute;
   top: 0;
   left: 0;
@@ -20,7 +20,7 @@ const Container = styled.div`
 
 const UiWindow: React.FC<UiWindowProps> = ({ isUiMode, toggleUi }) => {
   return (
-    <Container>
+    <Container isUiMode={isUiMode}>
       <Button
         type="button"
         onClick={(e) => {
