@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import styled from "styled-components";
 import CenterWindow from "../components/Window/CenterWindow";
 import HelpWindow from "../components/Window/HelpWindow";
 import TextWindow from "../components/Window/TextWindow";
 import UiWindow from "../components/Window/UiWindow";
 import TutorialModal from "../components/TutorialModal";
-import { textData } from "../data/textData";
+import { MAX_TEXT_LENGTH } from "../utils/constants";
+
+import { scenarioData } from "../data/scenarioData";
 
 const Container = styled.div`
   background: #fdf7e3;
@@ -17,8 +19,7 @@ const Container = styled.div`
   margin: 0 auto;
   position: relative;
   overflow: hidden;
-  border-left: 4px solid #d4b28c;
-  border-right: 4px solid #d4b28c;
+  border: 4px solid #d4b28c;
 `;
 
 const Main: React.FC = () => {
@@ -33,33 +34,40 @@ const Main: React.FC = () => {
   const toggleUi = () => setIsUiMode((prev) => !prev);
   const closeTutorial = () => setShowTutorial(false);
 
-  const playSound = (src: string) => {
+  const playSound = useCallback((src: string) => {
     const audio = new Audio(src);
     // audio.play();
-  };
+  }, []);
 
   const handleClick = () => {
-    if (isTyping) return;
+    if (isTyping || !isTextVisible) return;
 
-    const currentText =
-      textData.find((item) => item.id === currentId)?.text || "";
-    const textChunks = currentText.match(new RegExp(`.{1,10}`, "g")) || [];
+    const currentItem = scenarioData.find((item) => item.id === currentId);
+    if (!currentItem) return;
 
+    const text = currentItem.text || "";
+    const textChunks =
+      text.match(new RegExp(`.{1,${MAX_TEXT_LENGTH}}`, "g")) || [];
+
+    // 아직 보여줄 텍스트가 남아있으면 textIndex 증가
     if (textIndex < textChunks.length - 1) {
       setTextIndex((prev) => prev + 1);
-    } else {
-      setIsTyping(true);
-      setIsTextVisible(false);
-      // playSound("/sounds/page-flip.mp3");
-      setTextIndex(0);
+      return;
+    }
 
+    // 마지막 chunk까지 출력했고 다음 ID가 존재하면 진행
+    if (currentId < scenarioData.length) {
+      setTextIndex(0);
+      setIsTextVisible(false); // 전환 연출용
+      // playSound("/sounds/page-flip.mp3"); // 나중에 추가 가능
       setTimeout(() => {
-        setCurrentId((prev) => (prev < textData.length ? prev + 1 : prev));
+        setCurrentId((prev) => prev + 1);
         setTimeout(() => {
           setIsTextVisible(true);
-        }, 200); // 텍스트 재등장
-      }, 300); // CenterWindow 전환 타이밍
+        }, 200);
+      }, 300);
     }
+    // else: 마지막 ID이므로 아무 동작 없음
   };
 
   return (
@@ -87,7 +95,7 @@ const Main: React.FC = () => {
         isVisible={isTextVisible}
         setIsVisible={setIsTextVisible}
       />
-      <UiWindow toggleUi={toggleUi} isUiMode={isUiMode} />
+      <UiWindow toggleUi={toggleUi} />
     </Container>
   );
 };

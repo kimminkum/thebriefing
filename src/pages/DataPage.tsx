@@ -77,7 +77,11 @@ const DataPage: React.FC = () => {
               <Td>{item.content?.type || "없음"}</Td>
               <Td>
                 {item.content?.type === "image" ? (
-                  <img src={item.content.src} width="50" />
+                  <img
+                    src={item.content.src}
+                    alt={item.content.alt}
+                    width="50"
+                  />
                 ) : item.content?.type === "component" ? (
                   "component: " +
                   ((item.content.component as React.FC)?.name || "Unknown")

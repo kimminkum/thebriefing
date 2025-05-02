@@ -1,8 +1,9 @@
 // src/components/Window/TextWindow.tsx
-import React, { useEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
-import { textData } from "../../data/textData";
+import { scenarioData } from "../../data/scenarioData";
+import { MAX_TEXT_LENGTH } from "../../utils/constants";
 
 interface Props {
   currentId: number;
@@ -19,14 +20,11 @@ const Container = styled.div<{ isVisible: boolean }>`
   position: absolute;
   bottom: 0;
   width: 100%;
-  padding: 16px 24px;
+  padding: 1rem 1.5rem;
   min-height: 140px;
   background: #fdfdfd;
   color: #111;
-  border-top: 4px solid #000;
-  border-bottom: 8px solid #000;
-  border-left: 4px solid #000;
-  border-right: 4px solid #000;
+  border: 4px solid #000;
   box-shadow: 4px 4px 0 #000;
   box-shadow: 4px 4px 0 #000;
 
@@ -54,11 +52,19 @@ const TextWindow: React.FC<Props> = ({
   isVisible,
   setIsVisible
 }) => {
-  const maxTextLength = 24;
+  const prevId = useRef(currentId);
+  const [shouldAnimate, setShouldAnimate] = useState(true);
+
+  // 애니메이션 조건 제어용 useEffect
+  useEffect(() => {
+    setShouldAnimate(prevId.current !== currentId);
+    prevId.current = currentId;
+  }, [currentId]);
+
   const currentText =
-    textData.find((item) => item.id === currentId)?.text || "";
+    scenarioData.find((item) => item.id === currentId)?.text || "";
   const textChunks =
-    currentText.match(new RegExp(`.{1,${maxTextLength}}`, "g")) || [];
+    currentText.match(new RegExp(`.{1,${MAX_TEXT_LENGTH}}`, "g")) || [];
   const fullText = textChunks[textIndex] || "데이터 없음";
 
   const [displayText, setDisplayText] = useState("");
@@ -82,17 +88,20 @@ const TextWindow: React.FC<Props> = ({
       }, typingSpeed);
     }, 150);
 
-    return () => clearTimeout(timeout);
-  }, [fullText, typingSpeed, isVisible]);
+    return () => {
+      clearTimeout(timeout);
+      setIsTyping(false); // ✅ 이탈 시 해제
+    };
+  }, [fullText, typingSpeed, isVisible, playSound, setIsTyping, currentId]);
 
   return (
     <AnimatePresence>
       <Container isVisible={isVisible} onClick={handleClick}>
         <MotionContainer
           key={`${currentId}-${textIndex}`}
-          initial={{ opacity: 0, y: 10 }}
+          initial={shouldAnimate ? { opacity: 0, y: 10 } : false}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 0 }}
+          exit={shouldAnimate ? { opacity: 0, y: 0 } : {}}
           transition={{ duration: 0.3, ease: "easeOut", delay: 0.1 }}
         >
           <p>{displayText}</p>

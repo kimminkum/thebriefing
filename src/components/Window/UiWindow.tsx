@@ -4,11 +4,10 @@ import styled from "styled-components";
 import Button from "../Button";
 
 interface UiWindowProps {
-  isUiMode: boolean;
   toggleUi: () => void;
 }
 
-const Container = styled.div<{ isUiMode: boolean }>`
+const Container = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -18,9 +17,9 @@ const Container = styled.div<{ isUiMode: boolean }>`
   pointer-events: none;
 `;
 
-const UiWindow: React.FC<UiWindowProps> = ({ isUiMode, toggleUi }) => {
+const UiWindow: React.FC<UiWindowProps> = ({ toggleUi }) => {
   return (
-    <Container isUiMode={isUiMode}>
+    <Container>
       <Button
         type="button"
         onClick={(e) => {

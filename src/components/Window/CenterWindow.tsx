@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect, useState } from "react";
 import styled from "styled-components";
 import { scenarioData } from "../../data/scenarioData";
 import { motion, AnimatePresence } from "framer-motion";
@@ -33,6 +33,14 @@ const CenterWindow: React.FC<Props> = ({
   textIndex,
   handleClick
 }) => {
+  const prevId = useRef(currentId);
+  const [shouldAnimate, setShouldAnimate] = useState(true);
+
+  useEffect(() => {
+    setShouldAnimate(prevId.current !== currentId);
+    prevId.current = currentId;
+  }, [currentId]);
+
   const currentScenario = scenarioData.find((item) => item.id === currentId);
   const content = currentScenario?.content;
 
@@ -41,20 +49,22 @@ const CenterWindow: React.FC<Props> = ({
   return (
     <Container onClick={handleClick}>
       <AnimatePresence mode="wait">
-        <MotionBox
-          key={`${currentId}-${textIndex}`}
-          initial={{ opacity: 0, y: 30, rotateZ: -2 }}
-          animate={{ opacity: 1, y: 0, rotateZ: 0 }}
-          exit={{ opacity: 0, y: -20, rotateZ: 3 }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
-        >
-          {content?.type === "image" && content.src && (
-            <img src={content.src} alt={content.alt || ""} width="100%" />
-          )}
-          {content?.type === "component" && content.component && (
-            <content.component {...content.props} />
-          )}
-        </MotionBox>
+        {content && (
+          <MotionBox
+            key={`${currentId}`}
+            initial={shouldAnimate ? { opacity: 0, y: 30, rotateZ: -2 } : false}
+            animate={{ opacity: 1, y: 0, rotateZ: 0 }}
+            exit={shouldAnimate ? { opacity: 0, y: -20, rotateZ: 3 } : {}}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
+          >
+            {content.type === "image" && content.src && (
+              <img src={content.src} alt={content.alt || ""} width="100%" />
+            )}
+            {content.type === "component" && content.component && (
+              <content.component {...content.props} />
+            )}
+          </MotionBox>
+        )}
       </AnimatePresence>
     </Container>
   );
