@@ -2,7 +2,7 @@
 import React from "react";
 import styled from "styled-components";
 import Button from "../Button";
-import cleangpaper from "../../assets/img/bg/clean-gray-paper.png";
+import paper from "../../assets/img/bg/handmade-paper.png";
 
 interface HelpWindowProps {
   toggleUi: () => void;
@@ -18,7 +18,7 @@ const Container = styled.div<{ isUiMode: boolean }>`
   right: 0;
   width: 100%;
   height: 100%;
-  background: #fdfaf5 url(${cleangpaper}) repeat;
+  background: #fdfaf5 url(${paper}) repeat;
   background-size: cover;
   color: #111;
   border-radius: 10px 10px 0 0;

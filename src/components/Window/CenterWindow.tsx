@@ -12,8 +12,8 @@ interface Props {
 const Container = styled.div`
   width: auto;
   height: 100%;
-  padding: 1rem;
-  margin: 1rem;
+  padding: 0.6rem;
+  margin: 0.6rem;
   box-sizing: border-box;
   background: #f8f8f8;
   border: 1px solid #ccc;
@@ -31,6 +31,13 @@ const Container = styled.div`
 const MotionBox = styled(motion.div)`
   width: 100%;
   height: 100%;
+`;
+
+const Img = styled.img`
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
 `;
 
 const CenterWindow: React.FC<Props> = ({
@@ -63,7 +70,7 @@ const CenterWindow: React.FC<Props> = ({
             transition={{ duration: 0.6, ease: "easeInOut" }}
           >
             {content.type === "image" && content.src && (
-              <img src={content.src} alt={content.alt || ""} width="100%" />
+              <Img src={content.src} alt={content.alt || ""} />
             )}
             {content.type === "component" && content.component && (
               <content.component {...content.props} />

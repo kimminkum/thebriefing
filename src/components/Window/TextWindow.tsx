@@ -157,13 +157,12 @@ const TextWindow: React.FC<Props> = ({
           key={`${currentId}-${textIndex}`}
           initial={{ opacity: 0, y: 0 }}
           animate={{
-            opacity: [0, 1, 0, 1],
-            y: [0, 0, 0, 0]
+            opacity: [1, 0.5, 1]
           }}
           transition={{
             duration: 0.6, // 총 0.6초 (0.15s x 4)
             ease: "easeInOut",
-            times: [0, 0.33, 0.66, 1] // 깜빡 타이밍 제어
+            times: [0, 0.5, 1] // 깜빡 타이밍 제어
           }}
         >
           <ToggleButton

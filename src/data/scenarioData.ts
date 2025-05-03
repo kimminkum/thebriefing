@@ -1,3 +1,4 @@
+import img1 from "../assets/img/scenario/img1.jpg";
 import Resume from "../components/Resume";
 
 export interface ScenarioItem {
@@ -18,7 +19,7 @@ export const scenarioData: ScenarioItem[] = [
     text: "보는 것도 고생이네 고생이야, 봐도봐도 이력서가 안 줄어드는 느낌이네.",
     content: {
       type: "image",
-      src: "/images/intro.png",
+      src: img1,
       alt: "인트로 이미지"
     }
   },

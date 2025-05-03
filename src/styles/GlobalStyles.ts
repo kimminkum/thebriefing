@@ -32,6 +32,7 @@ const GlobalStyle = createGlobalStyle`
     position: relative;
   }
 
+
   .ctns {
     width: 100%;
     min-width: 1240px;
