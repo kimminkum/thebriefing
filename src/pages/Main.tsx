@@ -20,6 +20,24 @@ const Container = styled.div`
   position: relative;
   overflow: hidden;
   border: 4px solid #d4b28c;
+  border-top: none;
+`;
+
+const ProgressBarWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: #d4b28c;
+  z-index: 10;
+`;
+
+const ProgressBarInner = styled.div<{ percent: number }>`
+  width: ${({ percent }) => percent}%;
+  height: 100%;
+  background-color: #bd8cd4;
+  transition: width 0.3s ease;
 `;
 
 const Main: React.FC = () => {
@@ -69,6 +87,10 @@ const Main: React.FC = () => {
 
   return (
     <Container>
+      <ProgressBarWrapper>
+        <ProgressBarInner percent={(currentId / scenarioData.length) * 100} />
+      </ProgressBarWrapper>
+
       {showTutorial && <TutorialModal onClose={closeTutorial} />}
       <CenterWindow
         currentId={currentId}
