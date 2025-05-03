@@ -21,6 +21,11 @@ const Container = styled.div`
   border-bottom: none;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const MotionBox = styled(motion.div)`

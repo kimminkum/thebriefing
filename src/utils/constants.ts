@@ -1,1 +1,1 @@
-export const MAX_TEXT_LENGTH = 24;
+export const MAX_TEXT_LENGTH = 60;

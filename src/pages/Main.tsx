@@ -58,13 +58,10 @@ const Main: React.FC = () => {
     // 마지막 chunk까지 출력했고 다음 ID가 존재하면 진행
     if (currentId < scenarioData.length) {
       setTextIndex(0);
-      setIsTextVisible(false); // 전환 연출용
+
       // playSound("/sounds/page-flip.mp3"); // 나중에 추가 가능
       setTimeout(() => {
         setCurrentId((prev) => prev + 1);
-        setTimeout(() => {
-          setIsTextVisible(true);
-        }, 200);
       }, 300);
     }
     // else: 마지막 ID이므로 아무 동작 없음
@@ -94,6 +91,14 @@ const Main: React.FC = () => {
         playSound={playSound}
         isVisible={isTextVisible}
         setIsVisible={setIsTextVisible}
+        isTyping={isTyping}
+        goToPrevious={() => {
+          if (currentId > 1) {
+            setCurrentId((prev) => prev - 1);
+            setTextIndex(0);
+          }
+        }}
+        canGoBack={currentId > 1}
       />
       <UiWindow toggleUi={toggleUi} />
     </Container>
