@@ -79,7 +79,7 @@ const FakeTextShadow = styled.div`
   overflow: hidden;
 
   &::before {
-    content: "• 프로젝트: 무언가무언가 \\A • 기술: 여러가지 이것저것 노력하자 \\A •성장 :더 성장하기 위해 노력하자.\\A • 과정: 최선을 다해서 하자. \\A •기타 활동 : 기타는 치지 않지. \\A • 문제 해결 능력 : 어디가 문제인지 파악하는 것을 우선으로. 시간이 급하다면 최대한 문제 없게끔. \\A \\A \\A 우리집에서 키우는 고양이는 레오입니다. \\A \\A 주소 https://www.google.com/search?q=mo+%EC%B5%9C%EB%8C%80+%EB%84%88%EB%B9%84&rlz=1C1GCEA_enKR1146KR1146&oq=mo+%EC%B5%9C%EB%8C%80+%EB%84%88%EB%B9%84&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQIRigATIHCAIQIRigAdIBCDI4NDdqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8";
+    content: "• 프로젝트: 더 브리핑과 이전 것들 \\A • 기술: 여러가지 이것저것 노력하자 \\A •성장 :더 성장하기 위해 노력하자.\\A • 과정: 최선을 다해서 하자. \\A •기타 활동 : 기타는 치지 않지. \\A • 문제 해결 능력 : 어디가 문제인지 파악하는 것을 우선으로. 시간이 급하다면 최대한 문제 없게끔. \\A \\A \\A 우리집에서 키우는 고양이는 레오입니다. \\A \\A 주소 https://www.google.com/search?q=mo+%EC%B5%9C%EB%8C%80+%EB%84%88%EB%B9%84&rlz=1C1GCEA_enKR1146KR1146&oq=mo+%EC%B5%9C%EB%8C%80+%EB%84%88%EB%B9%84&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQIRigATIHCAIQIRigAdIBCDI4NDdqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8";
     position: absolute;
     top: 0;
     left: 0;
@@ -109,16 +109,16 @@ const Resume: React.FC = () => {
                   <Td>김민겸</Td>
                 </Tr>
                 <Tr>
-                  <Th>생년월일</Th>
-                  <Td>1994.07.19</Td>
-                </Tr>
-                <Tr>
                   <Th>이메일</Th>
                   <Td>h24breaker@gmail.com</Td>
                 </Tr>
                 <Tr>
                   <Th>휴대폰</Th>
                   <Td>010-9567-3391</Td>
+                </Tr>
+                <Tr>
+                  <Th>경력</Th>
+                  <Td>1년차</Td>
                 </Tr>
               </tbody>
             </Table>
