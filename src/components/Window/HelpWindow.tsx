@@ -3,6 +3,7 @@ import React from "react";
 import styled from "styled-components";
 import Button from "../Button";
 import paper from "../../assets/img/bg/handmade-paper.png";
+import { useNavigate } from "react-router-dom";
 
 interface HelpWindowProps {
   toggleUi: () => void;
@@ -40,19 +41,35 @@ const Container = styled.div<{ isUiMode: boolean }>`
 const RangeLabel = styled.label`
   margin: 0;
   display: flex;
-  gap: 1.2rem;
+  gap: calc(20 / 750 * 100%);
 `;
 
 const ButtonRow = styled.div`
   display: flex;
   justify-content: flex-end;
-  gap: 0.5rem;
+  gap: calc(10 / 750 * 100%);
 `;
 
 const TutorialBtn = styled(Button)`
   background-color: transparent;
   color: #000;
-  margin-bottom: calc(40 / 750 * 100%);
+  margin: calc(80 / 750 * 100%) 0;
+  -webkit-transition: background 0.2s ease;
+  -moz-transition: background 0.2s ease;
+  -ms-transition: background 0.2s ease;
+  -o-transition: background 0.2s ease;
+  transition: background 0.2s ease;
+  border: 1px solid #000;
+
+  &:hover {
+    background: #eee;
+  }
+`;
+
+const DataBtn = styled(Button)`
+  background-color: transparent;
+  color: #000;
+  margin: 0 0 calc(80 / 750 * 100%);
   -webkit-transition: background 0.2s ease;
   -moz-transition: background 0.2s ease;
   -ms-transition: background 0.2s ease;
@@ -69,7 +86,7 @@ const ExitBtn = styled(Button)`
   background-color: transparent;
   color: #000;
   border: 1px solid #000;
-  padding: 0.5rem 1.5rem;
+  gap: calc(10 / 750 * 100%) calc(20 / 750 * 100%);
   transition: all 0.3s ease;
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
@@ -88,12 +105,23 @@ const HelpWindow: React.FC<HelpWindowProps> = ({
   setTypingSpeed,
   reopenTutorial
 }) => {
+  const navigate = useNavigate();
+
+  const goToDataPage = () => {
+    toggleUi(); // 창 닫기
+    navigate("/datapage"); // 경로 이동
+  };
+
   return (
     <Container isUiMode={isUiMode}>
       <div>
         <TutorialBtn variant="outline" onClick={reopenTutorial}>
           📘 튜토리얼 다시 보기
         </TutorialBtn>
+
+        <DataBtn variant="outline" onClick={goToDataPage}>
+          📊 데이터 보기
+        </DataBtn>
 
         <RangeLabel className="font-24">
           ✍️ 타이핑 속도 조절

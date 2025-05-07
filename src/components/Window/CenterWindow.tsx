@@ -12,8 +12,8 @@ interface Props {
 const Container = styled.div`
   width: auto;
   height: 100%;
-  padding: 0.6rem;
-  margin: 0.6rem;
+  padding: calc(20 / 750 * 100%);
+  margin: calc(20 / 750 * 100%);
   box-sizing: border-box;
   background: #f8f8f8;
   border: 1px solid #ccc;

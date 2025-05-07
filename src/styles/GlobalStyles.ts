@@ -47,20 +47,32 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .font-16 {
-    font-size: clamp(12px, calc(16 / 750 * 100%), 16px);
-    line-height: calc(26 / 16);
+    font-size: clamp(12px, calc(16 / 750 * 100vw), 16px);
+    line-height: calc(22 / 16);
+  }
+  .font-18 {
+    font-size: clamp(13px, calc(18 / 750 * 100vw), 18px);
+    line-height: calc(22 / 18);
   }
   .font-20 {
-    font-size: clamp(14px, calc(20 / 750 * 100%), 20px);
-    line-height: calc(30 / 20);
+    font-size: clamp(14px, calc(20 / 750 * 100vw), 20px);
+    line-height: calc(32 / 20);
   }
-  .font-24 {
-    font-size: clamp(16px, calc(24 / 750 * 100%), 24px);
+  .font-22 {
+    font-size: clamp(15px, calc(24 / 750 * 100vw), 22px);
     line-height: calc(34 / 24);
   }
+  .font-24 {
+    font-size: clamp(16px, calc(24 / 750 * 100vw), 24px);
+    line-height: calc(34 / 24);
+  }
+  .font-28 {
+    font-size: clamp(18px, calc(24 / 750 * 100vw), 28px);
+    line-height: calc(36 / 24);
+  }
   .font-32 {
-    font-size: clamp(20px, calc(32 / 750 * 100%), 32px);
-    line-height: calc(44 / 32);
+    font-size: clamp(20px, calc(32 / 750 * 100vw), 32px);
+    line-height: calc(48 / 32);
   }
 
 
@@ -69,7 +81,9 @@ const GlobalStyle = createGlobalStyle`
   }
   .swiper-pagination {
     position: relative;
-    margin-top: 10px;
+    margin-top: calc(50 / 750 * 100%);
+    line-height: 1;
+    font-size: 14px !important;
   }
 
   .swiper-button-prev {

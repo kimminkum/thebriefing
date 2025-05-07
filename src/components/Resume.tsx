@@ -14,24 +14,25 @@ const OuterContainer = styled.div`
 const ResumeBox = styled.div`
   background: #ffffff;
   border-radius: 16px;
-  padding: 2rem 0;
+  padding: calc(30 / 750 * 100%) 0;
   min-width: 80%;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
 
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: calc(30 / 750 * 100%);
 
   @media (min-width: 600px) {
     flex-direction: row;
     align-items: flex-start;
-    gap: 3rem;
+    gap: calc(50 / 750 * 100%);
   }
 `;
 
 const ImgBox = styled.div`
   flex-shrink: 0;
   width: 120px;
+  margin-bottom: calc(30 / 750 * 100%);
 
   img {
     width: 100%;
@@ -58,7 +59,7 @@ const Table = styled.table`
 `;
 
 const Tr = styled.tr`
-  margin-bottom: 1rem;
+  margin-bottom: calc(20 / 750 * 100%);
   display: flex;
 `;
 
@@ -83,8 +84,6 @@ const FakeTextShadow = styled.div`
     position: absolute;
     top: 0;
     left: 0;
-    font-size: 1.2rem;
-    line-height: 2rem;
     width: 100%;
     color: #000;
     opacity: 0.9; /* 더 뚜렷하게 */
@@ -102,7 +101,7 @@ const Resume: React.FC = () => {
             <img src={my_picture} alt="지원자 사진" />
           </ImgBox>
           <InfoBox>
-            <Table>
+            <Table className="font-18">
               <tbody>
                 <Tr>
                   <Th>이름</Th>
@@ -125,7 +124,7 @@ const Resume: React.FC = () => {
           </InfoBox>
         </ResumeBox>
 
-        <FakeTextShadow></FakeTextShadow>
+        <FakeTextShadow className="font-18"></FakeTextShadow>
       </div>
     </OuterContainer>
   );

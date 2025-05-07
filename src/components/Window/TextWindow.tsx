@@ -24,7 +24,7 @@ const Container = styled.div<{ isVisible: boolean }>`
   position: absolute;
   bottom: 0;
   width: 100%;
-  min-height: 140px;
+  min-height: 150px;
   background: #fdfdfd;
   color: #111;
 
@@ -39,15 +39,15 @@ const Container = styled.div<{ isVisible: boolean }>`
 
 const MotionContainer = styled(motion.div)`
   width: 100%;
-  padding: 1rem;
+  padding: calc(16 / 750 * 100%);
   border: 4px solid #161616;
 `;
 
 const NextHint = styled.div`
   position: absolute;
-  bottom: 1rem;
-  right: 1rem;
-  font-size: 0.8rem;
+  bottom: 0;
+  margin-bottom: calc(16 / 750 * 100%);
+  right: calc(16 / 750 * 100%);
   color: #888;
   animation: blink 1.2s ease-in-out infinite;
 
@@ -64,10 +64,10 @@ const NextHint = styled.div`
 
 const StyledBackButton = styled(Button)`
   position: absolute;
-  bottom: 1rem;
-  left: 1rem;
-  font-size: 0.8rem;
-  padding: 4px 8px;
+  bottom: 0;
+  margin-bottom: calc(16 / 750 * 100%);
+  left: calc(16 / 750 * 100%);
+  padding: calc(2 / 750 * 100%) calc(16 / 750 * 100%);
   width: auto;
   opacity: 0.6;
   &:hover {
@@ -80,13 +80,11 @@ const ToggleButton = styled(Button)`
   bottom: 100%;
   left: -4px;
   width: 20%;
-  min-height: 30px;
-  font-size: 0.7rem;
+  min-height: calc((50 / 750 * 100) * 1px);
   padding: 3px 6px;
-  border-radius: 0 0 4px 4px;
   opacity: 0.8;
   z-index: 5;
-  border-radius: 12px 12px 0 0;
+  border-radius: 12px 12px 0 0 !important;
   &:hover {
     opacity: 1;
   }
@@ -106,7 +104,7 @@ const TextWindow: React.FC<Props> = ({
   goToPrevious
 }) => {
   const prevId = useRef(currentId);
-  const [shouldAnimate, setShouldAnimate] = useState(true);
+  const [shouldAnimate, setShouldAnimate] = useState<boolean>(true);
   const isLastId = currentId >= scenarioData.length;
 
   // 애니메이션 조건 제어용 useEffect
@@ -166,6 +164,7 @@ const TextWindow: React.FC<Props> = ({
           }}
         >
           <ToggleButton
+            className="font-16"
             variant="primary"
             onClick={(e) => {
               e.stopPropagation();
@@ -174,10 +173,11 @@ const TextWindow: React.FC<Props> = ({
           >
             {isVisible ? "▼" : "▲"}
           </ToggleButton>
-          <p className="font-24">{displayText}</p>
+          <p className="font-20">{displayText}</p>
 
           {canGoBack && (
             <StyledBackButton
+              className="font-16"
               variant="outline"
               disabled={isTyping || textIndex > 0}
               onClick={(e) => {
@@ -190,7 +190,9 @@ const TextWindow: React.FC<Props> = ({
             </StyledBackButton>
           )}
 
-          {!isTyping && isVisible && !isLastId && <NextHint>▶</NextHint>}
+          {!isTyping && isVisible && !isLastId && (
+            <NextHint className="font-16">▶</NextHint>
+          )}
         </MotionContainer>
       </Container>
     </AnimatePresence>

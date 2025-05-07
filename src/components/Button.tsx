@@ -20,7 +20,7 @@ const Btn = styled.button<{ variant?: Variant }>`
   border: ${({ variant }) =>
     variant === "outline" ? "1px solid #999" : "none"};
   font-family: "Pretendard", sans-serif;
-  padding: 0.5rem 1rem;
+  padding: 3px 8px;
   border-radius: 4px;
   cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
   opacity: ${({ disabled }) => (disabled ? 0.3 : 1)};
@@ -32,7 +32,7 @@ const Btn = styled.button<{ variant?: Variant }>`
   justify-content: center;
 
   &:hover {
-    opacity: ${({ disabled }) => (disabled ? 0.3 : 0.8)};
+    opacity: ${({ disabled }) => (disabled ? 0.3 : 1)};
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
   }
 
@@ -52,7 +52,7 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <Btn
       type={type}
-      className={className}
+      className={`${className ?? ""} font-16`}
       onClick={onClick}
       style={style}
       variant={variant}

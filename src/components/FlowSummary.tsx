@@ -3,15 +3,14 @@ import React from "react";
 import styled from "styled-components";
 
 const Box = styled.div`
-  padding: 2rem;
+  padding: calc(30 / 750 * 100%);
   background: #fff;
   border: 2px dashed #ccc;
-  font-size: 1rem;
   height: 100%;
 `;
 
 const Item = styled.div`
-  margin-bottom: 0.75rem;
+  margin-bottom: calc(12 / 750 * 100%);
   &:before {
     content: "📌 ";
   }
@@ -25,7 +24,19 @@ const BlurredSection = styled.div`
 
 const FlowSummary: React.FC = () => {
   return (
-    <Box>
+    <Box className="font-24">
+      <Item>주요 프로젝트 1~2개 요약</Item>
+
+      <BlurredSection>
+        ~~~~~~~~~~~~~~~~~~~~
+        <br />
+        ----------------------
+        <br />
+        ~~~~~~~~~~~~~~~~~~~~
+        <br />
+        ----------------------
+        <br />
+      </BlurredSection>
       <Item>장단점 요약</Item>
       <BlurredSection>
         ~~~~~~~~~~~~~~~~~~~~
@@ -49,17 +60,6 @@ const FlowSummary: React.FC = () => {
         <br />
       </BlurredSection>
       <Item>자신만의 강점</Item>
-      <BlurredSection>
-        ~~~~~~~~~~~~~~~~~~~~
-        <br />
-        ----------------------
-        <br />
-        ~~~~~~~~~~~~~~~~~~~~
-        <br />
-        ----------------------
-        <br />
-      </BlurredSection>
-      <Item>주요 프로젝트 1~2개 요약</Item>
       <BlurredSection style={{ height: "40vh" }}>
         ~~~~~~~~~~~~~~~~~~~~
         <br />
