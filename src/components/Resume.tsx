@@ -5,18 +5,17 @@ import my_picture from "../assets/img/my_picture.jpg";
 const OuterContainer = styled.div`
   width: 100%;
   height: 98vh;
-  background-color: #f5f5f5;
+  background-color: #fff;
   display: flex;
   justify-content: center;
   overflow: hidden;
 `;
 
 const ResumeBox = styled.div`
-  background: #f5f5f5;
+  background: #fff;
   border-radius: 16px;
   padding: calc(30 / 750 * 100%) 0;
   min-width: 80%;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
 
   display: flex;
   flex-direction: column;
