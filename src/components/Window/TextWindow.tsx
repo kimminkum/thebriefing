@@ -2,7 +2,6 @@ import React, { useRef, useEffect, useState } from "react";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 import { scenarioData } from "../../data/scenarioData";
-import { MAX_TEXT_LENGTH } from "../../utils/constants";
 import Button from "../Button";
 
 interface Props {
@@ -111,8 +110,7 @@ const TextWindow: React.FC<Props> = ({
 
   const currentText =
     scenarioData.find((item) => item.id === currentId)?.text || "";
-  const textChunks =
-    currentText.match(new RegExp(`.{1,${MAX_TEXT_LENGTH}}`, "g")) || [];
+  const textChunks = currentText.split(/(?<=[.!?])\s+/).filter(Boolean);
   const fullText = textChunks[textIndex] || "데이터 없음";
 
   const [displayText, setDisplayText] = useState("");

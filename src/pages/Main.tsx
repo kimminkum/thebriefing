@@ -5,7 +5,6 @@ import HelpWindow from "../components/Window/HelpWindow";
 import TextWindow from "../components/Window/TextWindow";
 import UiWindow from "../components/Window/UiWindow";
 import TutorialModal from "../components/TutorialModal";
-import { MAX_TEXT_LENGTH } from "../utils/constants";
 import Papersound from "../assets/sound/papersound.mp3";
 
 import { scenarioData } from "../data/scenarioData";
@@ -71,8 +70,7 @@ const Main: React.FC = () => {
     if (!currentItem) return;
 
     const text = currentItem.text || "";
-    const textChunks =
-      text.match(new RegExp(`.{1,${MAX_TEXT_LENGTH}}`, "g")) || [];
+    const textChunks = text.split(/(?<=[.!?])\s+/).filter(Boolean); // ✅ 수정됨
 
     // 아직 보여줄 텍스트가 남아있으면 textIndex 증가
     if (textIndex < textChunks.length - 1) {
@@ -88,7 +86,7 @@ const Main: React.FC = () => {
     if (currentIndex < scenarioData.length - 1) {
       const nextId = scenarioData[currentIndex + 1].id;
       setTextIndex(0);
-      playSound();
+      playSound(); // ✅ 사운드 그대로 유지
       lockClickTemporarily();
 
       setTimeout(() => {
@@ -99,7 +97,7 @@ const Main: React.FC = () => {
 
   const lockClickTemporarily = () => {
     setIsClickLocked(true);
-    setTimeout(() => setIsClickLocked(false), 611); // 0.611초 후 다시 클릭 가능
+    setTimeout(() => setIsClickLocked(false), 611);
   };
 
   const goToPrevious = () => {
@@ -109,17 +107,15 @@ const Main: React.FC = () => {
     if (currentIndex === -1) return;
 
     const currentItem = scenarioData[currentIndex];
-    const chunks =
-      currentItem.text.match(new RegExp(`.{1,${MAX_TEXT_LENGTH}}`, "g")) || [];
+    const chunks = currentItem.text.split(/(?<=[.!?])\s+/).filter(Boolean); // ✅ 수정됨
 
     if (textIndex > 0) {
-      // 텍스트가 여러 chunk 중 하나라면 이전 chunk로
       setTextIndex((prev) => prev - 1);
     } else if (currentIndex > 0) {
-      // 첫 chunk일 경우 이전 아이템으로 이동
       const prevItem = scenarioData[currentIndex - 1];
-      const prevTextChunks =
-        prevItem.text.match(new RegExp(`.{1,${MAX_TEXT_LENGTH}}`, "g")) || [];
+      const prevTextChunks = prevItem.text
+        .split(/(?<=[.!?])\s+/)
+        .filter(Boolean); // ✅ 수정됨
       setCurrentId(prevItem.id);
       setTextIndex(prevTextChunks.length - 1);
     }
