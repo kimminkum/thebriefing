@@ -1,4 +1,3 @@
-// src/components/Window/TextWindow.tsx
 import React, { useRef, useEffect, useState } from "react";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
@@ -12,11 +11,11 @@ interface Props {
   handleClick: () => void;
   typingSpeed: number;
   setIsTyping: React.Dispatch<React.SetStateAction<boolean>>;
-  playSound: (src: string) => void;
   isVisible: boolean;
   isTyping: boolean;
-  setIsVisible: React.Dispatch<React.SetStateAction<boolean>>; // ✅ 왼쪽 버튼 토글용
+  setIsVisible: React.Dispatch<React.SetStateAction<boolean>>;
   goToPrevious: () => void;
+  blinkDuration: number;
   canGoBack: boolean;
 }
 
@@ -27,7 +26,6 @@ const Container = styled.div<{ isVisible: boolean }>`
   min-height: 150px;
   background: #fdfdfd;
   color: #111;
-
   transform: ${({ isVisible }) => (isVisible ? "none" : "translateY(100%)")};
   transition: transform 0.4s ease;
   z-index: 4;
@@ -96,18 +94,16 @@ const TextWindow: React.FC<Props> = ({
   handleClick,
   typingSpeed,
   setIsTyping,
-  playSound,
   isVisible,
-  setIsVisible,
   isTyping,
+  setIsVisible,
   canGoBack,
-  goToPrevious
+  goToPrevious,
+  blinkDuration
 }) => {
   const prevId = useRef(currentId);
   const [shouldAnimate, setShouldAnimate] = useState<boolean>(true);
-  const isLastId = currentId >= scenarioData.length;
 
-  // 애니메이션 조건 제어용 useEffect
   useEffect(() => {
     setShouldAnimate(prevId.current !== currentId);
     prevId.current = currentId;
@@ -125,15 +121,14 @@ const TextWindow: React.FC<Props> = ({
     if (!isVisible) return;
 
     setDisplayText("");
-    setIsTyping(false);
+    setIsTyping(true); // ← 여기로 옮김
+
+    let interval: NodeJS.Timeout; // ✅ 여기서 선언
     let i = 0;
 
-    const blinkDuration = 600; // 0.6초 후 타이핑 시작
     const typingStartTimeout = setTimeout(() => {
-      setIsTyping(true); // 여기서부터 타이핑 시작
-      const interval = setInterval(() => {
+      interval = setInterval(() => {
         setDisplayText(fullText.slice(0, i + 1));
-        if (i % 2 === 0) playSound("/sounds/typing.mp3");
         i++;
         if (i >= fullText.length) {
           clearInterval(interval);
@@ -144,9 +139,10 @@ const TextWindow: React.FC<Props> = ({
 
     return () => {
       clearTimeout(typingStartTimeout);
-      setIsTyping(false); // ✅ 이탈 시 해제
+      clearInterval(interval);
+      setIsTyping(false);
     };
-  }, [fullText, typingSpeed, isVisible, playSound, setIsTyping, currentId]);
+  }, [fullText, typingSpeed, isVisible, setIsTyping, currentId, blinkDuration]);
 
   return (
     <AnimatePresence>
@@ -154,13 +150,11 @@ const TextWindow: React.FC<Props> = ({
         <MotionContainer
           key={`${currentId}-${textIndex}`}
           initial={{ opacity: 0, y: 0 }}
-          animate={{
-            opacity: [1, 0.5, 1]
-          }}
+          animate={{ opacity: [1, 0.5, 1] }}
           transition={{
-            duration: 0.6, // 총 0.6초 (0.15s x 4)
+            duration: 0.6,
             ease: "easeInOut",
-            times: [0, 0.5, 1] // 깜빡 타이밍 제어
+            times: [0, 0.5, 1]
           }}
         >
           <ToggleButton
@@ -179,10 +173,9 @@ const TextWindow: React.FC<Props> = ({
             <StyledBackButton
               className="font-16"
               variant="outline"
-              disabled={isTyping || textIndex > 0}
+              disabled={isTyping}
               onClick={(e) => {
                 e.stopPropagation();
-                if (isTyping || textIndex > 0) return;
                 goToPrevious();
               }}
             >
@@ -190,7 +183,7 @@ const TextWindow: React.FC<Props> = ({
             </StyledBackButton>
           )}
 
-          {!isTyping && isVisible && !isLastId && (
+          {!isTyping && isVisible && currentId < scenarioData.length && (
             <NextHint className="font-16">▶</NextHint>
           )}
         </MotionContainer>

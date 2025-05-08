@@ -6,6 +6,7 @@ import TextWindow from "../components/Window/TextWindow";
 import UiWindow from "../components/Window/UiWindow";
 import TutorialModal from "../components/TutorialModal";
 import { MAX_TEXT_LENGTH } from "../utils/constants";
+import Papersound from "../assets/sound/papersound.mp3";
 
 import { scenarioData } from "../data/scenarioData";
 
@@ -41,24 +42,30 @@ const ProgressBarInner = styled.div<{ percent: number }>`
 `;
 
 const Main: React.FC = () => {
-  const [currentId, setCurrentId] = useState(1);
+  const [currentId, setCurrentId] = useState<number>(1);
   const [textIndex, setTextIndex] = useState(0);
-  const [isTyping, setIsTyping] = useState(false);
-  const [typingSpeed, setTypingSpeed] = useState(30);
-  const [showTutorial, setShowTutorial] = useState(true);
-  const [isUiMode, setIsUiMode] = useState(false);
-  const [isTextVisible, setIsTextVisible] = useState(true);
+  const [isTyping, setIsTyping] = useState<boolean>(false);
+  const [typingSpeed, setTypingSpeed] = useState<number>(20);
+  const [showTutorial, setShowTutorial] = useState<boolean>(true);
+  const [isUiMode, setIsUiMode] = useState<boolean>(false);
+  const [isTextVisible, setIsTextVisible] = useState<boolean>(true);
+  const [isClickLocked, setIsClickLocked] = useState<boolean>(false);
+  const BLINK_DURATION = 611; // 0.6초 동안의 애니메이션 지연 시간
 
   const toggleUi = () => setIsUiMode((prev) => !prev);
   const closeTutorial = () => setShowTutorial(false);
 
-  const playSound = useCallback((src: string) => {
-    const audio = new Audio(src);
-    // audio.play();
+  const playSound = useCallback(() => {
+    const audio = new Audio(Papersound);
+    audio.currentTime = 0;
+    audio.play().catch((e) => {
+      // 자동 재생이 차단된 경우 에러 무시
+      console.warn("음성 재생 차단됨:", e.message);
+    });
   }, []);
 
   const handleClick = () => {
-    if (isTyping || !isTextVisible) return;
+    if (isTyping || !isTextVisible || isClickLocked) return;
 
     const currentItem = scenarioData.find((item) => item.id === currentId);
     if (!currentItem) return;
@@ -70,19 +77,52 @@ const Main: React.FC = () => {
     // 아직 보여줄 텍스트가 남아있으면 textIndex 증가
     if (textIndex < textChunks.length - 1) {
       setTextIndex((prev) => prev + 1);
+      lockClickTemporarily();
       return;
     }
 
-    // 마지막 chunk까지 출력했고 다음 ID가 존재하면 진행
-    if (currentId < scenarioData.length) {
+    // 다음 ID가 존재하면 진행 (중복 증가 방지)
+    const currentIndex = scenarioData.findIndex(
+      (item) => item.id === currentId
+    );
+    if (currentIndex < scenarioData.length - 1) {
+      const nextId = scenarioData[currentIndex + 1].id;
       setTextIndex(0);
+      playSound();
+      lockClickTemporarily();
 
-      // playSound("/sounds/page-flip.mp3"); // 나중에 추가 가능
       setTimeout(() => {
-        setCurrentId((prev) => prev + 1);
+        setCurrentId(nextId);
       }, 300);
     }
-    // else: 마지막 ID이므로 아무 동작 없음
+  };
+
+  const lockClickTemporarily = () => {
+    setIsClickLocked(true);
+    setTimeout(() => setIsClickLocked(false), 611); // 0.611초 후 다시 클릭 가능
+  };
+
+  const goToPrevious = () => {
+    const currentIndex = scenarioData.findIndex(
+      (item) => item.id === currentId
+    );
+    if (currentIndex === -1) return;
+
+    const currentItem = scenarioData[currentIndex];
+    const chunks =
+      currentItem.text.match(new RegExp(`.{1,${MAX_TEXT_LENGTH}}`, "g")) || [];
+
+    if (textIndex > 0) {
+      // 텍스트가 여러 chunk 중 하나라면 이전 chunk로
+      setTextIndex((prev) => prev - 1);
+    } else if (currentIndex > 0) {
+      // 첫 chunk일 경우 이전 아이템으로 이동
+      const prevItem = scenarioData[currentIndex - 1];
+      const prevTextChunks =
+        prevItem.text.match(new RegExp(`.{1,${MAX_TEXT_LENGTH}}`, "g")) || [];
+      setCurrentId(prevItem.id);
+      setTextIndex(prevTextChunks.length - 1);
+    }
   };
 
   return (
@@ -110,17 +150,15 @@ const Main: React.FC = () => {
         textIndex={textIndex}
         typingSpeed={typingSpeed}
         setIsTyping={setIsTyping}
-        playSound={playSound}
         isVisible={isTextVisible}
         setIsVisible={setIsTextVisible}
         isTyping={isTyping}
-        goToPrevious={() => {
-          if (currentId > 1) {
-            setCurrentId((prev) => prev - 1);
-            setTextIndex(0);
-          }
-        }}
-        canGoBack={currentId > 1}
+        goToPrevious={goToPrevious}
+        blinkDuration={BLINK_DURATION}
+        canGoBack={
+          textIndex > 0 ||
+          scenarioData.findIndex((item) => item.id === currentId) > 0
+        }
       />
       <UiWindow toggleUi={toggleUi} />
     </Container>

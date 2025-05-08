@@ -5,6 +5,7 @@ import styled from "styled-components";
 // pages
 import Main from "./pages/Main";
 import DataPage from "./pages/DataPage";
+import ErrorPage from "./pages/ErrorPage";
 
 // css
 
@@ -25,7 +26,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/datapage" element={<DataPage />} />
-          {/* <Route path="/*" element={<ErrorPage />} /> // errorpage */}
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </RelativeContainer>
     </>

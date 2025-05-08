@@ -128,10 +128,10 @@ const HelpWindow: React.FC<HelpWindowProps> = ({
           <input
             type="range"
             min={10}
-            max={100}
+            max={50}
             step={10}
-            value={typingSpeed}
-            onChange={(e) => setTypingSpeed(Number(e.target.value))}
+            value={60 - typingSpeed}
+            onChange={(e) => setTypingSpeed(60 - Number(e.target.value))}
           />
         </RangeLabel>
       </div>

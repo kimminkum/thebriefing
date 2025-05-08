@@ -2,6 +2,7 @@
 import img1 from "../assets/img/scenario/img1.jpg";
 import img2 from "../assets/img/scenario/img2.png";
 import img3 from "../assets/img/scenario/img3.png";
+import img4 from "../assets/img/scenario/img4.png";
 
 // components
 import Resume from "../components/Resume";
@@ -10,6 +11,8 @@ import FlowSummary from "../components/FlowSummary";
 import BriefingIntro from "../components/BriefingIntro";
 import ComponentStructureDiagram from "../components/ComponentStructureDiagram";
 import FlowChunkDemo from "../components/FlowChunkDemo";
+import TypingFlow from "../components/TypingFlow";
+import LastPage from "../components/Lastpage";
 
 export interface ScenarioItem {
   id: number;
@@ -18,8 +21,8 @@ export interface ScenarioItem {
     type: "image" | "component";
     src?: string;
     alt?: string;
-    component?: React.FC;
-    props?: any;
+    component?: React.FC<any>;
+    props?: Record<string, any>;
   };
 }
 
@@ -100,77 +103,79 @@ export const scenarioData: ScenarioItem[] = [
     text: "텍스트 창의 타이핑 부분도 집중도와 UI부분을 잘 설명함으로 써 튜토리얼 없이도 익숙하게 또 흐름에 따라서 콘텐츠흐름을 따라갈 수 있게 했네. 프로그레스바나, 클릭 유도등으로 잘 알 수 있는 점도 좋아.",
     content: {
       type: "component",
-      component: FlowSummary
+      component: TypingFlow
     }
   },
   {
     id: 10,
-    text: "데이터 페이지로 보니 각종 타입에 잘 대응 할 수 있도록 만들었네 SPA기반의 리액트에 맞게 잘 하였고 데이터로 관리하는 방식도 좋아 그런데, 데이터를 받아서는 활용이 가능한가?. ",
+    text: "데이터의 경우 ?버튼으로 Datapage를 확인해보니 각종 타입에 잘 대응할 수 있도록 구성했네. SPA 기반의 리액트에 맞게 텍스트와 이미지, 컴포넌트 타입을 모두 다루고 있고, 구조도 직관적이야.",
     content: {
-      type: "component"
+      type: "image",
+      src: img4,
+      alt: "데이터 페이지 이미지"
     }
   },
+  // api 사용 추가 [다 지워서 사라졌으니 다시 만들어서 추가하기]
+  // 4. 장단점
   {
     id: 11,
-    text: "프로젝트 op.gg 이건 왜 안들어가지는 페이지를 넣어놨어. ",
+    text: "이제 장단점, 지원동기, 보유기술 하고 자신만의 강점. 읽고, 마무리를 지어보자.",
     content: {
-      type: "component"
+      type: "component",
+      component: FlowSummary
     }
   },
   {
     id: 12,
-    text: "API를 기본적으로 다룰 수 있는 부분이지만, 프록시 서버로 우회해야하는 점 때문에 배포에서 문제를 겪었나 보네. ",
-    content: {
-      type: "component"
-    }
-  },
-  // 4. 장단점
-  {
-    id: 80,
-    text: "이제 장단점, 지원동기, 보유기술 하고 자신만의 강점. 읽고, 마무리를 지어보자.",
+    text: "우선 장단점을 보면, 긴 내용으로 썼는데 결론은 문제 원인을 빠르게 파악하고 구조적으로 해결하는 능력이 강점이고, 처음 접하는 기술에는 신중하지만 빠르게 흡수하고 적용하는 편을 어필하고 싶은 거구나.",
     content: {
       type: "component",
-      component: StrengthsAndWeaknesses
+      component: StrengthsAndWeaknesses,
+      props: { section: "summary" }
     }
   },
   {
-    id: 80,
-    text: "우선 장단점을 보면, 긴 내용으로 썼는데 결론은",
+    id: 13,
+    text: "프론트 엔드 보유 기술은 대체로 프론트엔드 중심으로 구성되어 있네. 기본기부터 실무 적용까지 균형감이 있어 보여.",
     content: {
       type: "component",
-      component: StrengthsAndWeaknesses
+      component: StrengthsAndWeaknesses,
+      props: { section: "skills" }
     }
   },
   {
-    id: 90,
-    text: "문제 원인을 빠르게 파악하고 구조적으로 해결하는 능력이 강점이고, 처음 접하는 기술에는 신중하지만 빠르게 흡수하고 적용하는 편을 어필하고 싶은 거구나.",
+    id: 14,
+    text: "위기사항 대처 능력으로는 이전 회사에서 특정한 이슈 상황에서의 현상을 발견 및 파악한 경험이 있다는 바탕을 중요시 어필하고 있네.",
     content: {
       type: "component",
-      component: StrengthsAndWeaknesses
+      component: StrengthsAndWeaknesses,
+      props: { section: "strengths" }
     }
   },
   {
-    id: 90,
-    text: "프론트 엔드 보유 기술은",
+    id: 15,
+    text: "지원동기로는 자신의 성장 및 동기 부여를 중요시 생각하고 있고,,",
     content: {
       type: "component",
-      component: StrengthsAndWeaknesses
+      component: StrengthsAndWeaknesses,
+      props: { section: "moiive" }
     }
   },
   {
-    id: 90,
-    text: "차별적인 강점이라고 생각하는 부분이",
+    id: 16,
+    text: "경험 적 측면으로서의 자신만의 강점은 UI/UX에 대해 파고드는 느낌을 중요시 생각하고 있다고 설명하고 있네. 김민겸 지원자 좋게 볼 여지가 많았어!",
     content: {
       type: "component",
-      component: StrengthsAndWeaknesses
+      component: StrengthsAndWeaknesses,
+      props: { section: "experience" }
     }
   },
   {
-    id: 90,
-    text: "문제 원인을 빠르게 파악하고 구조적으로 해결하는 능력이 강점이고, 처음 접하는 기술에는 신중하지만 빠르게 흡수하고 적용하는 편을 어필하고 싶은 거구나.",
+    id: 17,
+    text: "여기까지 읽어주셔서 정말 감사합니다.\n기술 스택과 프로젝트 흐름 외에도 궁금한 점이 있으시다면 언제든지 연락 부탁드립니다.",
     content: {
       type: "component",
-      component: StrengthsAndWeaknesses
+      component: LastPage
     }
   }
 ];

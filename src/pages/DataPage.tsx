@@ -7,10 +7,13 @@ import { useNavigate } from "react-router-dom";
 // api 같은거 쓰기
 
 const Container = styled.div`
-  padding: calc(160 / 750 * 100%) calc(40 / 750 * 100%) calc(60 / 750 * 100%);
   max-width: 750px;
   min-width: 375px;
   margin: 0 auto;
+`;
+
+const Wrapper = styled.div`
+  padding: calc(160 / 750 * 100%) calc(40 / 750 * 100%) calc(60 / 750 * 100%);
 `;
 
 const Table = styled.table`
@@ -45,13 +48,13 @@ const Td = styled.td`
 const BackButton = styled.button`
   position: fixed;
   top: 20px;
-  left: 20px;
+  left: 54%;
+  transform: translateX(-375px); // 750px의 절반
   width: 40px;
   height: 40px;
   background: #fdfaf5;
   border: 2px dashed #79ace6;
   border-radius: 50%;
-  font-size: calc(28 / 750 * 100%);
   font-weight: bold;
   color: #333;
   z-index: 10;
@@ -61,6 +64,11 @@ const BackButton = styled.button`
 
   &:hover {
     background: #79ace6;
+  }
+
+  @media (max-width: 750px) {
+    transform: translateX(-50%);
+    left: 40px;
   }
 `;
 
@@ -74,9 +82,9 @@ const DataPage: React.FC = () => {
   });
 
   return (
-    <>
+    <Container>
       <BackButton onClick={() => navigate("/")}>←</BackButton>
-      <Container className="font-16">
+      <Wrapper className="font-16">
         <h2>데이터 테이블</h2>
 
         {/* Text Data Table */}
@@ -127,8 +135,8 @@ const DataPage: React.FC = () => {
             ))}
           </tbody>
         </Table>
-      </Container>
-    </>
+      </Wrapper>
+    </Container>
   );
 };
 
