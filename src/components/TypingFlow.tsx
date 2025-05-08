@@ -51,8 +51,10 @@ const ProgressFill = styled.div<{ width: number }>`
 `;
 
 const TypingFlow: React.FC = () => {
-  const fullText1 = "이건 미리보기야. 클릭 없이 흐름이 전개돼.";
-  const fullText2 = "다음 흐름으로 자동 전환됐어.";
+  const fullText1 =
+    "이건 미리보기입니다. 클릭 없이 흐름이 전개되는 과정을 보여드리고 있습니다. 다음 클릭유도를 위한 ▶ 아이콘 등을 보여드립니다.";
+  const fullText2 =
+    "다음 흐름으로 전환되었습니다. 위쪽의 프로그레스 바 게이지도 전환되고 있음을 보여줍니다.";
   const [text, setText] = useState("");
   const [index, setIndex] = useState(0);
   const [step, setStep] = useState(0); // 0: 첫 텍스트, 1: 클릭 유도, 2: 다음 텍스트
