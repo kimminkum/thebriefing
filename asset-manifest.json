@@ -1,7 +1,13 @@
 {
   "files": {
     "main.css": "/thebriefing/static/css/main.4a4c253f.css",
-    "main.js": "/thebriefing/static/js/main.db3e672a.js",
+    "main.js": "/thebriefing/static/js/main.b62f1d7f.js",
+    "static/media/img1.jpg": "/thebriefing/static/media/img1.109a849670ce7cc421b4.jpg",
+    "static/media/img2.png": "/thebriefing/static/media/img2.b2f9c17c6b5d4c5cdeb8.png",
+    "static/media/my_picture.jpg": "/thebriefing/static/media/my_picture.cde63ad807ef0ecb0801.jpg",
+    "static/media/img4.png": "/thebriefing/static/media/img4.e3ca034af2bd5522b46e.png",
+    "static/media/img3.png": "/thebriefing/static/media/img3.34def9a5c53db4a39a4c.png",
+    "static/media/papersound.mp3": "/thebriefing/static/media/papersound.8c05ea67961062472ee9.mp3",
     "static/media/press-start-2p-latin-400-normal.woff2": "/thebriefing/static/media/press-start-2p-latin-400-normal.efa4fd449b33df426d63.woff2",
     "static/media/press-start-2p-latin-ext-400-normal.woff2": "/thebriefing/static/media/press-start-2p-latin-ext-400-normal.b27a48529cd27ca61884.woff2",
     "static/media/press-start-2p-cyrillic-400-normal.woff2": "/thebriefing/static/media/press-start-2p-cyrillic-400-normal.8ff2f96326994bf82403.woff2",
@@ -14,10 +20,10 @@
     "static/media/press-start-2p-greek-400-normal.woff": "/thebriefing/static/media/press-start-2p-greek-400-normal.a2a5944f91d5da4fd2b8.woff",
     "index.html": "/thebriefing/index.html",
     "main.4a4c253f.css.map": "/thebriefing/static/css/main.4a4c253f.css.map",
-    "main.db3e672a.js.map": "/thebriefing/static/js/main.db3e672a.js.map"
+    "main.b62f1d7f.js.map": "/thebriefing/static/js/main.b62f1d7f.js.map"
   },
   "entrypoints": [
     "static/css/main.4a4c253f.css",
-    "static/js/main.db3e672a.js"
+    "static/js/main.b62f1d7f.js"
   ]
 }
