@@ -12,7 +12,7 @@ const OuterContainer = styled.div`
 `;
 
 const ResumeBox = styled.div`
-  background: #ffffff;
+  background: #f5f5f5;
   border-radius: 16px;
   padding: calc(30 / 750 * 100%) 0;
   min-width: 80%;
@@ -74,6 +74,7 @@ const Td = styled.td`
 `;
 
 const FakeTextShadow = styled.div`
+  margin-top: 10px;
   height: 70vh;
   min-width: 80%;
   position: relative;
