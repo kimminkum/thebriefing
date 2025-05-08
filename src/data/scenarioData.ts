@@ -154,11 +154,11 @@ export const scenarioData: ScenarioItem[] = [
   },
   {
     id: 15,
-    text: "지원동기로는 자신의 성장 및 동기 부여를 중요시 생각하고 있고,,",
+    text: "지원동기로는 자신의 성장 및 동기 부여를 중요시 생각하고 있고,",
     content: {
       type: "component",
       component: StrengthsAndWeaknesses,
-      props: { section: "moiive" }
+      props: { section: "motive" }
     }
   },
   {
