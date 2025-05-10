@@ -3,10 +3,6 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import Button from "./Button"; // Button.tsx에서 import
 
-interface Props {
-  onReset: () => void;
-}
-
 const Wrapper = styled.div`
   height: 60%;
   width: auto;
@@ -25,21 +21,24 @@ const StyledBtn = styled(Button)`
   margin-top: calc(40 / 750 * 100%);
 `;
 
-const LastPage: React.FC<Props> = ({ onReset }) => {
+const LastPage: React.FC = () => {
   const navigate = useNavigate();
 
   const goToDataPage = () => {
     navigate("/datapage"); // 경로 이동
   };
-  const goToFristPage = () => {
-    navigate("/");
+
+  const reloadPage = () => {
+    window.location.href = `${window.location.origin}${
+      process.env.PUBLIC_URL || ""
+    }/`;
   };
 
   return (
     <Wrapper className="font-24">
       <p>📄 전체 시나리오를 확인해주셔서 감사합니다!</p>
       <StyledBtn onClick={goToDataPage}>🔍 DataPage로 이동</StyledBtn>
-      <StyledBtn onClick={onReset}>🔁 처음부터 다시 보기</StyledBtn>
+      <StyledBtn onClick={reloadPage}>🔁 처음부터 다시 보기</StyledBtn>
     </Wrapper>
   );
 };

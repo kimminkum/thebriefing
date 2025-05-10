@@ -145,11 +145,6 @@ const Main: React.FC = () => {
           currentId={currentId}
           textIndex={textIndex}
           handleClick={handleClick}
-          resetToStart={() => {
-            setCurrentId(1);
-            setTextIndex(0);
-            setShowTutorial(true); // 튜토리얼 다시 보이게 하려면 포함
-          }}
         />
         <HelpWindow
           toggleUi={toggleUi}

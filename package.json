@@ -2,7 +2,7 @@
   "name": "thebriefing",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://kimminkum.github.io/thebriefing",
+  "homepage": "https://kimminkum.github.io/thebriefing",
   "dependencies": {
     "@fontsource/press-start-2p": "^5.2.5",
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
