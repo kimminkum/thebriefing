@@ -127,11 +127,11 @@ const HelpWindow: React.FC<HelpWindowProps> = ({
           ✍️ 타이핑 속도 조절
           <input
             type="range"
-            min={10}
-            max={50}
-            step={10}
-            value={60 - typingSpeed}
-            onChange={(e) => setTypingSpeed(60 - Number(e.target.value))}
+            min={2}
+            max={20}
+            step={2}
+            value={22 - typingSpeed}
+            onChange={(e) => setTypingSpeed(22 - Number(e.target.value))}
           />
         </RangeLabel>
       </div>

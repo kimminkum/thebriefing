@@ -168,6 +168,9 @@ const TutorialModal: React.FC<Props> = ({ onClose }) => {
               <TutoTxt className="font-20">
                 해당 튜토리얼은 다시 ?버튼안의 내용을 통해 확인하실 수 있습니다.
               </TutoTxt>
+              <TutoTxt className="font-20">
+                텍스트 타이핑 속도 조절기능 또한 설정 창 안에 들어가 있습니다.
+              </TutoTxt>
               {/* 추가시 넣기 */}
             </SlideCard>
           </SwiperSlide>

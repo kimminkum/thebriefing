@@ -119,7 +119,7 @@ export const scenarioData: ScenarioItem[] = [
   // 4. 장단점
   {
     id: 11,
-    text: "이제 장단점, 지원동기, 보유기술 하고 자신만의 강점. 읽고, 마무리를 지어보자.",
+    text: "이제 장단점, 지원동기, 보유기술과 자신만의 강점란을 읽어 보자.",
     content: {
       type: "component",
       component: FlowSummary

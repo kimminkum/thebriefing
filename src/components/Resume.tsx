@@ -7,7 +7,6 @@ const OuterContainer = styled.div`
   height: 98vh;
   background-color: #fff;
   display: flex;
-  justify-content: center;
   overflow: hidden;
 `;
 

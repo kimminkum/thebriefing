@@ -7,6 +7,7 @@ interface Props {
   currentId: number;
   textIndex: number;
   handleClick: () => void;
+  resetToStart: () => void; // ✅ 추가
 }
 
 const Container = styled.div`
@@ -43,7 +44,8 @@ const Img = styled.img`
 const CenterWindow: React.FC<Props> = ({
   currentId,
   textIndex,
-  handleClick
+  handleClick,
+  resetToStart
 }) => {
   const prevId = useRef(currentId);
   const [shouldAnimate, setShouldAnimate] = useState(true);
@@ -72,9 +74,13 @@ const CenterWindow: React.FC<Props> = ({
             {content.type === "image" && content.src && (
               <Img src={content.src} alt={content.alt || ""} />
             )}
-            {content.type === "component" && content.component && (
-              <content.component {...content.props} />
-            )}
+            {content.type === "component" &&
+              content.component &&
+              (content.component.name === "LastPage" ? (
+                <content.component onReset={resetToStart} />
+              ) : (
+                <content.component {...content.props} />
+              ))}
           </MotionBox>
         )}
       </AnimatePresence>

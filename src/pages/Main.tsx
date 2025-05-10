@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useRef, useState, useCallback } from "react";
 import styled from "styled-components";
 import CenterWindow from "../components/Window/CenterWindow";
 import HelpWindow from "../components/Window/HelpWindow";
@@ -8,6 +8,11 @@ import TutorialModal from "../components/TutorialModal";
 import Papersound from "../assets/sound/papersound.mp3";
 
 import { scenarioData } from "../data/scenarioData";
+
+const AppWrapper = styled.div`
+  width: 100%;
+  height: 100dvh;
+`;
 
 const Container = styled.div`
   background: #fdf7e3;
@@ -44,12 +49,13 @@ const Main: React.FC = () => {
   const [currentId, setCurrentId] = useState<number>(1);
   const [textIndex, setTextIndex] = useState(0);
   const [isTyping, setIsTyping] = useState<boolean>(false);
-  const [typingSpeed, setTypingSpeed] = useState<number>(20);
+  const [typingSpeed, setTypingSpeed] = useState<number>(10);
   const [showTutorial, setShowTutorial] = useState<boolean>(true);
   const [isUiMode, setIsUiMode] = useState<boolean>(false);
   const [isTextVisible, setIsTextVisible] = useState<boolean>(true);
   const [isClickLocked, setIsClickLocked] = useState<boolean>(false);
   const BLINK_DURATION = 611; // 0.6초 동안의 애니메이션 지연 시간
+  const textWindowRef = useRef<any>(null); // 👈 ref 선언
 
   const toggleUi = () => setIsUiMode((prev) => !prev);
   const closeTutorial = () => setShowTutorial(false);
@@ -64,7 +70,13 @@ const Main: React.FC = () => {
   }, []);
 
   const handleClick = () => {
-    if (isTyping || !isTextVisible || isClickLocked) return;
+    if (!isTextVisible || isClickLocked) return;
+
+    if (isTyping) {
+      // 👇 타이핑 중이라면 강제 완료
+      textWindowRef.current?.forceFinishTyping?.();
+      return;
+    }
 
     const currentItem = scenarioData.find((item) => item.id === currentId);
     if (!currentItem) return;
@@ -122,42 +134,50 @@ const Main: React.FC = () => {
   };
 
   return (
-    <Container>
-      <ProgressBarWrapper>
-        <ProgressBarInner percent={(currentId / scenarioData.length) * 100} />
-      </ProgressBarWrapper>
+    <AppWrapper onClick={handleClick}>
+      <Container onClick={(e) => e.stopPropagation()}>
+        <ProgressBarWrapper>
+          <ProgressBarInner percent={(currentId / scenarioData.length) * 100} />
+        </ProgressBarWrapper>
 
-      {showTutorial && <TutorialModal onClose={closeTutorial} />}
-      <CenterWindow
-        currentId={currentId}
-        textIndex={textIndex}
-        handleClick={handleClick}
-      />
-      <HelpWindow
-        toggleUi={toggleUi}
-        isUiMode={isUiMode}
-        typingSpeed={typingSpeed}
-        setTypingSpeed={setTypingSpeed}
-        reopenTutorial={() => setShowTutorial(true)}
-      />
-      <TextWindow
-        currentId={currentId}
-        handleClick={handleClick}
-        textIndex={textIndex}
-        typingSpeed={typingSpeed}
-        setIsTyping={setIsTyping}
-        isVisible={isTextVisible}
-        setIsVisible={setIsTextVisible}
-        isTyping={isTyping}
-        goToPrevious={goToPrevious}
-        blinkDuration={BLINK_DURATION}
-        canGoBack={
-          textIndex > 0 ||
-          scenarioData.findIndex((item) => item.id === currentId) > 0
-        }
-      />
-      <UiWindow toggleUi={toggleUi} />
-    </Container>
+        {showTutorial && <TutorialModal onClose={closeTutorial} />}
+        <CenterWindow
+          currentId={currentId}
+          textIndex={textIndex}
+          handleClick={handleClick}
+          resetToStart={() => {
+            setCurrentId(1);
+            setTextIndex(0);
+            setShowTutorial(true); // 튜토리얼 다시 보이게 하려면 포함
+          }}
+        />
+        <HelpWindow
+          toggleUi={toggleUi}
+          isUiMode={isUiMode}
+          typingSpeed={typingSpeed}
+          setTypingSpeed={setTypingSpeed}
+          reopenTutorial={() => setShowTutorial(true)}
+        />
+        <TextWindow
+          ref={textWindowRef} // 👈 ref 연결
+          currentId={currentId}
+          handleClick={handleClick}
+          textIndex={textIndex}
+          typingSpeed={typingSpeed}
+          setIsTyping={setIsTyping}
+          isVisible={isTextVisible}
+          setIsVisible={setIsTextVisible}
+          isTyping={isTyping}
+          goToPrevious={goToPrevious}
+          blinkDuration={BLINK_DURATION}
+          canGoBack={
+            textIndex > 0 ||
+            scenarioData.findIndex((item) => item.id === currentId) > 0
+          }
+        />
+        <UiWindow toggleUi={toggleUi} />
+      </Container>
+    </AppWrapper>
   );
 };
 

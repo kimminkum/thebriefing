@@ -1,4 +1,10 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, {
+  useImperativeHandle,
+  forwardRef,
+  useRef,
+  useEffect,
+  useState
+} from "react";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 import { scenarioData } from "../../data/scenarioData";
@@ -18,11 +24,16 @@ interface Props {
   canGoBack: boolean;
 }
 
+interface TextWindowHandle {
+  forceFinishTyping: () => void;
+}
+
 const Container = styled.div<{ isVisible: boolean }>`
   position: absolute;
   bottom: 0;
   width: 100%;
   min-height: 150px;
+  height: calc(140 / 750 * 100%);
   background: #fdfdfd;
   color: #111;
   transform: ${({ isVisible }) => (isVisible ? "none" : "translateY(100%)")};
@@ -87,107 +98,135 @@ const ToggleButton = styled(Button)`
   }
 `;
 
-const TextWindow: React.FC<Props> = ({
-  currentId,
-  textIndex,
-  handleClick,
-  typingSpeed,
-  setIsTyping,
-  isVisible,
-  isTyping,
-  setIsVisible,
-  canGoBack,
-  goToPrevious,
-  blinkDuration
-}) => {
-  const prevId = useRef(currentId);
-  const [shouldAnimate, setShouldAnimate] = useState<boolean>(true);
+const TextWindow = forwardRef<TextWindowHandle, Props>(
+  (
+    {
+      currentId,
+      textIndex,
+      handleClick,
+      typingSpeed,
+      setIsTyping,
+      isVisible,
+      isTyping,
+      setIsVisible,
+      canGoBack,
+      goToPrevious,
+      blinkDuration
+    },
+    ref
+  ) => {
+    const typingTimeout = useRef<NodeJS.Timeout | null>(null);
+    const typingInterval = useRef<NodeJS.Timeout | null>(null);
+    const [displayText, setDisplayText] = useState("");
+    const [isWaiting, setIsWaiting] = useState(false);
 
-  useEffect(() => {
-    setShouldAnimate(prevId.current !== currentId);
-    prevId.current = currentId;
-  }, [currentId]);
+    useEffect(() => {
+      setDisplayText("");
+      setIsTyping(true);
+      setIsWaiting(true);
 
-  const currentText =
-    scenarioData.find((item) => item.id === currentId)?.text || "";
-  const textChunks = currentText.split(/(?<=[.!?])\s+/).filter(Boolean);
-  const fullText = textChunks[textIndex] || "데이터 없음";
+      const currentText =
+        scenarioData.find((item) => item.id === currentId)?.text || "";
+      const textChunks = currentText.split(/(?<=[.!?])\s+/).filter(Boolean);
+      const fullText = textChunks[textIndex] || "데이터 없음";
 
-  const [displayText, setDisplayText] = useState("");
+      let i = 0;
 
-  useEffect(() => {
-    if (!isVisible) return;
+      typingTimeout.current = setTimeout(() => {
+        setIsWaiting(false);
+        typingInterval.current = setInterval(() => {
+          i++;
+          setDisplayText(fullText.slice(0, i));
+          if (i >= fullText.length) {
+            clearInterval(typingInterval.current!);
+            setIsTyping(false);
+          }
+        }, typingSpeed);
+      }, blinkDuration);
 
-    setDisplayText("");
-    setIsTyping(true); // ← 여기로 옮김
+      return () => {
+        clearTimeout(typingTimeout.current!);
+        clearInterval(typingInterval.current!);
+        setIsTyping(false);
+      };
+    }, [currentId, textIndex, typingSpeed, setIsTyping, blinkDuration]);
 
-    let interval: NodeJS.Timeout; // ✅ 여기서 선언
-    let i = 0;
+    const handleFastForward = () => {
+      const currentText =
+        scenarioData.find((item) => item.id === currentId)?.text || "";
+      const textChunks = currentText.split(/(?<=[.!?])\s+/).filter(Boolean);
+      const fullText = textChunks[textIndex] || "데이터 없음";
 
-    const typingStartTimeout = setTimeout(() => {
-      interval = setInterval(() => {
-        setDisplayText(fullText.slice(0, i + 1));
-        i++;
-        if (i >= fullText.length) {
-          clearInterval(interval);
-          setIsTyping(false);
-        }
-      }, typingSpeed);
-    }, blinkDuration);
+      if (isWaiting) {
+        clearTimeout(typingTimeout.current!);
+        setIsWaiting(false);
+      }
 
-    return () => {
-      clearTimeout(typingStartTimeout);
-      clearInterval(interval);
+      clearInterval(typingInterval.current!);
+      setDisplayText(fullText);
       setIsTyping(false);
     };
-  }, [fullText, typingSpeed, isVisible, setIsTyping, currentId, blinkDuration]);
 
-  return (
-    <AnimatePresence>
-      <Container isVisible={isVisible} onClick={handleClick}>
-        <MotionContainer
-          key={`${currentId}-${textIndex}`}
-          initial={{ opacity: 0, y: 0 }}
-          animate={{ opacity: [1, 0.5, 1] }}
-          transition={{
-            duration: 0.6,
-            ease: "easeInOut",
-            times: [0, 0.5, 1]
+    useImperativeHandle(ref, () => ({
+      forceFinishTyping: handleFastForward
+    }));
+
+    return (
+      <AnimatePresence>
+        <Container
+          isVisible={isVisible}
+          onClick={() => {
+            if (isTyping) {
+              handleFastForward();
+            } else {
+              handleClick();
+            }
           }}
         >
-          <ToggleButton
-            className="font-16"
-            variant="primary"
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsVisible((prev) => !prev);
+          <MotionContainer
+            key={`${currentId}-${textIndex}`}
+            initial={{ opacity: 0, y: 0 }}
+            animate={{ opacity: [1, 0.5, 1] }}
+            transition={{
+              duration: 0.6,
+              ease: "easeInOut",
+              times: [0, 0.5, 1]
             }}
           >
-            {isVisible ? "▼" : "▲"}
-          </ToggleButton>
-          <p className="font-20">{displayText}</p>
-
-          {canGoBack && (
-            <StyledBackButton
+            <ToggleButton
               className="font-16"
-              variant="outline"
-              disabled={isTyping}
+              variant="primary"
               onClick={(e) => {
                 e.stopPropagation();
-                goToPrevious();
+                setIsVisible((prev) => !prev);
               }}
             >
-              ← 이전
-            </StyledBackButton>
-          )}
+              {isVisible ? "▼" : "▲"}
+            </ToggleButton>
+            <p className="font-20">{displayText}</p>
 
-          {!isTyping && isVisible && currentId < scenarioData.length && (
-            <NextHint className="font-16">▶</NextHint>
-          )}
-        </MotionContainer>
-      </Container>
-    </AnimatePresence>
-  );
-};
+            {canGoBack && (
+              <StyledBackButton
+                className="font-16"
+                variant="outline"
+                disabled={isTyping}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  goToPrevious();
+                }}
+              >
+                ← 이전
+              </StyledBackButton>
+            )}
+
+            {!isTyping && isVisible && currentId < scenarioData.length && (
+              <NextHint className="font-16">▶</NextHint>
+            )}
+          </MotionContainer>
+        </Container>
+      </AnimatePresence>
+    );
+  }
+);
 
 export default TextWindow;

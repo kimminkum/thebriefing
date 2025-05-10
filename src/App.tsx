@@ -26,7 +26,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/datapage" element={<DataPage />} />
-          <Route path="*" element={<ErrorPage />} />
+          <Route path="/*" element={<ErrorPage />} />
         </Routes>
       </RelativeContainer>
     </>
