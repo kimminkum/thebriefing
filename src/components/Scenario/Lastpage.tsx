@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import Button from "./Button"; // Button.tsx에서 import
+import Button from "../Button"; // Button.tsx에서 import
 
 const Wrapper = styled.div`
   height: 60%;

@@ -28,8 +28,8 @@ const UiWindow: React.FC<UiWindowProps> = ({ toggleUi }) => {
         }}
         style={{
           position: "absolute",
-          top: "10px",
-          right: "10px",
+          top: "16px",
+          right: "16px",
           width: "40px",
           height: "40px",
           pointerEvents: "auto"

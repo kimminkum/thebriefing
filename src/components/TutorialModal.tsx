@@ -150,9 +150,15 @@ const TutorialModal: React.FC<Props> = ({ onClose }) => {
               </TutoTxt>
               <TutoTxt className="font-20">
                 클릭하면 서류가 넘어가고 텍스트가 타이핑됩니다.
+                <br />
+                타이핑 도중 클릭 시 전체 출력이 됩니다.
               </TutoTxt>
               <TutoTxt className="font-20">
-                저의 기본적인 자기소개서를 스토리 형식으로 만들었습니다.
+                텍스트 타이핑 속도 조절기능 또한 설정 창 안에 들어가 있습니다.
+              </TutoTxt>
+              <TutoTxt className="font-20">
+                제가 만든 부분을 어떻게 생각하며 만들었는지 스토리 형식으로
+                만들었습니다.
               </TutoTxt>
               <TutoTxt className="font-20">잘 봐주시면 감사하겠습니다!</TutoTxt>
             </SlideCard>
@@ -167,9 +173,6 @@ const TutorialModal: React.FC<Props> = ({ onClose }) => {
               </TutoTxt>
               <TutoTxt className="font-20">
                 해당 튜토리얼은 다시 ?버튼안의 내용을 통해 확인하실 수 있습니다.
-              </TutoTxt>
-              <TutoTxt className="font-20">
-                텍스트 타이핑 속도 조절기능 또한 설정 창 안에 들어가 있습니다.
               </TutoTxt>
               {/* 추가시 넣기 */}
             </SlideCard>
