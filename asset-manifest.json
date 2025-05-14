@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/thebriefing/static/css/main.4a4c253f.css",
-    "main.js": "/thebriefing/static/js/main.c9f0b8d8.js",
+    "main.js": "/thebriefing/static/js/main.193979e9.js",
     "static/media/img1.jpg": "/thebriefing/static/media/img1.109a849670ce7cc421b4.jpg",
     "static/media/img2.png": "/thebriefing/static/media/img2.6d62524c2ebe8a37e6f1.png",
     "static/media/img4.png": "/thebriefing/static/media/img4.23a8aa799db8eb168f7e.png",
@@ -19,10 +19,10 @@
     "static/media/press-start-2p-greek-400-normal.woff": "/thebriefing/static/media/press-start-2p-greek-400-normal.a2a5944f91d5da4fd2b8.woff",
     "index.html": "/thebriefing/index.html",
     "main.4a4c253f.css.map": "/thebriefing/static/css/main.4a4c253f.css.map",
-    "main.c9f0b8d8.js.map": "/thebriefing/static/js/main.c9f0b8d8.js.map"
+    "main.193979e9.js.map": "/thebriefing/static/js/main.193979e9.js.map"
   },
   "entrypoints": [
     "static/css/main.4a4c253f.css",
-    "static/js/main.c9f0b8d8.js"
+    "static/js/main.193979e9.js"
   ]
 }
