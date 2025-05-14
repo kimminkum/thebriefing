@@ -51,6 +51,7 @@ const LTd = styled.td`
   padding: calc(12 / 690 * 100%);
   text-align: left;
   vertical-align: top;
+  max-width: 300px;
 `;
 
 const ScenarioDataSummary: React.FC = () => {
