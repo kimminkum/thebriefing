@@ -48,11 +48,11 @@ const GlobalStyle = createGlobalStyle`
 
   .font-16 {
     font-size: clamp(12px, calc(16 / 750 * 100vw), 16px);
-    line-height: calc(22 / 16);
+    line-height: calc(20 / 16);
   }
   .font-18 {
     font-size: clamp(13px, calc(18 / 750 * 100vw), 18px);
-    line-height: calc(22 / 18);
+    line-height: calc(24 / 18);
   }
   .font-20 {
     font-size: clamp(14px, calc(20 / 750 * 100vw), 20px);

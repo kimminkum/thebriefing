@@ -20,7 +20,7 @@ const Btn = styled.button<{ variant?: Variant }>`
   border: ${({ variant }) =>
     variant === "outline" ? "1px solid #999" : "none"};
   font-family: "Pretendard", sans-serif;
-  padding: 3px 8px;
+  padding: 4px 8px;
   border-radius: 4px;
   cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
   opacity: ${({ disabled }) => (disabled ? 0.3 : 1)};

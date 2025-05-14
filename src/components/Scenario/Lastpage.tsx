@@ -14,11 +14,11 @@ const Wrapper = styled.div`
 `;
 
 const StyledBtn = styled(Button)`
-  padding: 1rem 2rem;
+  padding: calc(16 / 684 * 100%) calc(32 / 684 * 100%);
   background: #2f2f2f;
   color: #fff;
   border-radius: 8px;
-  margin-top: calc(40 / 750 * 100%);
+  margin-top: calc(40 / 684 * 100%);
 `;
 
 const LastPage: React.FC = () => {

@@ -13,24 +13,24 @@ const OuterContainer = styled.div`
 const ResumeBox = styled.div`
   background: #fff;
   border-radius: 16px;
-  padding: calc(30 / 750 * 100%) 0;
+  padding: calc(30 / 690 * 100%) 0;
   min-width: 80%;
 
   display: flex;
   flex-direction: column;
-  gap: calc(30 / 750 * 100%);
+  gap: calc(30 / 690 * 100%);
 
   @media (min-width: 600px) {
     flex-direction: row;
     align-items: flex-start;
-    gap: calc(50 / 750 * 100%);
+    gap: calc(50 / 690 * 100%);
   }
 `;
 
 const ImgBox = styled.div`
   flex-shrink: 0;
   width: 120px;
-  margin-bottom: calc(30 / 750 * 100%);
+  margin-bottom: calc(30 / 690 * 100%);
 
   img {
     width: 100%;
@@ -57,7 +57,7 @@ const Table = styled.table`
 `;
 
 const Tr = styled.tr`
-  margin-bottom: calc(20 / 750 * 100%);
+  margin-bottom: calc(20 / 690 * 100%);
   display: flex;
 `;
 

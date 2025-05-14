@@ -39,9 +39,10 @@ const ProgressBarWrapper = styled.div`
 `;
 
 const ProgressBarInner = styled.div<{ percent: number }>`
+  position: absolute;
   width: ${({ percent }) => percent}%;
   height: 100%;
-  background-color: #bd8cd4;
+  background: linear-gradient(to right, #d4b28c, #7ca4bd);
   transition: width 0.3s ease;
 `;
 

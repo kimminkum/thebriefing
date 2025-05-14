@@ -1,96 +1,81 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
-// 스타일
 const Wrapper = styled.div`
-  border: 2px solid #ccc;
-  padding: 24px;
-  border-radius: 12px;
-  background: #fff;
-  width: 100%;
-  max-width: 560px;
-  margin: 20vh auto 0;
-  text-align: center;
+  padding: calc(24 / 600 * 100%);
+  margin: 0 auto;
+  background-color: #fefae0;
+  border: 2px solid #d4b28c;
+  border-radius: 8px;
+  font-family: Pretendard, sans-serif;
 `;
 
-const TextWindow = styled.div`
-  margin-top: 16px;
-  font-size: 18px;
-  min-height: 40px;
+const Section = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: calc(16 / 600 * 100%);
 `;
 
-const ClickGuide = styled.div`
-  margin-top: 12px;
-  color: #888;
-  font-size: 14px;
-  animation: blink 1s infinite;
-
-  @keyframes blink {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0;
-    }
-  }
+const Item = styled.div`
+  display: flex;
+  gap: calc(12 / 600 * 100%);
+  align-items: flex-start;
 `;
 
-const ProgressBar = styled.div`
-  height: 8px;
-  background: #eee;
-  border-radius: 4px;
-  overflow: hidden;
+const Bullet = styled.div`
+  font-weight: bold;
+  color: #5d4037;
+  margin-top: 2px;
 `;
 
-const ProgressFill = styled.div<{ width: number }>`
-  height: 100%;
-  width: ${({ width }) => width}%;
-  background: #ff3b30;
-  transition: width 0.8s ease;
+const Content = styled.div`
+  color: #3e2723;
+  line-height: calc(42 / 24);
+`;
+
+const Title = styled.h3`
+  font-weight: 700;
+  margin-bottom: calc(20 / 600 * 100%);
+  color: #4e342e;
 `;
 
 const TypingFlow: React.FC = () => {
-  const fullText1 =
-    "이건 미리보기입니다. \\A 클릭 없이 흐름이 전개되는 과정을 보여드리고 있습니다. 다음 클릭유도를 위한 ▶ 아이콘 등을 보여드립니다.";
-  const fullText2 =
-    "다음 흐름으로 전환되었습니다. 위쪽의 프로그레스 바 게이지도 전환되고 있음을 보여줍니다.";
-  const [text, setText] = useState("");
-  const [index, setIndex] = useState(0);
-  const [step, setStep] = useState(0); // 0: 첫 텍스트, 1: 클릭 유도, 2: 다음 텍스트
-  const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    if (step === 0 && index < fullText1.length) {
-      const timer = setTimeout(() => {
-        setText((prev) => prev + fullText1[index]);
-        setIndex(index + 1);
-      }, 50);
-      return () => clearTimeout(timer);
-    }
-    if (index === fullText1.length && step === 0) {
-      setTimeout(() => setStep(1), 500);
-    }
-  }, [index, step]);
-
-  useEffect(() => {
-    if (step === 1) {
-      // 클릭 유도 잠시 보여주고 다음으로 넘어감
-      setTimeout(() => {
-        setText(fullText2);
-        setStep(2);
-        setProgress(100);
-      }, 1500);
-    }
-  }, [step]);
-
   return (
-    <Wrapper>
-      <ProgressBar>
-        <ProgressFill width={progress} />
-      </ProgressBar>
-      <TextWindow>{text}</TextWindow>
-      {step === 1 || (step === 2 && <ClickGuide>▶ 클릭 유도</ClickGuide>)}
+    <Wrapper className="font-22">
+      <Title className="font-32">텍스트 출력 설계 의도</Title>
+      <Section>
+        <Item>
+          <Bullet>1.</Bullet>
+          <Content>
+            <strong>타이핑 효과:</strong> 텍스트는 한 글자씩 출력되도록 구성되어
+            있어 사용자의 집중도를 높이고 시각적 리듬감을 제공합니다.
+          </Content>
+        </Item>
+        <Item>
+          <Bullet>2.</Bullet>
+          <Content>
+            <strong>빠른 내용 출력:</strong> 클릭 시 전체 문장이 한 번에
+            출력되도록 하여 빠르게 보고 싶은 사용자와 내용을 온전히 전달하고자
+            하는 목적을 함께 반영했습니다.
+          </Content>
+        </Item>
+        <Item>
+          <Bullet>3.</Bullet>
+          <Content>
+            <strong>속도 조절 기능:</strong> 설정 창에서 타이핑 속도를 조절할 수
+            있도록 하여 사용자 개인의 읽기 속도에 맞게 UX를 조율할 수 있게
+            했습니다.
+          </Content>
+        </Item>
+        <Item>
+          <Bullet>4.</Bullet>
+          <Content>
+            <strong>이전 버튼 · 클릭 유도 · 토글:</strong> 이전 버튼으로 대사를
+            되돌아볼 수 있고, 클릭 유도 아이콘으로 다음 진행을 안내하며, 토글
+            버튼으로 배경 콘텐츠를 온전히 볼 수 있도록 설계했습니다.
+          </Content>
+        </Item>
+      </Section>
     </Wrapper>
   );
 };

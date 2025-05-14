@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { scenarioData } from "../../data/scenarioData";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -9,28 +9,39 @@ interface Props {
   handleClick: () => void;
 }
 
-const Container = styled.div`
-  width: auto;
-  height: 100%;
-  padding: calc(20 / 750 * 100%);
-  margin: calc(20 / 750 * 100%);
-  box-sizing: border-box;
-  background: #f8f8f8;
-  border: 1px solid #ccc;
-  border-radius: 2px;
-  border-bottom: none;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
-  overflow-y: auto;
-  -ms-overflow-style: none;
+interface ContainerProps {
+  isImage: boolean;
+}
 
-  &::-webkit-scrollbar {
-    display: none;
-  }
+const Container = styled.div<ContainerProps>`
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  min-height: 100%;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 `;
 
 const MotionBox = styled(motion.div)`
   width: 100%;
-  height: 100%;
+  padding: calc(120 / 734 * 100%) calc(40 / 734 * 100%) 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  background-color: transparent;
+  border-radius: 8px;
+  font-family: Pretendard, sans-serif;
+
+  & > *:not(:last-child) {
+    margin-bottom: calc(40 / 742 * 100%);
+  }
+`;
+
+const ImageBox = styled(motion.div)`
+  width: 100%;
+  height: 100vh;
+  padding: calc(80 / 742 * 100%) calc(40 / 742 * 100%);
+  overflow: hidden;
 `;
 
 const Img = styled.img`
@@ -55,13 +66,27 @@ const CenterWindow: React.FC<Props> = ({
 
   const currentScenario = scenarioData.find((item) => item.id === currentId);
   const content = currentScenario?.content;
+  const isImage = content?.type === "image";
 
-  if (!currentScenario) return <Container>콘텐츠 없음</Container>;
+  if (!currentScenario)
+    return <Container isImage={false}>콘텐츠 없음</Container>;
 
   return (
-    <Container onClick={handleClick}>
+    <Container onClick={handleClick} isImage={isImage}>
       <AnimatePresence mode="wait">
-        {content && (
+        {isImage && content?.src && (
+          <ImageBox
+            key={`${currentId}`}
+            initial={shouldAnimate ? { opacity: 0 } : false}
+            animate={{ opacity: 1 }}
+            exit={shouldAnimate ? { opacity: 0 } : {}}
+            transition={{ duration: 0.6 }}
+          >
+            <Img src={content.src} alt={content.alt || ""} />
+          </ImageBox>
+        )}
+
+        {!isImage && content?.component && (
           <MotionBox
             key={`${currentId}`}
             initial={shouldAnimate ? { opacity: 0, y: 30, rotateZ: -2 } : false}
@@ -69,12 +94,7 @@ const CenterWindow: React.FC<Props> = ({
             exit={shouldAnimate ? { opacity: 0, y: -20, rotateZ: 3 } : {}}
             transition={{ duration: 0.6, ease: "easeInOut" }}
           >
-            {content.type === "image" && content.src && (
-              <Img src={content.src} alt={content.alt || ""} />
-            )}
-            {content.type === "component" && content.component && (
-              <content.component {...content.props} />
-            )}
+            <content.component {...content.props} />
           </MotionBox>
         )}
       </AnimatePresence>

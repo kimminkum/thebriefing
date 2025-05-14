@@ -5,22 +5,22 @@ const Wrapper = styled.div`
   background: #fdfaf5;
   border: 2px solid #444;
   border-radius: 12px;
-  padding: calc(40 / 750 * 100%) calc(20 / 750 * 100%) calc(60 / 750 * 100%);
+  padding: calc(40 / 690 * 100%) calc(20 / 690 * 100%) calc(60 / 690 * 100%);
   color: #222;
 `;
 
 const Step = styled.div`
   position: relative;
-  padding: calc(20 / 750 * 100%) calc(20 / 750 * 100%);
-  margin-bottom: calc(60 / 750 * 100%);
+  padding: calc(20 / 690 * 100%) calc(20 / 690 * 100%);
+  margin-bottom: calc(60 / 690 * 100%);
   background: #fff;
   border-radius: 6px;
   box-shadow: 2px 2px 0 #aaa, -1px 0px 3px #666;
 `;
 
 const Arrow = styled.div`
-  margin: calc(-10 / 750 * 100vw) 0 calc(16 / 750 * 100vw)
-    calc(20 / 750 * 100vw);
+  margin: calc(-10 / 690 * 100vw) 0 calc(16 / 690 * 100vw)
+    calc(20 / 690 * 100vw);
   color: #4a90e2;
 `;
 
@@ -30,16 +30,16 @@ const FlowChunkSteps: React.FC = () => {
       <Step>
         ① 텍스트가 길면 일정 길이로 <strong>분할 출력</strong>됩니다.
       </Step>
-      <Arrow className="font-32">⬇</Arrow>
+      <Arrow className="font-32">⬇️</Arrow>
       <Step>
         ② <strong>같은 id</strong> 안에서는 화면 전환 없이 다음 텍스트가
         이어집니다.
       </Step>
-      <Arrow className="font-32">⬇</Arrow>
+      <Arrow className="font-32">⬇️</Arrow>
       <Step>
         ③ 마지막 텍스트 조각이 출력되면 <strong>id가 증가</strong>합니다.
       </Step>
-      <Arrow className="font-32">⬇</Arrow>
+      <Arrow className="font-32">⬇️</Arrow>
       <Step>
         ④ <strong>화면이 전환되며 새로운 콘텐츠</strong>가 등장합니다.
       </Step>

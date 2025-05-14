@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const Container = styled.div`
   position: relative;
-  padding: calc(30 / 750 * 100%) calc(40 / 750 * 100%);
+  padding: calc(30 / 690 * 100%) calc(40 / 690 * 100%);
   background: #fff;
   border: 2px solid #ccc;
   min-height: 90%;
@@ -19,7 +19,7 @@ const Container = styled.div`
 `;
 
 const Item = styled.div`
-  margin-bottom: calc(15 / 750 * 100%);
+  margin-bottom: calc(15 / 690 * 100%);
   &:before {
     content: "📌 ";
   }
@@ -50,7 +50,7 @@ const BlurredSection = styled.div`
 `;
 
 const Highlight = styled.div`
-  margin: calc(20 / 750 * 100%) 0;
+  margin: calc(20 / 690 * 100%) 0;
   font-weight: 500;
   color: #111;
   height: 100%;

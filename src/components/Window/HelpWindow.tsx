@@ -41,7 +41,8 @@ const Container = styled.div<{ isUiMode: boolean }>`
 const RangeLabel = styled.label`
   margin: 0;
   display: flex;
-  gap: calc(20 / 750 * 100%);
+  justify-content: space-between;
+  gap: calc(40 / 678 * 100%);
 `;
 
 const ButtonRow = styled.div`
@@ -53,7 +54,7 @@ const ButtonRow = styled.div`
 const TutorialBtn = styled(Button)`
   background-color: transparent;
   color: #000;
-  margin: calc(80 / 750 * 100%) 0;
+  margin: calc(80 / 678 * 100%) 0 calc(60 / 678 * 100%);
   -webkit-transition: background 0.2s ease;
   -moz-transition: background 0.2s ease;
   -ms-transition: background 0.2s ease;
@@ -69,7 +70,7 @@ const TutorialBtn = styled(Button)`
 const DataBtn = styled(Button)`
   background-color: transparent;
   color: #000;
-  margin: 0 0 calc(80 / 750 * 100%);
+  margin: 0 0 calc(60 / 678 * 100%);
   -webkit-transition: background 0.2s ease;
   -moz-transition: background 0.2s ease;
   -ms-transition: background 0.2s ease;
@@ -86,7 +87,7 @@ const ExitBtn = styled(Button)`
   background-color: transparent;
   color: #000;
   border: 1px solid #000;
-  gap: calc(10 / 750 * 100%) calc(20 / 750 * 100%);
+  padding: 8px 0;
   transition: all 0.3s ease;
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
@@ -96,6 +97,10 @@ const ExitBtn = styled(Button)`
   &:hover {
     background-color: #eee;
   }
+`;
+
+const InputRange = styled.input`
+  width: 60%;
 `;
 
 const HelpWindow: React.FC<HelpWindowProps> = ({
@@ -123,9 +128,9 @@ const HelpWindow: React.FC<HelpWindowProps> = ({
           📊 데이터 보기
         </DataBtn>
 
-        <RangeLabel className="font-24">
+        <RangeLabel className="font-20">
           ✍️ 타이핑 속도 조절
-          <input
+          <InputRange
             type="range"
             min={2}
             max={20}

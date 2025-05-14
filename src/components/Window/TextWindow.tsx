@@ -34,6 +34,7 @@ const Container = styled.div<{ isVisible: boolean }>`
   width: 100%;
   min-height: 150px;
   height: calc(140 / 750 * 100%);
+  max-height: 180px;
   background: #fdfdfd;
   color: #111;
   transform: ${({ isVisible }) => (isVisible ? "none" : "translateY(100%)")};
@@ -43,19 +44,20 @@ const Container = styled.div<{ isVisible: boolean }>`
   justify-content: left;
   text-align: left;
   letter-spacing: -0.02em;
+  font-weight: 500;
 `;
 
 const MotionContainer = styled(motion.div)`
   width: 100%;
-  padding: calc(16 / 750 * 100%);
+  padding: calc(20 / 734 * 100%);
   border: 4px solid #161616;
 `;
 
 const NextHint = styled.div`
   position: absolute;
   bottom: 0;
-  margin-bottom: calc(16 / 750 * 100%);
-  right: calc(16 / 750 * 100%);
+  margin-bottom: calc(32 / 734 * 100%);
+  right: calc(32 / 734 * 100%);
   color: #888;
   animation: blink 1.2s ease-in-out infinite;
 
@@ -73,9 +75,9 @@ const NextHint = styled.div`
 const StyledBackButton = styled(Button)`
   position: absolute;
   bottom: 0;
-  margin-bottom: calc(16 / 750 * 100%);
-  left: calc(16 / 750 * 100%);
-  padding: calc(2 / 750 * 100%) calc(16 / 750 * 100%);
+  margin-bottom: calc(28 / 734 * 100%);
+  left: calc(24 / 734 * 100%);
+  padding: 4px 6px;
   width: auto;
   opacity: 0.6;
   &:hover {
@@ -86,10 +88,10 @@ const StyledBackButton = styled(Button)`
 const ToggleButton = styled(Button)`
   position: absolute;
   bottom: 100%;
-  left: -4px;
-  width: 20%;
+  left: -3px;
+  width: 25%;
   min-height: calc((50 / 750 * 100) * 1px);
-  padding: 3px 6px;
+  padding: 4px 8px;
   opacity: 0.8;
   z-index: 5;
   border-radius: 12px 12px 0 0 !important;

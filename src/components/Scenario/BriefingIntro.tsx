@@ -7,20 +7,18 @@ interface BriefingIntroProps {
 }
 
 const Container = styled.div`
-  padding: calc(30 / 750 * 100%);
+  padding: calc(30 / 690 * 100%);
   border: 2px solid #aaa;
   background: #fefefe;
-  height: 90vh;
-  font-family: Pretendard, sans-serif;
 `;
 
 const SectionTitle = styled.h3`
-  margin-bottom: calc(60 / 750 * 100%);
+  margin-bottom: calc(50 / 654 * 100%);
   font-weight: bold;
 `;
 
 const Item = styled.p`
-  margin: calc(40 / 750 * 100%) 0;
+  margin: calc(32 / 589 * 100%) 0;
   display: flex;
   gap: 4px;
 
@@ -38,7 +36,7 @@ const Highlight = styled.span`
 
 const BriefingIntro: React.FC<BriefingIntroProps> = ({ onlyStack }) => {
   return (
-    <Container className="font-24">
+    <Container className="font-22">
       <SectionTitle className="font-32">
         📄 프로젝트 소개: 더 브리핑
       </SectionTitle>

@@ -9,12 +9,13 @@ import HelpUXExample from "../components/Scenario/HelpUXExample";
 import ClickGuide from "../components/Scenario/ClickGuide";
 import ProgressBarDemo from "../components/Scenario/ProgressBarDemo";
 import MobileSpacingDemo from "../components/Scenario/MobileSpacingDemo";
-import FinalImpression from "../components/Scenario/FinalImpression";
 import BriefingIntro from "../components/Scenario/BriefingIntro";
 import ComponentStructureDiagram from "../components/Scenario/ComponentStructureDiagram";
 import FlowChunkDemo from "../components/Scenario/FlowChunkDemo";
 import TypingFlow from "../components/Scenario/TypingFlow";
 import LastPage from "../components/Scenario/Lastpage";
+import ScenarioFlowDiagram from "components/Scenario/ScenarioFlowDiagram";
+import ScenarioDataSummary from "components/Scenario/ScenarioDataSummary";
 
 export interface ScenarioItem {
   id: number;
@@ -111,10 +112,10 @@ export const scenarioData: ScenarioItem[] = [
       component: MobileSpacingDemo
     }
   },
-  // 장점 2번째 설명명
+  // 장점 2번째 설명 부분
   {
     id: 10,
-    text: "그 외의 텍스트 박스 부분과, 컨템츠 부분을 나눠서 작업한 부분 인 것 같아. 재사용성과 유지 보수를 생각해 그렇게 만든 것 같네.",
+    text: "그 외의 텍스트 박스 부분과, 컨텐츠 부분을 나눠서 작업한 부분 인 것 같아. 재사용성과 유지 보수를 생각해 그렇게 만든 것 같네.",
     content: {
       type: "component", //컴포넌트? 이미지? 미지정.
       component: ComponentStructureDiagram
@@ -122,9 +123,10 @@ export const scenarioData: ScenarioItem[] = [
   },
   {
     id: 11,
-    text: "해당 부분들은 만들어 놓고 데이터를 넣어서 관리하도록 만들었네.",
+    text: "시나리오의 흐름은 텍스트 창과 콘텐츠 칸에 각각 데이터를 설정해 연결하는 방식으로 구성되어 있어. 데이터 하나로 전체 흐름을 제어할 수 있도록 설계했네.",
     content: {
-      type: "component" //컴포넌트? 이미지? 미지정.
+      type: "component", //컴포넌트? 이미지? 미지정.
+      component: ScenarioFlowDiagram
     }
   },
   {
@@ -137,7 +139,7 @@ export const scenarioData: ScenarioItem[] = [
   },
   {
     id: 13,
-    text: "텍스트 창의 타이핑 부분도 집중도와 UI부분을 잘 설명함으로 써 튜토리얼 없이도 익숙하게 또 흐름에 따라서 콘텐츠흐름을 따라갈 수 있게 했네. 프로그레스바나, 클릭 유도등으로 잘 알 수 있는 점도 좋아. 내부 여백들도 생각했어.",
+    text: "텍스트 창의 타이핑 효과는 집중도를 높이고, 클릭 시 전체 문장을 한 번에 보여줄 수 있게 해서 빠르게 보고 싶은 사용자도 배려했네. 이런 구성은 튜토리얼 없이도 흐름을 따라가기 쉽게 해주는 좋은 UI 경험이야.",
     content: {
       type: "component",
       component: TypingFlow
@@ -148,17 +150,17 @@ export const scenarioData: ScenarioItem[] = [
     id: 14,
     text: "데이터의 경우 ?버튼으로 Datapage를 확인해보니 각종 타입에 잘 대응할 수 있도록 구성했네. 텍스트 부분은 한 라인으로 설명 가능하게 하였고, 컨텐츠 부분의 경우 어떤 타입을 넣어도 되게끔 만든 뒤에 대응하고 있어.",
     content: {
-      type: "image",
-      src: img4,
-      alt: "데이터 페이지 이미지"
+      type: "component",
+      component: ScenarioDataSummary
     }
   },
   {
     id: 15,
     text: "전체적으로 UI/UX에 대한 신경을 많이 썼고 데이터의 연결 성이나 활용도를 보여줄려는 생각을 한 느낌이야. '김민겸'지원자는 기억해 둬야 겠어.",
     content: {
-      type: "component",
-      component: FinalImpression
+      type: "image",
+      src: img4,
+      alt: "시나리오 시작 이미지"
     }
   },
   // 마무리
