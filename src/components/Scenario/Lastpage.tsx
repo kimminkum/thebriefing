@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/router";
 import Button from "../Button"; // Button.tsx에서 import
 
 const Wrapper = styled.div`
@@ -22,10 +22,10 @@ const StyledBtn = styled(Button)`
 `;
 
 const LastPage: React.FC = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const goToDataPage = () => {
-    navigate("/datapage"); // 경로 이동
+    router.push("/datapage"); // ✅ Next.js 방식으로 이동
   };
 
   const reloadPage = () => {

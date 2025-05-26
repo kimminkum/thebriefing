@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 import { scenarioData } from "../../data/scenarioData";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 interface Props {
   currentId: number;
@@ -26,7 +27,7 @@ const Container = styled.div<ContainerProps>`
 
 const MotionBox = styled(motion.div)`
   width: 100%;
-  padding: calc(120 / 734 * 100%) calc(40 / 734 * 100%) 0;
+  padding: min(calc(120 / 734 * 100%), 80px) calc(40 / 734 * 100%) 0;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
   background-color: transparent;
   border-radius: 8px;
@@ -82,7 +83,12 @@ const CenterWindow: React.FC<Props> = ({
             exit={shouldAnimate ? { opacity: 0 } : {}}
             transition={{ duration: 0.6 }}
           >
-            <Img src={content.src} alt={content.alt || ""} />
+            <Image
+              src={content.src}
+              alt={content.alt || ""}
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              sizes="(max-width: 768px) 100vw, 750px"
+            />
           </ImageBox>
         )}
 

@@ -17,7 +17,7 @@ const initialState: GlobalState = {
   options: ["햄버거", "클릭", "메론소다"], // 초기 옵션 값
   setFooterHeight: () => {},
   setOtherVariable: () => {},
-  setOptions: () => {}, // 초기 함수
+  setOptions: () => {} // 초기 함수
 };
 
 // Context 생성
@@ -41,7 +41,7 @@ const GlobalProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         options,
         setFooterHeight,
         setOtherVariable,
-        setOptions,
+        setOptions
       }}
     >
       {children}

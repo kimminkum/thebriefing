@@ -1,8 +1,8 @@
-// img
-import img1 from "../assets/img/scenario/img1.jpg";
-import img2 from "../assets/img/scenario/img2.png";
-import img3 from "../assets/img/scenario/img3.png";
-import img4 from "../assets/img/scenario/img4.png";
+import type { StaticImageData } from "next/image";
+import img1 from "@assets/img/scenario/img1.jpg";
+import img2 from "@assets/img/scenario/img2.png";
+import img3 from "@assets/img/scenario/img3.png";
+import img4 from "@assets/img/scenario/img4.png";
 
 // components
 import HelpUXExample from "../components/Scenario/HelpUXExample";
@@ -14,15 +14,15 @@ import ComponentStructureDiagram from "../components/Scenario/ComponentStructure
 import FlowChunkDemo from "../components/Scenario/FlowChunkDemo";
 import TypingFlow from "../components/Scenario/TypingFlow";
 import LastPage from "../components/Scenario/Lastpage";
-import ScenarioFlowDiagram from "components/Scenario/ScenarioFlowDiagram";
-import ScenarioDataSummary from "components/Scenario/ScenarioDataSummary";
+import ScenarioFlowDiagram from "../components/Scenario/ScenarioFlowDiagram";
+import ScenarioDataSummary from "../components/Scenario/ScenarioDataSummary";
 
 export interface ScenarioItem {
   id: number;
   text: string;
   content?: {
     type: "image" | "component";
-    src?: string;
+    src?: StaticImageData;
     alt?: string;
     component?: React.FC<any>;
     props?: Record<string, any>;

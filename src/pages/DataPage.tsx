@@ -2,7 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { scenarioData } from "../data/scenarioData";
 import useIntersectionObserver from "../styles/useIntersectionObserver";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/router";
+import Image from "next/image";
 
 // api 같은거 쓰기
 
@@ -73,7 +74,11 @@ const BackButton = styled.button`
 `;
 
 const DataPage: React.FC = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
+
+  const goHome = () => {
+    router.push("/"); // 예: 메인 페이지로 이동
+  };
 
   useIntersectionObserver("[data-io]", {
     root: null,
@@ -83,7 +88,7 @@ const DataPage: React.FC = () => {
 
   return (
     <Container>
-      <BackButton onClick={() => navigate("/")}>←</BackButton>
+      <BackButton onClick={() => router.push("/")}>←</BackButton>
       <Wrapper className="font-16">
         <h2>데이터 테이블</h2>
 
@@ -123,7 +128,10 @@ const DataPage: React.FC = () => {
                 <Td className="txttype">{item.content?.type || "없음"}</Td>
                 <Td className="txtleft">
                   {item.content?.type === "image" ? (
-                    <img src={item.content.src} alt={item.content.alt} />
+                    <img
+                      src={item.content?.src?.src}
+                      alt={item.content?.alt || ""}
+                    />
                   ) : item.content?.type === "component" ? (
                     "component: " +
                     ((item.content.component as React.FC)?.name || "Unknown")

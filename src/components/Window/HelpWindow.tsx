@@ -2,8 +2,8 @@
 import React from "react";
 import styled from "styled-components";
 import Button from "../Button";
-import paper from "../../assets/img/bg/handmade-paper.png";
-import { useNavigate } from "react-router-dom";
+import paper from "@assets/img/bg/handmade-paper.png";
+import { useRouter } from "next/router";
 
 interface HelpWindowProps {
   toggleUi: () => void;
@@ -19,7 +19,7 @@ const Container = styled.div<{ isUiMode: boolean }>`
   right: 0;
   width: 100%;
   height: 100%;
-  background: #fdfaf5 url(${paper}) repeat;
+  background: #fdfaf5 url(${() => paper.src}) repeat;
   background-size: cover;
   color: #111;
   border-radius: 10px 10px 0 0;
@@ -110,11 +110,11 @@ const HelpWindow: React.FC<HelpWindowProps> = ({
   setTypingSpeed,
   reopenTutorial
 }) => {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const goToDataPage = () => {
     toggleUi(); // 창 닫기
-    navigate("/datapage"); // 경로 이동
+    router.push("/datapage"); // ✅ Next.js 방식으로 이동
   };
 
   return (

@@ -5,7 +5,6 @@ import HelpWindow from "../components/Window/HelpWindow";
 import TextWindow from "../components/Window/TextWindow";
 import UiWindow from "../components/Window/UiWindow";
 import TutorialModal from "../components/TutorialModal";
-import Papersound from "../assets/sound/papersound.mp3";
 
 import { scenarioData } from "../data/scenarioData";
 
@@ -62,10 +61,9 @@ const Main: React.FC = () => {
   const closeTutorial = () => setShowTutorial(false);
 
   const playSound = useCallback(() => {
-    const audio = new Audio(Papersound);
+    const audio = new Audio("/assets/sound/papersound.mp3");
     audio.currentTime = 0;
     audio.play().catch((e) => {
-      // 자동 재생이 차단된 경우 에러 무시
       console.warn("음성 재생 차단됨:", e.message);
     });
   }, []);

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Image from "next/image";
 
 import img1 from "../../assets/img/scenario/img1.jpg";
 
@@ -101,9 +102,13 @@ const ScenarioDataSummary: React.FC = () => {
               <Td>image</Td>
               <Td>
                 <img
-                  src={img1}
+                  src={img1.src}
                   alt="데이터 페이지 이미지"
-                  style={{ maxWidth: "100px", height: "auto" }}
+                  style={{
+                    maxWidth: "100px",
+                    height: "auto",
+                    margin: "0 auto"
+                  }}
                 />
               </Td>
             </tr>

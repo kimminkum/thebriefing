@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/thebriefing/static/css/main.4a4c253f.css",
+    "main.js": "/thebriefing/static/js/main.193979e9.js",
+    "static/media/img1.jpg": "/thebriefing/static/media/img1.109a849670ce7cc421b4.jpg",
+    "static/media/img2.png": "/thebriefing/static/media/img2.6d62524c2ebe8a37e6f1.png",
+    "static/media/img4.png": "/thebriefing/static/media/img4.23a8aa799db8eb168f7e.png",
+    "static/media/img3.png": "/thebriefing/static/media/img3.34def9a5c53db4a39a4c.png",
+    "static/media/papersound.mp3": "/thebriefing/static/media/papersound.8c05ea67961062472ee9.mp3",
+    "static/media/press-start-2p-latin-400-normal.woff2": "/thebriefing/static/media/press-start-2p-latin-400-normal.efa4fd449b33df426d63.woff2",
+    "static/media/press-start-2p-latin-ext-400-normal.woff2": "/thebriefing/static/media/press-start-2p-latin-ext-400-normal.b27a48529cd27ca61884.woff2",
+    "static/media/press-start-2p-cyrillic-400-normal.woff2": "/thebriefing/static/media/press-start-2p-cyrillic-400-normal.8ff2f96326994bf82403.woff2",
+    "static/media/press-start-2p-cyrillic-ext-400-normal.woff2": "/thebriefing/static/media/press-start-2p-cyrillic-ext-400-normal.3f07e4fb28b05927ecf1.woff2",
+    "static/media/press-start-2p-greek-400-normal.woff2": "/thebriefing/static/media/press-start-2p-greek-400-normal.3acde80c5447f629f3c7.woff2",
+    "static/media/press-start-2p-latin-400-normal.woff": "/thebriefing/static/media/press-start-2p-latin-400-normal.68e7552200733f63019b.woff",
+    "static/media/press-start-2p-latin-ext-400-normal.woff": "/thebriefing/static/media/press-start-2p-latin-ext-400-normal.84f0f463b89c3dd7ca7b.woff",
+    "static/media/press-start-2p-cyrillic-400-normal.woff": "/thebriefing/static/media/press-start-2p-cyrillic-400-normal.f816e124dbc513bee81a.woff",
+    "static/media/press-start-2p-cyrillic-ext-400-normal.woff": "/thebriefing/static/media/press-start-2p-cyrillic-ext-400-normal.d6e8f891ba8acb97894d.woff",
+    "static/media/press-start-2p-greek-400-normal.woff": "/thebriefing/static/media/press-start-2p-greek-400-normal.a2a5944f91d5da4fd2b8.woff",
+    "index.html": "/thebriefing/index.html",
+    "main.4a4c253f.css.map": "/thebriefing/static/css/main.4a4c253f.css.map",
+    "main.193979e9.js.map": "/thebriefing/static/js/main.193979e9.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4a4c253f.css",
+    "static/js/main.193979e9.js"
+  ]
+}
