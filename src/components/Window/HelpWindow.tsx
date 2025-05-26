@@ -112,7 +112,7 @@ const HelpWindow: React.FC<HelpWindowProps> = ({
 }) => {
   const router = useRouter();
 
-  const goToDataPage = () => {
+  const goTodatapage = () => {
     toggleUi(); // 창 닫기
     router.push("/datapage"); // ✅ Next.js 방식으로 이동
   };
@@ -124,7 +124,7 @@ const HelpWindow: React.FC<HelpWindowProps> = ({
           📘 튜토리얼 다시 보기
         </TutorialBtn>
 
-        <DataBtn variant="outline" onClick={goToDataPage}>
+        <DataBtn variant="outline" onClick={goTodatapage}>
           📊 데이터 보기
         </DataBtn>
 

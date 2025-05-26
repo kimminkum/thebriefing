@@ -30,6 +30,8 @@ const Th = styled.th`
   background-color: #f4f4f4;
 `;
 
+//  재 푸쉬
+
 const Td = styled.td`
   border: 1px solid #ddd;
   padding: calc(20 / 750 * 100%) calc(10 / 750 * 100vw);

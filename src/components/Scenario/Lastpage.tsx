@@ -24,7 +24,7 @@ const StyledBtn = styled(Button)`
 const LastPage: React.FC = () => {
   const router = useRouter();
 
-  const goToDataPage = () => {
+  const goTodatapage = () => {
     router.push("/datapage"); // ✅ Next.js 방식으로 이동
   };
 
@@ -37,7 +37,7 @@ const LastPage: React.FC = () => {
   return (
     <Wrapper className="font-24">
       <p>📄 전체 시나리오를 확인해주셔서 감사합니다!</p>
-      <StyledBtn onClick={goToDataPage}>🔍 DataPage로 이동</StyledBtn>
+      <StyledBtn onClick={goTodatapage}>🔍 DataPage로 이동</StyledBtn>
       <StyledBtn onClick={reloadPage}>🔁 처음부터 다시 보기</StyledBtn>
     </Wrapper>
   );
