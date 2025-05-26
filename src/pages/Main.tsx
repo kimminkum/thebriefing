@@ -69,7 +69,7 @@ const Main: React.FC = () => {
   }, []);
 
   const handleClick = () => {
-    if (!isTextVisible || isClickLocked) return;
+    if (!isTextVisible || isClickLocked || isUiMode) return;
 
     if (isTyping) {
       // 👇 타이핑 중이라면 강제 완료
