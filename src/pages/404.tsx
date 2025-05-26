@@ -1,6 +1,7 @@
+// src/pages/ErrorPage.tsx
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import Link from "next/link"; // ✅ Next.js 전용 Link
 
 const Wrapper = styled.div`
   display: flex;
@@ -24,7 +25,7 @@ const Message = styled.p`
   margin-bottom: 2rem;
 `;
 
-const HomeButton = styled(Link)`
+const HomeButton = styled.a`
   padding: 0.8rem 1.6rem;
   background-color: #2f2f2f;
   color: white;
@@ -42,7 +43,10 @@ const ErrorPage: React.FC = () => {
     <Wrapper>
       <Title>404 - 페이지를 찾을 수 없습니다</Title>
       <Message>요청하신 경로에 해당하는 페이지가 존재하지 않아요.</Message>
-      <HomeButton to="/">🏠 홈으로 돌아가기</HomeButton>
+
+      <Link href="/" passHref>
+        <HomeButton>🏠 홈으로 돌아가기</HomeButton>
+      </Link>
     </Wrapper>
   );
 };
