@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import my_picture from "../assets/img/my_picture.jpg";
+import my_picture from "@assets/img/my_picture.jpg";
+import Image from "next/image";
 
 const OuterContainer = styled.div`
   width: 100%;
@@ -97,7 +98,7 @@ const Resume: React.FC = () => {
       <div>
         <ResumeBox>
           <ImgBox>
-            <img src={my_picture} alt="지원자 사진" />
+            <Image src={my_picture} alt="지원자 사진" />
           </ImgBox>
           <InfoBox>
             <Table className="font-18">
