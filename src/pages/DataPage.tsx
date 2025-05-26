@@ -149,3 +149,7 @@ const DataPage: React.FC = () => {
 };
 
 export default DataPage;
+
+export async function getStaticProps() {
+  return { props: {} };
+}
