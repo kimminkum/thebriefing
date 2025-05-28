@@ -8,7 +8,6 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family: 'Pretendard', 'AppleSDGothicNeoR00' ,'Apple SD Gothic' ,sans-serif;
     -ms-overflow-style: none;
   }
 
@@ -30,20 +29,6 @@ const GlobalStyle = createGlobalStyle`
 
   .fix {
     position: relative;
-  }
-
-
-  .ctns {
-    width: 100%;
-    min-width: 1240px;
-    max-width: 1920px;
-    margin: 0 auto;
-    text-align: left;
-    font-family: Pretendard, 'Malgun Gothic', 'SF Pro', AppleSDGothicNeo, HelveticaNeue, helvetica, sans-serif;
-    color: #000;
-    font-weight: 400;
-    letter-spacing: -0.02em;
-    overflow: hidden;
   }
 
   .font-16 {

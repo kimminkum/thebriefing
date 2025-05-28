@@ -7,13 +7,13 @@ import { useRouter } from "next/router";
 
 interface HelpWindowProps {
   toggleUi: () => void;
-  isUiMode: boolean;
+  $isUiMode: boolean;
   typingSpeed: number;
   setTypingSpeed: React.Dispatch<React.SetStateAction<number>>;
   reopenTutorial: () => void;
 }
 
-const Container = styled.div<{ isUiMode: boolean }>`
+const Container = styled.div<{ $isUiMode: boolean }>`
   position: absolute;
   bottom: 0;
   right: 0;
@@ -25,8 +25,8 @@ const Container = styled.div<{ isUiMode: boolean }>`
   border-radius: 10px 10px 0 0;
   padding: 2rem;
   box-shadow: 0px -2px 8px rgba(0, 0, 0, 0.05);
-  transform: ${({ isUiMode }) =>
-    isUiMode ? "translateY(0%)" : "translateY(100%)"};
+  transform: ${({ $isUiMode }) =>
+    $isUiMode ? "translateY(0%)" : "translateY(100%)"};
   -webkit-transition: transform 0.3s ease;
   -moz-transition: transform 0.3s ease;
   -ms-transition: transform 0.3s ease;
@@ -104,7 +104,7 @@ const InputRange = styled.input`
 `;
 
 const HelpWindow: React.FC<HelpWindowProps> = ({
-  isUiMode,
+  $isUiMode,
   toggleUi,
   typingSpeed,
   setTypingSpeed,
@@ -118,13 +118,13 @@ const HelpWindow: React.FC<HelpWindowProps> = ({
   };
 
   return (
-    <Container isUiMode={isUiMode}>
+    <Container $isUiMode={$isUiMode}>
       <div>
-        <TutorialBtn variant="outline" onClick={reopenTutorial}>
+        <TutorialBtn $variant="outline" onClick={reopenTutorial}>
           📘 튜토리얼 다시 보기
         </TutorialBtn>
 
-        <DataBtn variant="outline" onClick={goTodatapage}>
+        <DataBtn $variant="outline" onClick={goTodatapage}>
           📊 데이터 보기
         </DataBtn>
 
@@ -142,7 +142,7 @@ const HelpWindow: React.FC<HelpWindowProps> = ({
       </div>
 
       <ButtonRow>
-        <ExitBtn variant="outline" onClick={toggleUi}>
+        <ExitBtn $variant="outline" onClick={toggleUi}>
           닫기
         </ExitBtn>
       </ButtonRow>

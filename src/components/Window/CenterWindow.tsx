@@ -11,7 +11,7 @@ interface Props {
 }
 
 interface ContainerProps {
-  isImage: boolean;
+  $isImage: boolean;
 }
 
 const Container = styled.div<ContainerProps>`
@@ -70,10 +70,10 @@ const CenterWindow: React.FC<Props> = ({
   const isImage = content?.type === "image";
 
   if (!currentScenario)
-    return <Container isImage={false}>콘텐츠 없음</Container>;
+    return <Container $isImage={false}>콘텐츠 없음</Container>;
 
   return (
-    <Container onClick={handleClick} isImage={isImage}>
+    <Container onClick={handleClick} $isImage={isImage}>
       <AnimatePresence mode="wait">
         {isImage && content?.src && (
           <ImageBox
@@ -85,9 +85,10 @@ const CenterWindow: React.FC<Props> = ({
           >
             <Image
               src={content.src}
-              alt={content.alt || ""}
+              alt={content.alt || "시나리오 이미지"}
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
               sizes="(max-width: 768px) 100vw, 750px"
+              priority={currentId === 1 || currentId === 2}
             />
           </ImageBox>
         )}

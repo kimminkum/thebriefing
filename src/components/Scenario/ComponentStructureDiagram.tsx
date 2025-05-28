@@ -12,14 +12,14 @@ const DiagramWrapper = styled.div`
   max-width: 100%;
 `;
 
-const Node = styled.div<{ isRoot?: boolean }>`
+const Node = styled.div<{ $isRoot?: boolean }>`
   padding: calc(18 / 526 * 100%) calc(32 / 526 * 100%);
-  border: 2px solid ${({ isRoot }) => (isRoot ? "#4a90e2" : "#aaa")};
-  background: ${({ isRoot }) => (isRoot ? "#e6f2ff" : "#fff")};
+  border: 2px solid ${({ $isRoot }) => ($isRoot ? "#4a90e2" : "#aaa")};
+  background: ${({ $isRoot }) => ($isRoot ? "#e6f2ff" : "#fff")};
   border-radius: 8px;
   font-weight: 600;
   text-align: left;
-  margin-left: ${({ isRoot }) => (isRoot ? "0px" : "calc(40 / 690 * 100%)")};
+  margin-left: ${({ $isRoot }) => ($isRoot ? "0px" : "calc(40 / 690 * 100%)")};
   margin-bottom: calc(20 / 526 * 100%);
   box-shadow: 2px 2px 0 #999;
   position: relative;
@@ -38,7 +38,7 @@ const SubBranch: React.FC<{ children: React.ReactNode }> = ({ children }) => (
 const ComponentStructureDiagram: React.FC = () => {
   return (
     <DiagramWrapper className="font-16">
-      <Node isRoot>Main.tsx</Node>
+      <Node $isRoot>Main.tsx</Node>
 
       <Node>TextWindow</Node>
 

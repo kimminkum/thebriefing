@@ -16,7 +16,7 @@ interface Props {
   handleClick: () => void;
   typingSpeed: number;
   setIsTyping: React.Dispatch<React.SetStateAction<boolean>>;
-  isVisible: boolean;
+  $isVisible: boolean;
   isTyping: boolean;
   setIsVisible: React.Dispatch<React.SetStateAction<boolean>>;
   goToPrevious: () => void;
@@ -28,7 +28,7 @@ interface TextWindowHandle {
   forceFinishTyping: () => void;
 }
 
-const Container = styled.div<{ isVisible: boolean }>`
+const Container = styled.div<{ $isVisible: boolean }>`
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -37,7 +37,7 @@ const Container = styled.div<{ isVisible: boolean }>`
   max-height: 180px;
   background: #fdfdfd;
   color: #111;
-  transform: ${({ isVisible }) => (isVisible ? "none" : "translateY(100%)")};
+  transform: ${({ $isVisible }) => ($isVisible ? "none" : "translateY(100%)")};
   transition: transform 0.4s ease;
   z-index: 4;
   display: flex;
@@ -108,7 +108,7 @@ const TextWindow = forwardRef<TextWindowHandle, Props>(
       handleClick,
       typingSpeed,
       setIsTyping,
-      isVisible,
+      $isVisible,
       isTyping,
       setIsVisible,
       canGoBack,
@@ -176,7 +176,7 @@ const TextWindow = forwardRef<TextWindowHandle, Props>(
     return (
       <AnimatePresence>
         <Container
-          isVisible={isVisible}
+          $isVisible={$isVisible}
           onClick={() => {
             if (isTyping) {
               handleFastForward();
@@ -197,20 +197,20 @@ const TextWindow = forwardRef<TextWindowHandle, Props>(
           >
             <ToggleButton
               className="font-16"
-              variant="primary"
+              $variant="primary"
               onClick={(e) => {
                 e.stopPropagation();
                 setIsVisible((prev) => !prev);
               }}
             >
-              {isVisible ? "▼" : "▲"}
+              {$isVisible ? "▼" : "▲"}
             </ToggleButton>
-            <p className="font-20">{displayText}</p>
+            <p className="font-22">{displayText}</p>
 
             {canGoBack && (
               <StyledBackButton
                 className="font-16"
-                variant="outline"
+                $variant="outline"
                 disabled={isTyping}
                 onClick={(e) => {
                   e.stopPropagation();
@@ -221,7 +221,7 @@ const TextWindow = forwardRef<TextWindowHandle, Props>(
               </StyledBackButton>
             )}
 
-            {!isTyping && isVisible && currentId < scenarioData.length && (
+            {!isTyping && $isVisible && currentId < scenarioData.length && (
               <NextHint className="font-16">▶</NextHint>
             )}
           </MotionContainer>

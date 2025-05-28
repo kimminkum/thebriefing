@@ -37,9 +37,9 @@ const ProgressBarWrapper = styled.div`
   z-index: 10;
 `;
 
-const ProgressBarInner = styled.div<{ percent: number }>`
+const ProgressBarInner = styled.div<{ $percent: number }>`
   position: absolute;
-  width: ${({ percent }) => percent}%;
+  width: ${({ $percent }) => $percent}%;
   height: 100%;
   background: linear-gradient(to right, #d4b28c, #7ca4bd);
   transition: width 0.3s ease;
@@ -61,7 +61,7 @@ const Main: React.FC = () => {
   const closeTutorial = () => setShowTutorial(false);
 
   const playSound = useCallback(() => {
-    const audio = new Audio("/assets/sound/papersound.mp3");
+    const audio = new Audio("/sound/papersound.mp3");
     audio.currentTime = 0;
     audio.play().catch((e) => {
       console.warn("음성 재생 차단됨:", e.message);
@@ -136,7 +136,9 @@ const Main: React.FC = () => {
     <AppWrapper onClick={handleClick}>
       <Container onClick={(e) => e.stopPropagation()}>
         <ProgressBarWrapper>
-          <ProgressBarInner percent={(currentId / scenarioData.length) * 100} />
+          <ProgressBarInner
+            $percent={(currentId / scenarioData.length) * 100}
+          />
         </ProgressBarWrapper>
 
         {showTutorial && <TutorialModal onClose={closeTutorial} />}
@@ -147,7 +149,7 @@ const Main: React.FC = () => {
         />
         <HelpWindow
           toggleUi={toggleUi}
-          isUiMode={isUiMode}
+          $isUiMode={isUiMode}
           typingSpeed={typingSpeed}
           setTypingSpeed={setTypingSpeed}
           reopenTutorial={() => setShowTutorial(true)}
@@ -159,7 +161,7 @@ const Main: React.FC = () => {
           textIndex={textIndex}
           typingSpeed={typingSpeed}
           setIsTyping={setIsTyping}
-          isVisible={isTextVisible}
+          $isVisible={isTextVisible}
           setIsVisible={setIsTextVisible}
           isTyping={isTyping}
           goToPrevious={goToPrevious}

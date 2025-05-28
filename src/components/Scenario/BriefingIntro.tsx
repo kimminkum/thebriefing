@@ -18,8 +18,9 @@ const SectionTitle = styled.h3`
 `;
 
 const Item = styled.p`
-  margin: calc(32 / 589 * 100%) 0;
+  margin: calc(24 / 589 * 100%) 0;
   display: flex;
+  line-height: calc(26 / 20);
   gap: 4px;
 
   &:before {
@@ -36,8 +37,8 @@ const Highlight = styled.span`
 
 const BriefingIntro: React.FC<BriefingIntroProps> = ({ onlyStack }) => {
   return (
-    <Container className="font-22">
-      <SectionTitle className="font-32">
+    <Container className="font-20">
+      <SectionTitle className="font-28">
         📄 프로젝트 소개: 더 브리핑
       </SectionTitle>
       <Item>시나리오 기반의 인터랙티브 자기소개서입니다.</Item>
@@ -55,7 +56,23 @@ const BriefingIntro: React.FC<BriefingIntroProps> = ({ onlyStack }) => {
       <Item>재사용성, 유지보수를 생각해 컴포넌트화하였습니다.</Item>
       <Item>일관성과 UI,UX 가이드를 신경썼습니다.</Item>
       <Item>상태전환 및 애니메이션의 전환 부분도 고려하였습니다.</Item>
-      <Item>SPA기반인 리액트의 장점을 보여주고자 하였습니다.</Item>
+      <Item>
+        {onlyStack ? (
+          <span>
+            <Highlight>SPA기반인</Highlight>리액트의 장점을 보여주고자
+            하였습니다.
+          </span>
+        ) : (
+          "SPA기반인 리액트의 장점을 보여주고자 하였습니다."
+        )}
+      </Item>
+      <Item>
+        {onlyStack ? (
+          <Highlight>데이터를 기반으로 하여 작성하였습니다.</Highlight>
+        ) : (
+          "데이터를 기반으로 하여 작성하였습니다."
+        )}
+      </Item>
     </Container>
   );
 };

@@ -10,15 +10,15 @@ type ButtonProps = {
   type?: "button" | "submit" | "reset";
   style?: React.CSSProperties;
   disabled?: boolean; // ✅ 추가
-  variant?: Variant;
+  $variant?: Variant;
 };
 
-const Btn = styled.button<{ variant?: Variant }>`
-  background: ${({ variant }) =>
-    variant === "outline" ? "transparent" : "#111"};
-  color: ${({ variant }) => (variant === "outline" ? "#333" : "#fff")};
-  border: ${({ variant }) =>
-    variant === "outline" ? "1px solid #999" : "none"};
+const Btn = styled.button<{ $variant?: Variant }>`
+  background: ${({ $variant }) =>
+    $variant === "outline" ? "transparent" : "#111"};
+  color: ${({ $variant }) => ($variant === "outline" ? "#333" : "#fff")};
+  border: ${({ $variant }) =>
+    $variant === "outline" ? "1px solid #999" : "none"};
   font-family: "Pretendard", sans-serif;
   padding: 4px 8px;
   border-radius: 4px;
@@ -47,7 +47,7 @@ const Button: React.FC<ButtonProps> = ({
   className = "",
   type = "button",
   style,
-  variant = "primary"
+  $variant = "primary"
 }) => {
   return (
     <Btn
@@ -55,7 +55,7 @@ const Button: React.FC<ButtonProps> = ({
       className={`${className ?? ""} font-16`}
       onClick={onClick}
       style={style}
-      variant={variant}
+      $variant={$variant}
     >
       {children}
     </Btn>
