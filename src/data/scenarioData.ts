@@ -192,14 +192,6 @@ export const scenarioData: ScenarioItem[] = [
     }
   },
   {
-    id: 20,
-    text: "시각적으로 보여줄 수 있는 부분도 추가한 부분이네. 누구나 알 수 있는 포켓몬 ip를 가져다가 마무리 전에 넣어둔 걸 보니 괜찮네.",
-    content: {
-      type: "component",
-      component: PokeApiDetailInteract
-    }
-  },
-  {
     id: 19,
     text: "전체적으로 UI/UX에 대한 신경을 많이 썼고 데이터의 연결 성이나 활용도를 보여줄려는 생각을 한 느낌이야. '김민겸'지원자는 기억해 둬야 겠어.",
     content: {

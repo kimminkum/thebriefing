@@ -26,8 +26,7 @@ const Container = styled.div`
 
 const Filter = styled.select`
   margin-bottom: 1rem;
-  padding: 0.6rem 1rem;
-  font-size: 1rem;
+  padding: 6px 12px;
   border: 1px solid #ccc;
   border-radius: 6px;
   background-color: #f5f7fa;
@@ -162,7 +161,10 @@ const PokeApiDetailInteract: React.FC = () => {
         타입별 필터 및 능력치를 시각적으로 비교해 보세요.
       </p>
 
-      <Filter onChange={(e) => setTypeFilter(e.target.value)}>
+      <Filter
+        className="font-18"
+        onChange={(e) => setTypeFilter(e.target.value)}
+      >
         <option value="">모든 타입</option>
         {typeOptions.map((type) => (
           <option key={type} value={type}>
