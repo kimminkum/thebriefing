@@ -1,14 +1,19 @@
-import { useEffect } from "react";
+// pages/_app.tsx
 import type { AppProps } from "next/app";
+import { useEffect } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import GlobalFonts from "../styles/GlobalFonts";
 import GlobalStyles from "../styles/GlobalStyles";
+import { JsonDataProvider } from "../context/JsonDataContext";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+const queryClient = new QueryClient();
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     const repositionInShadowDom = () => {
       const portal = document.querySelector("nextjs-portal") as HTMLElement;
-
-      if (portal && portal.shadowRoot) {
+      if (portal?.shadowRoot) {
         const toast = portal.shadowRoot.querySelector(
           "[data-nextjs-toast]"
         ) as HTMLElement;
@@ -24,10 +29,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       }
     };
 
-    // 최초 적용
     repositionInShadowDom();
-
-    // 변화 감지
     const observer = new MutationObserver(() => repositionInShadowDom());
     observer.observe(document.body, { childList: true, subtree: true });
 
@@ -35,10 +37,13 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <>
-      <GlobalFonts />
-      <GlobalStyles />
-      <Component {...pageProps} />
-    </>
+    <QueryClientProvider client={queryClient}>
+      <JsonDataProvider>
+        <GlobalFonts />
+        <GlobalStyles />
+        <Component {...pageProps} />
+      </JsonDataProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 }
