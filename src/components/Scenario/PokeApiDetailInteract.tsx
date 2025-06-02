@@ -79,8 +79,8 @@ const PokeApiDetailInteract: React.FC = () => {
         autoplay={{ delay: 2500, disableOnInteraction: false }}
         breakpoints={{
           500: {
-            slidesPerView: 1.5, // PC일 땐 더 많은 카드 보여주기
-            spaceBetween: 16 // ✅ PC일 때는 약간의 간격만 유지
+            slidesPerView: 1.55, // PC일 땐 더 많은 카드 보여주기
+            spaceBetween: 10 // ✅ PC일 때는 약간의 간격만 유지
           }
         }}
       >

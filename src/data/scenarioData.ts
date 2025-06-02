@@ -156,7 +156,7 @@ export const scenarioData: ScenarioItem[] = [
   },
   {
     id: 15,
-    text: "쇼케이스는 외부 데이터를 깔끔하게 연결하는 역할이었다면, 이 컴포넌트는 데이터를 시각적으로 풀어내며 인터랙션 연출과 능력 강조를 동시에 보여주는 역할을 합니다.",
+    text: "쇼케이스는 외부 데이터를 깔끔하게 연결하는 역할이었다면, 이 컴포넌트는 데이터를 시각적으로 풀어내며 인터랙션 연출과 능력 강조를 동시에 보여주는 역할을 담당하네.",
     content: {
       type: "component",
       component: PokeApiDetailInteract
