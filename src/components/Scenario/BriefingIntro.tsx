@@ -42,12 +42,11 @@ const BriefingIntro: React.FC<BriefingIntroProps> = ({ onlyStack }) => {
         📄 프로젝트 소개: 더 브리핑
       </SectionTitle>
       <Item>시나리오 기반의 인터랙티브 자기소개서입니다.</Item>
-      <Item>사용자 경험 중심 구성 (튜토리얼 및 UI,UX)을 생각하였습니다.</Item>
-
       <Item>
         {onlyStack ? (
           <Highlight>
-            React + Styled Components + TypeScript + Framer Motion 사용했습니다.
+            React + Styled Components + TypeScript + Framer Motion + Next.js
+            사용했습니다.
           </Highlight>
         ) : (
           "React + Styled Components + TypeScript + Framer Motion 사용했습니다."
@@ -57,21 +56,16 @@ const BriefingIntro: React.FC<BriefingIntroProps> = ({ onlyStack }) => {
       <Item>일관성과 UI,UX 가이드를 신경썼습니다.</Item>
       <Item>상태전환 및 애니메이션의 전환 부분도 고려하였습니다.</Item>
       <Item>
-        {onlyStack ? (
-          <span>
-            <Highlight>SPA기반인</Highlight>리액트의 장점을 보여주고자
-            하였습니다.
-          </span>
-        ) : (
-          "SPA기반인 리액트의 장점을 보여주고자 하였습니다."
-        )}
+        axios로 API 요청을 수행하고, 데이터를 기반으로 도감형 UI 및 리스트
+        필터링 기능을 구성했습니다.
       </Item>
       <Item>
-        {onlyStack ? (
-          <Highlight>데이터를 기반으로 하여 작성하였습니다.</Highlight>
-        ) : (
-          "데이터를 기반으로 하여 작성하였습니다."
-        )}
+        공공 API(PokeAPI, JSONPlaceholder)를 활용해 실시간 데이터를 시각화하고,
+        필터/정렬/삭제 등의 인터랙션을 구현했습니다.
+      </Item>
+      <Item>
+        API 응답에 따라 UI 상태를 동적으로 렌더링하며, 비동기 흐름을 사용자
+        중심으로 조절했습니다.
       </Item>
     </Container>
   );

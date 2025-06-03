@@ -36,12 +36,11 @@ const Box = styled.div`
   position: relative;
 `;
 
-const Arrow = styled.div<{ rotate?: number }>`
+const Arrow = styled.div`
   flex: 0;
   font-size: 20px;
   color: #6d4c41;
-  margin: 0 8px;
-  transform: ${({ rotate }) => (rotate ? `rotate(${rotate}deg)` : "none")};
+  margin: 0 30px;
 `;
 
 const Flex = styled.div`
@@ -50,7 +49,7 @@ const Flex = styled.div`
   gap: calc(30 / 600 * 100%);
 
   > div {
-    width: 45%;
+    width: 50%;
   }
 `;
 
@@ -82,8 +81,8 @@ const ScenarioFlowDiagram: React.FC = () => {
   }`}</CodeBlock>
         </Box>
         <Flex>
-          <Arrow rotate={15}>⬇️</Arrow>
-          <Arrow rotate={-15}>⬇️</Arrow>
+          <Arrow>⬇️</Arrow>
+          <Arrow>⬇️</Arrow>
         </Flex>
         <Flex>
           <Box>

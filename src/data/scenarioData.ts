@@ -14,7 +14,6 @@ import TypingFlow from "../components/Scenario/TypingFlow";
 import LastPage from "../components/Scenario/Lastpage";
 import ScenarioFlowDiagram from "../components/Scenario/ScenarioFlowDiagram";
 import JsonApiIntro from "../components/Scenario/JsonApiIntro";
-import JsonApiSortFilter from "../components/Scenario/JsonApiSortFilter";
 import JsonApiDelete from "../components/Scenario/JsonApiDelete";
 import PokeApiShowcase from "../components/Scenario/PokeApiShowcase";
 import PokeApiDetailInteract from "@components/Scenario/PokeApiDetailInteract";
@@ -47,7 +46,7 @@ export const scenarioData: ScenarioItem[] = [
   // 2. 인적사항 확인
   {
     id: 2,
-    text: "자, 다음은... 이 사람은 뭐지? 시나리오 형식으로 자신을 어필했네? 경력은 1년 퍼블리셔로 이커머스 플랫폼에서 일했어. 기본적으로 html, css를 다루는 능력은 있겠네.",
+    text: "자, 다음은... 이 사람은 뭐지? 시나리오 형식으로 자신을 어필했네? 경력은 1년 퍼블리셔로 이커머스 플랫폼에서 일했어. 기본적으로 html, css, js를 다루는 능력은 있겠네.",
     content: {
       type: "image",
       src: img2,
@@ -57,7 +56,7 @@ export const scenarioData: ScenarioItem[] = [
   // 3. 더 브리핑에 대한 나의 장점 소개개
   {
     id: 3,
-    text: "React, TypeScript, styled-components 기반으로 구축되어 있고 개발자로서 데이터를 다룬 점을 강조하고 싶었던 거네.",
+    text: "React, TypeScript, styled-components, next.js 기반으로 구축되어 있고 개발자로서 데이터를 다룬 점을 강조하고 싶었던 거네.",
     content: {
       type: "component",
       component: BriefingIntro
@@ -124,7 +123,7 @@ export const scenarioData: ScenarioItem[] = [
   // 장점 2번째 설명 부분
   {
     id: 11,
-    text: "리스트 상태는 React Context로 관리하고, API 호출은 React Query로 구성해 캐싱·로딩 처리까지 신경 쓴 흔적이 있어.",
+    text: "리스트 상태는 React Context로 관리하고, API 호출은 React Query로 구성해 캐싱·로딩 처리까지 신경 쓴 흔적이 있어. 데이터 정렬과 필터도 보여주고 있네.",
     content: {
       type: "component",
       component: JsonApiIntro
@@ -132,14 +131,6 @@ export const scenarioData: ScenarioItem[] = [
   },
   {
     id: 12,
-    text: "데이터 정렬과 필터링을 보여주는 상황이구나 삭제 기능은 어디있지?",
-    content: {
-      type: "component",
-      component: JsonApiSortFilter
-    }
-  },
-  {
-    id: 13,
     text: "아, 삭제 기능은 개별 구현해서 사용자 인터랙션 흐름을 분리했네.",
     content: {
       type: "component",
@@ -147,7 +138,7 @@ export const scenarioData: ScenarioItem[] = [
     }
   },
   {
-    id: 14,
+    id: 13,
     text: "시각적으로 보여줄 수 있는 부분도 추가한 부분이네. 유명한 포켓몬 API 데이터를 가져왔어. 도감 형식 구성에서 이미지, 속성, 능력치 등을 시각적으로 잘 정리했어.",
     content: {
       type: "component",
@@ -155,7 +146,7 @@ export const scenarioData: ScenarioItem[] = [
     }
   },
   {
-    id: 15,
+    id: 14,
     text: "쇼케이스는 외부 데이터를 깔끔하게 연결하는 역할이었다면, 이 컴포넌트는 데이터를 시각적으로 풀어내며 인터랙션 연출과 능력 강조를 동시에 보여주는 역할을 담당하네.",
     content: {
       type: "component",
@@ -163,7 +154,7 @@ export const scenarioData: ScenarioItem[] = [
     }
   },
   {
-    id: 16,
+    id: 15,
     text: "전체적으로 UI/UX에 대한 신경을 많이 썼고 데이터의 연결 성이나 활용도를 보여줄려는 생각을 한 느낌이야. '김민겸'지원자는 기억해 둬야 겠어.",
     content: {
       type: "image",
@@ -173,7 +164,7 @@ export const scenarioData: ScenarioItem[] = [
   },
   // 마무리
   {
-    id: 17,
+    id: 16,
     text: "여기까지 읽어주셔서 정말 감사합니다.\n기술 스택과 프로젝트 흐름 외에도 궁금한 점이 있으시다면 언제든지 연락 부탁드립니다.",
     content: {
       type: "component",

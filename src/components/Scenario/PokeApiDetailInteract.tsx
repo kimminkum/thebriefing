@@ -73,14 +73,18 @@ const PokeApiDetailInteract: React.FC = () => {
       </SelectRow>
 
       <Swiper
-        spaceBetween={8} // ✅ 모바일 기준
+        spaceBetween={12}
         slidesPerView={1.2}
         grabCursor
         autoplay={{ delay: 2500, disableOnInteraction: false }}
         breakpoints={{
-          500: {
-            slidesPerView: 1.55, // PC일 땐 더 많은 카드 보여주기
-            spaceBetween: 10 // ✅ PC일 때는 약간의 간격만 유지
+          640: {
+            slidesPerView: 1.6,
+            spaceBetween: 20
+          },
+          768: {
+            slidesPerView: 2,
+            spaceBetween: 24
           }
         }}
       >

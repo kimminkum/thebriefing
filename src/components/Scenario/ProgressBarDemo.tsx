@@ -1,85 +1,99 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 
-// width 33% → 66% → 33% 반복
+// 프로그레스 바 애니메이션
 const progressAnimation = keyframes`
-  0% {
-    width: 11%;
-  }
-  100% {
-    width: 99%;
-  }
+  0% { width: 0%; }
+  100% { width: 100%; }
 `;
 
+// 전체 Wrapper
 const Wrapper = styled.div`
-  padding: calc(30 / 654 * 100%);
-  max-width: 690px;
-  margin: 0 auto;
-  background-color: #fefae0;
-  border: 2px solid #e0c68c;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  padding: calc(36 / 690 * 100%);
+  max-width: 700px;
+  margin: 2rem auto;
+  background: linear-gradient(145deg, #fffef7, #fcf5e7);
+  border: 1px solid #e0c68c;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
 `;
 
+// 타이틀
 const Title = styled.h3`
-  font-weight: 600;
-  margin-bottom: calc(20 / 586 * 100%);
-  color: #5d4037;
+  font-weight: 700;
+  color: #4e342e;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+
+  &::before {
+    content: "📍";
+    margin-right: 0.5rem;
+  }
 `;
 
+// 서브 타이틀
 const SubTitle = styled.p`
   display: flex;
-  align-items: flex-start;
-  gap: calc(8 / 586 * 100%);
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
   color: #888;
-  margin-bottom: calc(20 / 586 * 100%);
+  margin-bottom: 1.5rem;
+
+  &::before {
+    content: "💡";
+    font-size: 1.1rem;
+  }
 `;
 
+// 리스트
 const DescriptionList = styled.ul`
-  margin-bottom: calc(20 / 586 * 100%);
-  color: #333;
-  padding-left: calc(10 / 576 * 100%);
-  list-style-type: disc;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 `;
 
 const ListItem = styled.li`
-  margin-bottom: calc(10 / 576 * 100%);
-  will-change: transform;
-  display: flex;
-  gap: 4px;
+  padding: 0.85rem 1rem;
+  background: #fff;
+  border-left: 4px solid #4caf50;
+  border-radius: 8px;
+  color: #333;
+  font-size: 0.95rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+  line-height: 1.5;
 
   &::before {
-    content: "·";
+    content: "✔ ";
+    color: #4caf50;
+    margin-right: 0.3rem;
   }
 `;
 
+// 진행 바
 const BarWrapper = styled.div`
   width: 100%;
-  height: 4px;
-  background-color: #e0e0e0;
-  border-radius: calc(6 / 586 * 100%);
+  height: 6px;
+  background-color: #ddd;
+  border-radius: 12px;
   overflow: hidden;
-  position: relative;
 `;
 
 const BarInner = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
   height: 100%;
-  background: linear-gradient(to right, #2b4d73, #4c6f91);
-  animation: ${progressAnimation} 3s linear infinite;
-  transform: translateZ(0);
+  background: linear-gradient(to right, #2196f3, #00bcd4);
+  animation: ${progressAnimation} 3s infinite alternate ease-in-out;
+  width: 50%; // 실제로는 퍼센트 props를 받아도 됩니다
 `;
 
 const ProgressBarDemo: React.FC = () => {
   return (
     <Wrapper className="font-20">
-      <Title className="font-28">📍 진행 상황 표시</Title>
-      <SubTitle className="font-22">
-        <span role="img" aria-label="lightbulb">
-          💡
-        </span>
+      <Title className="font-28">진행 상황 표시</Title>
+      <SubTitle>
         이 컴포넌트는 사용자 경험을 고려하여 제작된 예시입니다
       </SubTitle>
 
@@ -88,18 +102,17 @@ const ProgressBarDemo: React.FC = () => {
           이 컴포넌트는 사용자의 이해를 돕기 위해 만든 예시입니다.
         </ListItem>
         <ListItem>
-          프로그레스바는 사용자가 시나리오 흐름 중 현재 어느 위치에 있는지를
-          직관적으로 파악할 수 있게 도와줍니다.
+          프로그레스바는 시나리오 중 현재 위치를 시각적으로 안내합니다.
         </ListItem>
         <ListItem>
-          사용자는 진행 상황을 시각적으로 인지함으로써 앞으로 남은 콘텐츠의 양을
-          유추할 수 있고, 이는 몰입감을 높이는 데 중요한 역할을 합니다.
+          사용자는 진행 상황을 인지함으로써 남은 양을 예측하며 몰입할 수
+          있습니다.
         </ListItem>
         <ListItem>
-          상단 고정형 UI는 페이지 내 시선 이동을 최소화하면서도 지속적인
-          피드백을 제공하여 UX의 안정성을 높입니다.
+          상단 고정형 UI는 시선 이동을 줄여 안정성을 높입니다.
         </ListItem>
       </DescriptionList>
+
       <BarWrapper>
         <BarInner />
       </BarWrapper>

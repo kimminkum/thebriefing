@@ -11,14 +11,55 @@ export const Container = styled.div`
   max-width: 720px;
   margin: 2rem auto;
 `;
-
-// 🔹 제목 (h3, h2 등 상황에 따라)
 export const Title = styled.h3`
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   font-weight: bold;
+  color: #2f2f2f;
+  margin-bottom: 0.4rem;
+`;
+
+export const SubTitle = styled.p`
+  font-size: 1rem;
+  color: #555;
   margin-bottom: 1rem;
-  color: #2c3e50;
-  text-align: center;
+
+  strong {
+    color: #2b4d73;
+  }
+`;
+
+export const ListItem = styled.li`
+  display: flex;
+  justify-content: space-between;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 0.75rem;
+  font-size: 0.9rem;
+  align-items: center;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: #f5f5f5;
+  }
+`;
+
+export const Cell = styled.span<{
+  width?: string;
+  grow?: boolean;
+  ellipsis?: boolean;
+  isAuthor?: boolean;
+}>`
+  ${({ width }) => (width ? `width: ${width};` : "")}
+  ${({ grow }) => grow && "flex: 1;"}
+  ${({ ellipsis }) =>
+    ellipsis &&
+    `
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  `}
+  ${({ isAuthor }) => isAuthor && "padding-left: 6px;"}
 `;
 
 // 🔹 버튼
@@ -37,39 +78,6 @@ export const List = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 8px;
-`;
-
-// 🔹 개별 행 (li 역할)
-export const ListItem = styled.li`
-  display: flex;
-  justify-content: space-between;
-  background: #fdfdfd;
-  border: 1px solid #eee;
-  padding: 8px 12px;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  align-items: center;
-`;
-
-// 🔹 셀 (span 역할)
-export const Cell = styled.span<{
-  width?: string;
-  grow?: boolean;
-  ellipsis?: boolean;
-  isAuthor?: boolean;
-  textcenter?: boolean;
-}>`
-  ${({ width }) => (width ? `width: ${width}; max-width: ${width};` : "")}
-  ${({ grow }) => grow && "flex: 1;"}
-  ${({ ellipsis }) =>
-    ellipsis &&
-    `
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  `}
-  ${({ isAuthor }) => isAuthor && "padding-left: 6px;"}
-  text-align: ${({ textcenter }) => (textcenter ? "center" : "left")};
 `;
 
 // 🔹 Header 행

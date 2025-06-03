@@ -34,20 +34,13 @@ export const ShowcaseWrapper = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-
 export const SelectRow = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  flex-wrap: nowrap;
   justify-content: center;
-  margin-bottom: 1rem;
-
-  @media (max-width: 480px) {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
+  gap: calc(12 / 654 * 100%);
+  flex-wrap: wrap;
+  margin-bottom: calc(24 / 654 * 100%);
 `;
 
 export const SelectTitle = styled.label`
@@ -68,30 +61,18 @@ export const StyledSelect = styled.select`
     max-width: 200px;
   }
 `;
-
 export const CardWrapper = styled.div<{ poketype?: string }>`
-  width: 320px;
+  width: 92%;
+  max-width: 320px;
+  margin: 0 auto;
+  padding: calc(20 / 654 * 100%);
   border-radius: 16px;
-  padding: 1rem;
-  text-align: center;
-  border: 1px solid #444;
   background: ${({ poketype }) =>
-    `linear-gradient(to bottom, ${
-      typeColorMap[poketype ?? "default"] || typeColorMap.default
+    `linear-gradient(to bottom right, ${
+      typeColorMap[poketype ?? "default"]
     }, #ffffff)`};
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
-  transition: 0.3s ease-in-out;
-  animation: ${bounceIn} 0.5s ease;
-
-  &:hover {
-    box-shadow: 0 0 12px
-      ${({ poketype }) => typeColorMap[poketype ?? "default"] || "#eee"};
-    transform: translateY(-4px);
-  }
-
-  @media (max-width: 480px) {
-    width: 90%;
-  }
+  border: 2px solid #ddd;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 `;
 
 export const NameBar = styled.div`
@@ -164,39 +145,40 @@ export const StatsBox = styled.div`
 export const StatRow = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: calc(10 / 654 * 100%);
+  gap: 8px;
 `;
 
 export const StatLabel = styled.div`
-  width: 90px;
-  font-size: 0.85rem;
-  font-weight: bold;
-  color: #444;
+  width: 100px;
+  font-weight: 600;
+  color: #333;
+  font-size: 0.75rem;
+  text-align: right;
 `;
 
 export const StatBarWrapper = styled.div`
+  position: relative;
   flex: 1;
   background: #eee;
-  border-radius: 10px;
-  overflow: hidden;
-  height: 12px;
-  position: relative;
+  border-radius: 6px;
+  height: 10px;
 `;
 
 export const StatBarFill = styled.div<{ percent: number }>`
-  width: ${({ percent }) => `${percent}%`};
-  background: linear-gradient(90deg, #4facfe, #00f2fe);
   height: 100%;
-  border-radius: 10px;
-  transition: width 0.3s ease-in-out;
+  width: ${({ percent }) => `${percent}%`};
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  border-radius: 6px;
+  transition: width 0.4s ease;
 `;
 
-export const StatValue = styled.span`
+export const StatValue = styled.div`
   position: absolute;
-  left: 8px;
+  right: 6px;
   top: 50%;
   transform: translateY(-50%);
   font-size: 0.7rem;
-  color: #111;
   font-weight: bold;
+  color: #111;
 `;

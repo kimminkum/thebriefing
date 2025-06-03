@@ -72,10 +72,10 @@ const JsonApiDelete = () => {
           <Cell grow ellipsis>
             제목
           </Cell>
-          <Cell width="50px">작성자</Cell>
-          <Cell width="50px" textcenter>
-            삭제
+          <Cell width="50px" ellipsis>
+            작성자
           </Cell>
+          <Cell width="50px">삭제</Cell>
         </Header>
         {posts.map((post) => (
           <ListItem key={post.id}>
@@ -83,7 +83,7 @@ const JsonApiDelete = () => {
             <Cell grow ellipsis>
               {post.title}
             </Cell>
-            <Cell width="50px" isAuthor>
+            <Cell width="50px" isAuthor ellipsis>
               {post.username}
             </Cell>
             <Cell width="50px">

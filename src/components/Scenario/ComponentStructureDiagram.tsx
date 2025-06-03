@@ -1,67 +1,98 @@
-// src/components/ComponentStructureDiagram.tsx
 import React from "react";
 import styled from "styled-components";
 
-const DiagramWrapper = styled.div`
-  margin-top: calc(-60 / 654 * 100%);
-  background: #fdfaf5;
-  border: 2px solid #888;
-  border-radius: 12px;
-  padding: calc(20 / 654 * 100%) calc(60 / 654 * 100%);
-  color: #333;
-  max-width: 100%;
+const TreeWrapper = styled.div`
+  background: #fdfdfc;
+  padding: calc(24 / 720 * 100%);
+  border-radius: calc(16 / 720 * 100%);
+  border: 2px solid #ddd;
+  max-width: 720px;
+  margin: calc(32 / 720 * 100%) auto;
 `;
 
-const Node = styled.div<{ $isRoot?: boolean }>`
-  padding: calc(18 / 526 * 100%) calc(32 / 526 * 100%);
-  border: 2px solid ${({ $isRoot }) => ($isRoot ? "#4a90e2" : "#aaa")};
-  background: ${({ $isRoot }) => ($isRoot ? "#e6f2ff" : "#fff")};
-  border-radius: 8px;
-  font-weight: 600;
-  text-align: left;
-  margin-left: ${({ $isRoot }) => ($isRoot ? "0px" : "calc(40 / 690 * 100%)")};
-  margin-bottom: calc(20 / 526 * 100%);
-  box-shadow: 2px 2px 0 #999;
-  position: relative;
-  width: 50%;
-  line-height: 1 !important;
+const TreeList = styled.ul`
+  list-style: none;
+  padding-left: calc(24 / 720 * 100%);
+  border-left: 2px solid #ccc;
+`;
 
-  + .sub-branch {
-    margin-left: calc(60 / 526 * 100%);
+const TreeNode = styled.li<{ $isRoot?: boolean }>`
+  position: relative;
+  margin: calc(16 / 720 * 100%) 0;
+  padding-left: ${({ $isRoot }) => ($isRoot ? "0" : "calc(16 / 720 * 100%)")};
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: calc(-24 / 720 * 100%);
+    top: calc(14 / 720 * 100%);
+    width: calc(16 / 720 * 100%);
+    height: 2px;
+    background: #ccc;
+    display: ${({ $isRoot }) => ($isRoot ? "none" : "block")};
   }
 `;
 
-const SubBranch: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <div className="sub-branch">{children}</div>
-);
+const NodeBox = styled.div<{ $isRoot?: boolean }>`
+  padding: calc(12 / 720 * 100%) calc(20 / 720 * 100%);
+  background: ${({ $isRoot }) => ($isRoot ? "#e6f2ff" : "#fff")};
+  border: 2px solid ${({ $isRoot }) => ($isRoot ? "#4a90e2" : "#aaa")};
+  border-radius: calc(8 / 720 * 100%);
+  font-weight: 600;
+  color: #333;
+  display: inline-block;
+  box-shadow: 2px 2px 0 #bbb;
+
+  &:hover {
+    background: ${({ $isRoot }) => ($isRoot ? "#d0e9ff" : "#f9f9f9")};
+  }
+`;
 
 const ComponentStructureDiagram: React.FC = () => {
   return (
-    <DiagramWrapper className="font-16">
-      <Node $isRoot>Main.tsx</Node>
+    <TreeWrapper className="font-16">
+      <TreeList>
+        <TreeNode $isRoot>
+          <NodeBox $isRoot>Main.tsx</NodeBox>
+          <TreeList>
+            <TreeNode>
+              <NodeBox>TextWindow</NodeBox>
+              <TreeList>
+                <TreeNode>
+                  <NodeBox>ToggleButton</NodeBox>
+                </TreeNode>
+                <TreeNode>
+                  <NodeBox>BackButton</NodeBox>
+                </TreeNode>
+              </TreeList>
+            </TreeNode>
 
-      <Node>TextWindow</Node>
+            <TreeNode>
+              <NodeBox>CenterWindow</NodeBox>
+            </TreeNode>
 
-      <SubBranch>
-        <Node className="sub-branch">ToggleButton</Node>
+            <TreeNode>
+              <NodeBox>HelpWindow</NodeBox>
+              <TreeList>
+                <TreeNode>
+                  <NodeBox>TutorialBtn</NodeBox>
+                </TreeNode>
+                <TreeNode>
+                  <NodeBox>TypingSpeed</NodeBox>
+                </TreeNode>
+                <TreeNode>
+                  <NodeBox>ExitBtn</NodeBox>
+                </TreeNode>
+              </TreeList>
+            </TreeNode>
 
-        <Node className="sub-branch">BackButton</Node>
-      </SubBranch>
-
-      <Node>CenterWindow</Node>
-
-      <Node>HelpWindow</Node>
-
-      <SubBranch>
-        <Node className="sub-branch">TutorialBtn</Node>
-
-        <Node className="sub-branch">TypingSpeed</Node>
-
-        <Node className="sub-branch">ExitBtn</Node>
-      </SubBranch>
-
-      <Node>UiWindow</Node>
-    </DiagramWrapper>
+            <TreeNode>
+              <NodeBox>UiWindow</NodeBox>
+            </TreeNode>
+          </TreeList>
+        </TreeNode>
+      </TreeList>
+    </TreeWrapper>
   );
 };
 
