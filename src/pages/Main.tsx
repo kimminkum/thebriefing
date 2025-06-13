@@ -1,5 +1,15 @@
 import React, { useRef, useState, useCallback } from "react";
 import styled from "styled-components";
+
+import { useRecoilState, useRecoilValue } from "recoil";
+import {
+  currentScenarioIdState,
+  textChunkIndexState,
+  scenarioProgressState
+} from "../atoms/scenarioAtom";
+
+import { useUIStore } from "../stores/uiStore";
+
 import CenterWindow from "../components/Window/CenterWindow";
 import HelpWindow from "../components/Window/HelpWindow";
 import TextWindow from "../components/Window/TextWindow";
@@ -7,7 +17,6 @@ import UiWindow from "../components/Window/UiWindow";
 import TutorialModal from "../components/TutorialModal";
 
 import { scenarioData } from "../data/scenarioData";
-
 const AppWrapper = styled.div`
   width: 100%;
   height: 100dvh;
@@ -46,33 +55,36 @@ const ProgressBarInner = styled.div<{ $percent: number }>`
 `;
 
 const Main: React.FC = () => {
-  const [currentId, setCurrentId] = useState<number>(1);
-  const [textIndex, setTextIndex] = useState(0);
-  const [isTyping, setIsTyping] = useState<boolean>(false);
-  const [typingSpeed, setTypingSpeed] = useState<number>(10);
-  const [showTutorial, setShowTutorial] = useState<boolean>(true);
-  const [isUiMode, setIsUiMode] = useState<boolean>(false);
-  const [isTextVisible, setIsTextVisible] = useState<boolean>(true);
-  const [isClickLocked, setIsClickLocked] = useState<boolean>(false);
-  const BLINK_DURATION = 611; // 0.6초 동안의 애니메이션 지연 시간
-  const textWindowRef = useRef<any>(null); // 👈 ref 선언
+  const [currentId, setCurrentId] = useRecoilState(currentScenarioIdState);
+  const [textIndex, setTextIndex] = useRecoilState(textChunkIndexState);
+  const progress = useRecoilValue(scenarioProgressState);
 
-  const toggleUi = () => setIsUiMode((prev) => !prev);
-  const closeTutorial = () => setShowTutorial(false);
+  const isTyping = useState(false)[0]; // TextWindow 내부 로컬 상태만 유지
+  const setIsTyping = useState(false)[1];
+  const typingSpeed = useUIStore((s) => s.typingSpeed);
+  const setTypingSpeed = useUIStore((s) => s.setTypingSpeed);
+  const showTutorial = useUIStore((s) => s.showTutorial);
+  const toggleTutorial = useUIStore((s) => s.toggleTutorial);
+  const isUiMode = useUIStore((s) => s.isUiMode);
+  const toggleUiMode = useUIStore((s) => s.toggleUiMode);
+  const isTextVisible = useUIStore((s) => s.textWindowVisible);
+  const toggleTextWindowVisible = useUIStore((s) => s.toggleTextWindowVisible);
+  const isClickLocked = useUIStore((s) => s.isClickLocked);
+  const lockClickTemporarily = useUIStore((s) => s.lockClickTemporarily);
+
+  const BLINK_DURATION = 611;
+  const textWindowRef = useRef<any>(null);
 
   const playSound = useCallback(() => {
     const audio = new Audio("/sound/papersound.mp3");
     audio.currentTime = 0;
-    audio.play().catch((e) => {
-      console.warn("음성 재생 차단됨:", e.message);
-    });
+    audio.play().catch(() => {});
   }, []);
 
   const handleClick = () => {
-    if (!isTextVisible || isClickLocked || isUiMode) return;
+    if (showTutorial || !isTextVisible || isClickLocked || isUiMode) return;
 
     if (isTyping) {
-      // 👇 타이핑 중이라면 강제 완료
       textWindowRef.current?.forceFinishTyping?.();
       return;
     }
@@ -81,34 +93,21 @@ const Main: React.FC = () => {
     if (!currentItem) return;
 
     const text = currentItem.text || "";
-    const textChunks = text.split(/(?<=[.!?])\s+/).filter(Boolean); // ✅ 수정됨
+    const chunks = text.split(/(?<=[.!?])\s+/).filter(Boolean);
 
-    // 아직 보여줄 텍스트가 남아있으면 textIndex 증가
-    if (textIndex < textChunks.length - 1) {
-      setTextIndex((prev) => prev + 1);
+    if (textIndex < chunks.length - 1) {
+      setTextIndex((i) => i + 1);
       lockClickTemporarily();
       return;
     }
 
-    // 다음 ID가 존재하면 진행 (중복 증가 방지)
-    const currentIndex = scenarioData.findIndex(
-      (item) => item.id === currentId
-    );
-    if (currentIndex < scenarioData.length - 1) {
-      const nextId = scenarioData[currentIndex + 1].id;
+    const idx = scenarioData.findIndex((i) => i.id === currentId);
+    if (idx < scenarioData.length - 1) {
       setTextIndex(0);
-      playSound(); // ✅ 사운드 그대로 유지
+      playSound();
       lockClickTemporarily();
-
-      setTimeout(() => {
-        setCurrentId(nextId);
-      }, 300);
+      setCurrentId(scenarioData[idx + 1].id);
     }
-  };
-
-  const lockClickTemporarily = () => {
-    setIsClickLocked(true);
-    setTimeout(() => setIsClickLocked(false), 611);
   };
 
   const goToPrevious = () => {
@@ -136,33 +135,31 @@ const Main: React.FC = () => {
     <AppWrapper onClick={handleClick}>
       <Container onClick={(e) => e.stopPropagation()}>
         <ProgressBarWrapper>
-          <ProgressBarInner
-            $percent={(currentId / scenarioData.length) * 100}
-          />
+          <ProgressBarInner $percent={progress} />
         </ProgressBarWrapper>
 
-        {showTutorial && <TutorialModal onClose={closeTutorial} />}
+        {showTutorial && <TutorialModal onClose={toggleTutorial} />}
         <CenterWindow
           currentId={currentId}
           textIndex={textIndex}
           handleClick={handleClick}
         />
         <HelpWindow
-          toggleUi={toggleUi}
+          toggleUi={toggleUiMode}
           $isUiMode={isUiMode}
           typingSpeed={typingSpeed}
           setTypingSpeed={setTypingSpeed}
-          reopenTutorial={() => setShowTutorial(true)}
+          reopenTutorial={toggleTutorial}
         />
         <TextWindow
-          ref={textWindowRef} // 👈 ref 연결
+          ref={textWindowRef}
           currentId={currentId}
           handleClick={handleClick}
           textIndex={textIndex}
           typingSpeed={typingSpeed}
           setIsTyping={setIsTyping}
           $isVisible={isTextVisible}
-          setIsVisible={setIsTextVisible}
+          setIsVisible={toggleTextWindowVisible}
           isTyping={isTyping}
           goToPrevious={goToPrevious}
           blinkDuration={BLINK_DURATION}
@@ -171,7 +168,7 @@ const Main: React.FC = () => {
             scenarioData.findIndex((item) => item.id === currentId) > 0
           }
         />
-        <UiWindow toggleUi={toggleUi} />
+        <UiWindow toggleUi={toggleUiMode} />
       </Container>
     </AppWrapper>
   );
