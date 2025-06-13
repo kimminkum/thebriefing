@@ -9,7 +9,7 @@ interface HelpWindowProps {
   toggleUi: () => void;
   $isUiMode: boolean;
   typingSpeed: number;
-  setTypingSpeed: React.Dispatch<React.SetStateAction<number>>;
+  setTypingSpeed: (speed: number) => void;
   reopenTutorial: () => void;
 }
 
