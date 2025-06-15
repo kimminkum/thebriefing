@@ -7,6 +7,10 @@ const bounceIn = keyframes`
   100% { transform: scale(1); }
 `;
 
+const spin = keyframes`
+  to { transform: rotate(360deg); }
+`;
+
 export const typeColorMap: Record<string, string> = {
   normal: "#DCDCDC",
   fire: "#FF7043",
@@ -181,4 +185,53 @@ export const StatValue = styled.div`
   font-size: 0.7rem;
   font-weight: bold;
   color: #111;
+`;
+
+export const PokeSpinner = styled.div`
+  width: 50px;
+  height: 50px;
+  border: 5px solid #fff;
+  border-radius: 50%;
+  background: red;
+  box-shadow: inset 0 0 0 5px black;
+  position: relative;
+  animation: ${spin} 1s linear infinite;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: black;
+    transform: translateY(-50%);
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    background: #fff;
+    border: 3px solid black;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+`;
+
+// 3) 로딩·에러 공통 래퍼
+export const LoadingWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 0;
+`;
+export const LoadingText = styled.p`
+  margin-top: 12px;
+  color: #333;
+`;
+export const ErrorText = styled(LoadingText)`
+  color: #c00;
 `;

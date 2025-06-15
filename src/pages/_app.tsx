@@ -1,6 +1,7 @@
 // pages/_app.tsx
+import React, { useEffect } from "react";
 import type { AppProps } from "next/app";
-import { useEffect } from "react";
+import { RecoilRoot } from "recoil";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import GlobalFonts from "../styles/GlobalFonts";
 import GlobalStyles from "../styles/GlobalStyles";
@@ -37,13 +38,15 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <JsonDataProvider>
-        <GlobalFonts />
-        <GlobalStyles />
-        <Component {...pageProps} />
-      </JsonDataProvider>
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    <RecoilRoot>
+      <QueryClientProvider client={queryClient}>
+        <JsonDataProvider>
+          <GlobalFonts />
+          <GlobalStyles />
+          <Component {...pageProps} />
+        </JsonDataProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </RecoilRoot>
   );
 }
