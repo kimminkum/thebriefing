@@ -4,6 +4,7 @@ import React from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import Button from "../Button";
+import { SkeletonTable } from "./SkeletonTable";
 import {
   Container,
   Title,
@@ -70,7 +71,9 @@ export default function JsonApiDelete() {
   if (isLoading) {
     return (
       <Container onClick={(e) => e.stopPropagation()}>
-        <p className="font-16">⏳ 로딩 중…</p>
+        {/* 로딩 중에는 SkeletonTable 보여주기 */}
+        <Title className="font-20">게시글 목록 로딩 중</Title>
+        <SkeletonTable rows={5} />
       </Container>
     );
   }

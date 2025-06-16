@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { SkeletonTable } from "./SkeletonTable";
 
 import {
   Container,
@@ -80,7 +81,9 @@ export default function JsonApiIntro() {
   if (isLoading) {
     return (
       <Container onClick={(e) => e.stopPropagation()}>
-        <p className="font-16">⏳ 로딩 중…</p>
+        {/* 로딩 중에는 SkeletonTable 보여주기 */}
+        <Title className="font-20">게시글 목록 로딩 중</Title>
+        <SkeletonTable rows={5} />
       </Container>
     );
   }
