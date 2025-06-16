@@ -1,11 +1,13 @@
 import React, { useState, useMemo } from "react";
-import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-import Button from "../Button";
+import axios from "axios";
 
 import {
   Container,
   Title,
+  Controls,
+  Input,
+  Select,
   List,
   ListItem,
   Cell,
@@ -16,10 +18,10 @@ interface Post {
   id: number;
   title: string;
   userId: number;
-  username?: string;
+  username: string;
 }
 
-// ✅ API 호출 함수는 순수하게 유지
+// API 호출 로직
 const fetchPosts = async (): Promise<Post[]> => {
   const [postsRes, usersRes] = await Promise.all([
     axios.get("https://jsonplaceholder.typicode.com/posts"),
@@ -31,97 +33,111 @@ const fetchPosts = async (): Promise<Post[]> => {
     userMap[u.id] = u.username;
   });
 
-  return postsRes.data.map((post: Post) => ({
+  // 최초 100개만, 사용자명 매핑
+  return postsRes.data.slice(0, 100).map((post: Post) => ({
     ...post,
     username: userMap[post.userId]
   }));
 };
 
-const JsonApiQueryExtended: React.FC = () => {
-  const [filterUserId, setFilterUserId] = useState<number | null>(null);
-  const [isSorted, setIsSorted] = useState(false);
-
-  const { data, isLoading, error } = useQuery<Post[]>({
+export default function JsonApiIntro() {
+  // React Query
+  const {
+    data: posts = [],
+    isLoading,
+    isError,
+    error
+  } = useQuery<Post[]>({
     queryKey: ["posts"],
     queryFn: fetchPosts,
-    staleTime: 1000 * 60 * 5
+    staleTime: 1000 * 60 * 5,
+    retry: 1
   });
 
-  // ✅ 필터 + 정렬 + slice(0,10)를 메모이제이션
-  const filteredData = useMemo(() => {
-    if (!data) return [];
-    let temp = [...data];
-    if (filterUserId) {
-      temp = temp.filter((post) => post.userId === filterUserId);
-    }
-    if (isSorted) {
-      temp.sort((a, b) => a.title.localeCompare(b.title));
-    }
-    return temp.slice(0, 10);
-  }, [data, filterUserId, isSorted]);
+  // 필터·정렬 상태
+  const [search, setSearch] = useState("");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 
-  const uniqueUserIds = useMemo(() => {
-    return Array.from(new Set(data?.map((p) => p.userId) || []));
-  }, [data]);
+  // 필터링 + 정렬 적용된 배열
+  const displayed = useMemo(() => {
+    let arr = posts;
+
+    // 1) 제목 검색 필터
+    if (search.trim()) {
+      const q = search.trim().toLowerCase();
+      arr = arr.filter((p) => p.title.toLowerCase().includes(q));
+    }
+
+    // 2) ID 기준 정렬
+    arr = [...arr].sort((a, b) =>
+      sortOrder === "asc" ? a.id - b.id : b.id - a.id
+    );
+
+    return arr;
+  }, [posts, search, sortOrder]);
+
+  // 로딩·에러 처리
+  if (isLoading) {
+    return (
+      <Container onClick={(e) => e.stopPropagation()}>
+        <p className="font-16">⏳ 로딩 중…</p>
+      </Container>
+    );
+  }
+  if (isError) {
+    return (
+      <Container onClick={(e) => e.stopPropagation()}>
+        <p className="font-16" style={{ color: "#d9534f" }}>
+          ❌ 데이터를 불러오지 못했습니다.
+        </p>
+      </Container>
+    );
+  }
 
   return (
     <Container onClick={(e) => e.stopPropagation()}>
-      <Title>📡 React Query + 정렬/필터 예시</Title>
-      <p className="font-16" style={{ margin: "1rem 0" }}>
-        React Query로 데이터를 가져오고, useMemo로 필터/정렬된 리스트를
-        출력합니다.
-      </p>
-      <p
-        className="font-16"
-        style={{
-          color: "#d9534f",
-          marginBottom: "1rem"
-        }}
-      >
-        ⚠️ 이 영역은 데이터 시연용이며, 외부 클릭 제한이 있습니다. <br />
-        아래 텍스트창을 클릭하세요.
-      </p>
+      <Title className="font-20">📡 게시글 목록</Title>
 
-      <div style={{ marginBottom: "1rem" }}>
-        <span>작성자 ID 필터: </span>
-        <select
-          onChange={(e) =>
-            setFilterUserId(e.target.value ? Number(e.target.value) : null)
-          }
-          value={filterUserId ?? ""}
-        >
-          <option value="">전체</option>
-          {uniqueUserIds.map((uid) => (
-            <option key={uid} value={uid}>
-              User {uid}
-            </option>
-          ))}
-        </select>
-      </div>
+      {/* 1) 검색 + 정렬 컨트롤 */}
+      <Controls>
+        <label className="font-16">
+          제목 검색:
+          <Input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="키워드 입력"
+          />
+        </label>
+        <label className="font-16">
+          ID 정렬:
+          <Select
+            value={sortOrder}
+            onChange={(e) => setSortOrder(e.target.value as "asc" | "desc")}
+          >
+            <option value="asc">오름차순</option>
+            <option value="desc">내림차순</option>
+          </Select>
+        </label>
+      </Controls>
 
-      <Button onClick={() => setIsSorted((prev) => !prev)} $variant="primary">
-        제목순 정렬 {isSorted ? "해제" : "적용"}
-      </Button>
-
-      {isLoading && <p>⏳ 로딩 중...</p>}
-      {error && <p>❌ 데이터를 불러오지 못했습니다.</p>}
-
+      {/* 2) 리스트 렌더링 */}
       <List>
         <Header>
-          <Cell width="40px">ID</Cell>
+          <Cell width="60px">ID</Cell>
           <Cell grow ellipsis>
             제목
           </Cell>
-          <Cell width="60px">작성자</Cell>
+          <Cell width="100px">작성자</Cell>
         </Header>
 
-        {filteredData.map((post) => (
+        {displayed.map((post) => (
           <ListItem key={post.id}>
-            <Cell width="40px">{post.id}</Cell>
+            <Cell width="60px">{post.id}</Cell>
             <Cell grow ellipsis>
               {post.title}
             </Cell>
-            <Cell width="60px" isAuthor ellipsis>
+            <Cell width="100px" isAuthor ellipsis>
               {post.username}
             </Cell>
           </ListItem>
@@ -129,6 +145,4 @@ const JsonApiQueryExtended: React.FC = () => {
       </List>
     </Container>
   );
-};
-
-export default JsonApiQueryExtended;
+}
