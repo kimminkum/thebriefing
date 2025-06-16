@@ -10,8 +10,7 @@ import {
   List,
   ListItem,
   Cell,
-  Header,
-  ActionButton
+  Header
 } from "../../styles/StyledApiTable";
 
 interface Post {

@@ -105,7 +105,9 @@ export default function JsonApiIntro() {
           <Input
             type="text"
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setSearch(e.target.value)
+            }
             placeholder="키워드 입력"
           />
         </label>
@@ -113,7 +115,9 @@ export default function JsonApiIntro() {
           ID 정렬:
           <Select
             value={sortOrder}
-            onChange={(e) => setSortOrder(e.target.value as "asc" | "desc")}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+              setSortOrder(e.target.value as "asc" | "desc")
+            }
           >
             <option value="asc">오름차순</option>
             <option value="desc">내림차순</option>
