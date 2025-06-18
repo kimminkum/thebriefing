@@ -23,7 +23,8 @@ interface Post {
   userId: number;
   username?: string;
 }
-type Mode = "intro" | "delete";
+export type Mode = "intro" | "delete";
+
 interface Props {
   mode: Mode;
 }
