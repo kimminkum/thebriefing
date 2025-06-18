@@ -36,6 +36,9 @@ const LastPage: React.FC = () => {
   const goToGitHub = () => {
     window.open("https://github.com/kimminkum/thebriefing", "_blank");
   };
+  const goToSecond = () => {
+    window.open("https://kimminkum.github.io/react-pj-second/", "_blank");
+  };
 
   return (
     <Wrapper className="font-24">
@@ -43,6 +46,7 @@ const LastPage: React.FC = () => {
       <StyledBtn onClick={goToDatapage}>🔍 DataPage로 이동</StyledBtn>
       <StyledBtn onClick={goToStart}>🔁 처음부터 다시 보기</StyledBtn>
       <StyledBtn onClick={goToGitHub}>🛠 GitHub 소스 보기</StyledBtn>
+      <StyledBtn onClick={goToSecond}>도미노 클론 코딩</StyledBtn>
     </Wrapper>
   );
 };
