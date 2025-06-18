@@ -85,3 +85,26 @@ export const Header = styled(ListItem)`
   font-weight: bold;
   background: #f9f9f9;
 `;
+
+export const Controls = styled.div`
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+`;
+
+export const Input = styled.input`
+  margin-left: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.9rem;
+`;
+
+export const Select = styled.select`
+  margin-left: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.9rem;
+`;

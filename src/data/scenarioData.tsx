@@ -1,3 +1,4 @@
+import React from "react";
 import type { StaticImageData } from "next/image";
 import img1 from "@assets/img/scenario/img1.jpg";
 import img2 from "@assets/img/scenario/img2.png";
@@ -13,12 +14,9 @@ import FlowChunkDemo from "../components/Scenario/FlowChunkDemo";
 import TypingFlow from "../components/Scenario/TypingFlow";
 import LastPage from "../components/Scenario/Lastpage";
 import ScenarioFlowDiagram from "../components/Scenario/ScenarioFlowDiagram";
-import JsonApiIntro from "../components/Scenario/JsonApiIntro";
-import JsonApiDelete from "../components/Scenario/JsonApiDelete";
+import PostTable from "../components/Scenario/PostTable";
 import PokeApiShowcase from "../components/Scenario/PokeApiShowcase";
-import PokeApiDetailInteract from "@components/Scenario/PokeApiDetailInteract";
-// import MobileSpacingDemo from "../components/Scenario/MobileSpacingDemo"; 제거
-// import ScenarioDataSummary from "../components/Scenario/ScenarioDataSummary";제거
+import PokeApiDetailInteract from "../components/Scenario/PokeApiDetailInteract";
 
 export interface ScenarioItem {
   id: number;
@@ -126,7 +124,9 @@ export const scenarioData: ScenarioItem[] = [
     text: "리스트 상태는 React Context로 관리하고, API 호출은 React Query로 구성해 캐싱·로딩 처리까지 신경 쓴 흔적이 있어. 데이터 정렬과 필터도 보여주고 있네.",
     content: {
       type: "component",
-      component: JsonApiIntro
+      component: () => {
+        return <PostTable mode="intro" />;
+      }
     }
   },
   {
@@ -134,7 +134,9 @@ export const scenarioData: ScenarioItem[] = [
     text: "아, 삭제 기능은 개별 구현해서 사용자 인터랙션 흐름을 분리했네.",
     content: {
       type: "component",
-      component: JsonApiDelete
+      component: () => {
+        return <PostTable mode="delete" />;
+      }
     }
   },
   {

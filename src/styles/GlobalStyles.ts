@@ -60,6 +60,10 @@ const GlobalStyle = createGlobalStyle`
     line-height: calc(48 / 32);
   }
 
+  .go3489369143 {
+    display: none !important;
+  }
+
 
   .swiper{
     overflow: visible;

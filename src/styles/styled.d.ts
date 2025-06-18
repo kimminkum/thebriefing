@@ -1,4 +1,5 @@
 import "styled-components";
+declare module "recoil";
 
 declare module "styled-components" {
   export interface DefaultTheme {
