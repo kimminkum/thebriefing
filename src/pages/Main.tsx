@@ -15,8 +15,8 @@ import HelpWindow from "../components/Window/HelpWindow";
 import TextWindow from "../components/Window/TextWindow";
 import UiWindow from "../components/Window/UiWindow";
 import TutorialModal from "../components/TutorialModal";
-
 import { scenarioData } from "../data/scenarioData";
+
 const AppWrapper = styled.div`
   width: 100%;
   height: 100dvh;
@@ -59,8 +59,8 @@ const Main: React.FC = () => {
   const [textIndex, setTextIndex] = useRecoilState(textChunkIndexState);
   const progress = useRecoilValue(scenarioProgressState);
 
-  const isTyping = useState(false)[0]; // TextWindow 내부 로컬 상태만 유지
-  const setIsTyping = useState(false)[1];
+  const [isTyping, setIsTyping] = useState(false);
+
   const typingSpeed = useUIStore((s) => s.typingSpeed);
   const setTypingSpeed = useUIStore((s) => s.setTypingSpeed);
   const showTutorial = useUIStore((s) => s.showTutorial);
@@ -92,8 +92,7 @@ const Main: React.FC = () => {
     const currentItem = scenarioData.find((item) => item.id === currentId);
     if (!currentItem) return;
 
-    const text = currentItem.text || "";
-    const chunks = text.split(/(?<=[.!?])\s+/).filter(Boolean);
+    const chunks = currentItem.text.split(/(?<=[.!?])\s+/).filter(Boolean);
 
     if (textIndex < chunks.length - 1) {
       setTextIndex((i) => i + 1);
@@ -111,23 +110,20 @@ const Main: React.FC = () => {
   };
 
   const goToPrevious = () => {
-    const currentIndex = scenarioData.findIndex(
-      (item) => item.id === currentId
-    );
-    if (currentIndex === -1) return;
+    const idx = scenarioData.findIndex((i) => i.id === currentId);
+    if (idx === -1) return;
 
-    const currentItem = scenarioData[currentIndex];
-    const chunks = currentItem.text.split(/(?<=[.!?])\s+/).filter(Boolean); // ✅ 수정됨
+    const chunks = scenarioData[idx].text
+      .split(/(?<=[.!?])\s+/)
+      .filter(Boolean);
 
     if (textIndex > 0) {
-      setTextIndex((prev) => prev - 1);
-    } else if (currentIndex > 0) {
-      const prevItem = scenarioData[currentIndex - 1];
-      const prevTextChunks = prevItem.text
-        .split(/(?<=[.!?])\s+/)
-        .filter(Boolean); // ✅ 수정됨
-      setCurrentId(prevItem.id);
-      setTextIndex(prevTextChunks.length - 1);
+      setTextIndex((i) => i - 1);
+    } else if (idx > 0) {
+      const prev = scenarioData[idx - 1];
+      const prevChunks = prev.text.split(/(?<=[.!?])\s+/).filter(Boolean);
+      setCurrentId(prev.id);
+      setTextIndex(prevChunks.length - 1);
     }
   };
 
@@ -154,8 +150,8 @@ const Main: React.FC = () => {
         <TextWindow
           ref={textWindowRef}
           currentId={currentId}
-          handleClick={handleClick}
           textIndex={textIndex}
+          handleClick={handleClick}
           typingSpeed={typingSpeed}
           setIsTyping={setIsTyping}
           $isVisible={isTextVisible}

@@ -25,7 +25,7 @@ export const useUIStore = create<UIState>((set) => ({
   showTutorial: true,
   textWindowVisible: true,
   isClickLocked: false,
-  typingSpeed: 50,
+  typingSpeed: 10,
   isUiMode: false,
 
   toggleTutorial: () => set((s) => ({ showTutorial: !s.showTutorial })),

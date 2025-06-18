@@ -24,7 +24,7 @@ interface Props {
   canGoBack: boolean;
 }
 
-interface TextWindowHandle {
+export interface TextWindowHandle {
   forceFinishTyping: () => void;
 }
 

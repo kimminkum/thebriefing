@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Button from "../Button";
 import paper from "@assets/img/bg/handmade-paper.png";
 import { useRouter } from "next/router";
+import { useUIStore } from "../../stores/uiStore";
 
 interface HelpWindowProps {
   toggleUi: () => void;
@@ -106,10 +107,11 @@ const InputRange = styled.input`
 const HelpWindow: React.FC<HelpWindowProps> = ({
   $isUiMode,
   toggleUi,
-  typingSpeed,
-  setTypingSpeed,
   reopenTutorial
 }) => {
+  const typingSpeed = useUIStore((s) => s.typingSpeed);
+  const setTypingSpeed = useUIStore((s) => s.setTypingSpeed);
+
   const router = useRouter();
 
   const goTodatapage = () => {
@@ -129,14 +131,14 @@ const HelpWindow: React.FC<HelpWindowProps> = ({
         </DataBtn>
 
         <RangeLabel className="font-20">
-          ✍️ 타이핑 속도 조절
+          ✍️ 타이핑 속도: {typingSpeed}ms
           <InputRange
             type="range"
             min={2}
             max={20}
-            step={2}
-            value={22 - typingSpeed}
-            onChange={(e) => setTypingSpeed(22 - Number(e.target.value))}
+            step={1}
+            value={typingSpeed}
+            onChange={(e) => setTypingSpeed(Number(e.target.value))}
           />
         </RangeLabel>
       </div>
