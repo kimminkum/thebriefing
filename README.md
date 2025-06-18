@@ -59,7 +59,7 @@ React + TypeScript 기반의 인터랙티브 자기소개 포트폴리오
    - 모바일 및 데스크탑 대응
 
 ## 디렉토리 구조
-
+```
 src/
 ├─ components/
 │ ├─ Scenario/ # 시나리오용 컴포넌트
@@ -73,3 +73,4 @@ src/
 ├─ atoms/ # Recoil 상태
 ├─ hooks/ # 커스텀 훅 (useDebounce, useDebouncedCallback, usePokemon 등)
 └─ styles/ # 전역 스타일, 테마, 유틸 스타일
+```
