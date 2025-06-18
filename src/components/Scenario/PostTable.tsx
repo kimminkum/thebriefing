@@ -11,7 +11,8 @@ import {
   List,
   ListItem,
   Cell,
-  Header
+  Header,
+  Select
 } from "../../styles/StyledApiTable";
 import { SkeletonTable } from "./SkeletonTable";
 import { useDebounce } from "../../hooks/useDebounce";
@@ -32,6 +33,8 @@ interface Props {
 export default function PostTable({ mode }: Props) {
   const queryClient = useQueryClient();
   const ROWS_TO_SHOW = 10;
+  const [sortKey, setSortKey] = useState<"id" | "title">("id");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 
   // 1) 공통: 포스트+유저명 페칭
   const fetchPosts = async (): Promise<Post[]> => {
@@ -99,7 +102,20 @@ export default function PostTable({ mode }: Props) {
     300
   );
 
-  const visiblePosts = displayed.slice(0, ROWS_TO_SHOW);
+  const sorted = useMemo(() => {
+    return [...displayed].sort((a, b) => {
+      let res: number;
+      if (sortKey === "id") {
+        res = a.id - b.id;
+      } else {
+        // title 비교
+        res = a.title.localeCompare(b.title);
+      }
+      return sortOrder === "asc" ? res : -res;
+    });
+  }, [displayed, sortKey, sortOrder]);
+
+  const visiblePosts = sorted.slice(0, ROWS_TO_SHOW);
 
   // 로딩/에러 처리
   if (isLoading) {
@@ -136,6 +152,20 @@ export default function PostTable({ mode }: Props) {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
+
+          <Select
+            value={`${sortKey}_${sortOrder}`}
+            onChange={(e) => {
+              const [key, order] = (e.target.value as string).split("_");
+              setSortKey(key as "id" | "title");
+              setSortOrder(order as "asc" | "desc");
+            }}
+          >
+            <option value="id_asc">ID ↑</option>
+            <option value="id_desc">ID ↓</option>
+            <option value="title_asc">제목 ↑</option>
+            <option value="title_desc">제목 ↓</option>
+          </Select>
         </Controls>
       )}
 
