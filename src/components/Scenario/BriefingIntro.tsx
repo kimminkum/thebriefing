@@ -53,7 +53,6 @@ const BriefingIntro: React.FC<BriefingIntroProps> = ({ onlyStack }) => {
         )}
       </Item>
       <Item>재사용성, 유지보수를 생각해 컴포넌트화하였습니다.</Item>
-      <Item>일관성과 UI,UX 가이드를 신경썼습니다.</Item>
       <Item>상태전환 및 애니메이션의 전환 부분도 고려하였습니다.</Item>
       <Item>
         axios로 API 요청을 수행하고, 데이터를 기반으로 도감형 UI 및 리스트
@@ -66,6 +65,14 @@ const BriefingIntro: React.FC<BriefingIntroProps> = ({ onlyStack }) => {
       <Item>
         API 응답에 따라 UI 상태를 동적으로 렌더링하며, 비동기 흐름을 사용자
         중심으로 조절했습니다.
+      </Item>
+      <Item>
+        <p>
+          전역 상태 관리를 위해 <Highlight>Recoil</Highlight>·
+          <Highlight>Zustand</Highlight>
+          를, 서버 상태 관리를 위해 <Highlight>React Query</Highlight>를
+          활용했습니다.
+        </p>
       </Item>
     </Container>
   );
