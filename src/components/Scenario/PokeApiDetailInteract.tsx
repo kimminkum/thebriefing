@@ -1,8 +1,17 @@
-import React, { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
+import React, { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import Image from 'next/image';
+import type {
+  PokemonTypeResponse,
+  PokemonByTypeResponse,
+  PokemonDetail,
+  PokemonStat,
+  StatName,
+} from '../../types/pokemon';
+
 import {
   DexWrapper,
   SelectTitle,
@@ -21,27 +30,27 @@ import {
   PokeSpinner,
   LoadingWrapper,
   LoadingText,
-  ErrorText
-} from "../../styles/StyledPokeCard";
+  ErrorText,
+} from '../../styles/StyledPokeCard';
 
-const DEFAULT_TYPE = "electric";
+const DEFAULT_TYPE = 'electric';
 
 export default function PokeApiDetailInteract() {
   // 1) 타입 목록 조회
   const {
     data: types,
     isLoading: typesLoading,
-    isError: typesError
+    isError: typesError,
   } = useQuery({
-    queryKey: ["pokemonTypes"],
+    queryKey: ['pokemonTypes'],
     queryFn: async () => {
-      const { data } = await axios.get("https://pokeapi.co/api/v2/type");
-      // 'unknown'과 'stellar' 타입 제외
-      return (data.results as { name: string }[])
+      const { data } = await axios.get<PokemonTypeResponse>('https://pokeapi.co/api/v2/type');
+
+      return data.results
         .map((t) => t.name)
-        .filter((name) => name !== "unknown" && name !== "stellar");
+        .filter((name) => name !== 'unknown' && name !== 'stellar');
     },
-    staleTime: 1000 * 60 * 60 // 1시간 캐시
+    staleTime: 1000 * 60 * 60, // 1시간 캐시
   });
 
   // 2) 선택된 타입
@@ -51,20 +60,20 @@ export default function PokeApiDetailInteract() {
   const {
     data: pokemonList,
     isLoading: listLoading,
-    isError: listError
+    isError: listError,
   } = useQuery({
-    queryKey: ["pokemonByType", selectedType],
+    queryKey: ['pokemonByType', selectedType],
     queryFn: async () => {
-      const { data } = await axios.get(
-        `https://pokeapi.co/api/v2/type/${selectedType}`
+      const { data } = await axios.get<PokemonByTypeResponse>(
+        `https://pokeapi.co/api/v2/type/${selectedType}`,
       );
-      const sliced = (data.pokemon as any[]).slice(0, 7);
+      const sliced = data.pokemon.slice(0, 7);
       const details = await Promise.all(
-        sliced.map((p) => axios.get(p.pokemon.url).then((res) => res.data))
+        sliced.map((p) => axios.get<PokemonDetail>(p.pokemon.url).then((res) => res.data)),
       );
       return details;
     },
-    enabled: !!selectedType // 타입 선택 후에만 실행
+    enabled: !!selectedType, // 타입 선택 후에만 실행
   });
 
   if (typesLoading) {
@@ -105,9 +114,9 @@ export default function PokeApiDetailInteract() {
     hp: 255,
     attack: 190,
     defense: 230,
-    "special-attack": 194,
-    "special-defense": 230,
-    speed: 180
+    'special-attack': 194,
+    'special-defense': 230,
+    speed: 180,
   };
 
   return (
@@ -136,22 +145,26 @@ export default function PokeApiDetailInteract() {
         autoplay={{ delay: 2500, disableOnInteraction: false }}
         breakpoints={{
           640: { slidesPerView: 1.6, spaceBetween: 20 },
-          768: { slidesPerView: 2, spaceBetween: 24 }
+          768: { slidesPerView: 2, spaceBetween: 24 },
         }}
       >
-        {pokemonList?.map((data) => (
-          <SwiperSlide key={data.id}>
+        {pokemonList?.map((poke) => (
+          <SwiperSlide key={poke.id}>
             <CardWrapper poketype={selectedType}>
-              <NameBar>{data.name.toUpperCase()}</NameBar>
+              <NameBar>{poke.name.toUpperCase()}</NameBar>
               <ImageBox>
-                <img src={data.sprites.front_default} alt={data.name} />
+                <Image
+                  src={poke.sprites.front_default}
+                  alt={poke.name}
+                  width={96}
+                  height={96}
+                  unoptimized
+                />
               </ImageBox>
               <StatsBox>
-                {data.stats.map((stat: any) => {
-                  // stat.stat.name 을 maxStats의 키 중 하나로 단언
-                  const name = stat.stat.name as keyof typeof maxStats;
-                  const value = stat.base_stat as number;
-                  // 이제 name 으로 안전하게 인덱싱 가능
+                {poke.stats.map((stat: PokemonStat) => {
+                  const name: StatName = stat.stat.name;
+                  const value = stat.base_stat;
                   const max = maxStats[name];
                   const percent = Math.round((value / max) * 100);
                   return (
