@@ -15,7 +15,7 @@ module.exports = {
     // 필요에 따라 커스텀 룰 추가
     'semi': ['error', 'always'],
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
-    
+    'react/no-unescaped-entities': 'off',
     'no-irregular-whitespace': 'off',
   },
   ignorePatterns: ['node_modules/', '.next/'],

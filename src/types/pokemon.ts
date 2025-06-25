@@ -49,3 +49,10 @@ export interface PokemonDetail {
   };
   stats: PokemonStat[];
 }
+
+export type Stat = {
+  base_stat: number;
+  stat: {
+    name: string;
+  };
+};

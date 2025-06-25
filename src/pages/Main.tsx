@@ -1,21 +1,22 @@
-import React, { useRef, useState, useCallback } from "react";
-import styled from "styled-components";
+import React, { useRef, useState, useCallback } from 'react';
+import styled from 'styled-components';
 
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   currentScenarioIdState,
   textChunkIndexState,
-  scenarioProgressState
-} from "../atoms/scenarioAtom";
+  scenarioProgressState,
+} from '../atoms/scenarioAtom';
 
-import { useUIStore } from "../stores/uiStore";
+import { useUIStore } from '../stores/uiStore';
 
-import CenterWindow from "../components/Window/CenterWindow";
-import HelpWindow from "../components/Window/HelpWindow";
-import TextWindow from "../components/Window/TextWindow";
-import UiWindow from "../components/Window/UiWindow";
-import TutorialModal from "../components/TutorialModal";
-import { scenarioData } from "../data/scenarioData";
+import CenterWindow from '../components/Window/CenterWindow';
+import HelpWindow from '../components/Window/HelpWindow';
+import TextWindow from '../components/Window/TextWindow';
+import UiWindow from '../components/Window/UiWindow';
+import TutorialModal from '../components/TutorialModal';
+import { scenarioData } from '../data/scenarioData';
+import type { TextWindowHandle } from '../types/window';
 
 const AppWrapper = styled.div`
   width: 100%;
@@ -73,10 +74,10 @@ const Main: React.FC = () => {
   const lockClickTemporarily = useUIStore((s) => s.lockClickTemporarily);
 
   const BLINK_DURATION = 611;
-  const textWindowRef = useRef<any>(null);
+  const textWindowRef = useRef<TextWindowHandle>(null);
 
   const playSound = useCallback(() => {
-    const audio = new Audio("/sound/papersound.mp3");
+    const audio = new Audio('/sound/papersound.mp3');
     audio.currentTime = 0;
     audio.play().catch(() => {});
   }, []);
@@ -113,10 +114,6 @@ const Main: React.FC = () => {
     const idx = scenarioData.findIndex((i) => i.id === currentId);
     if (idx === -1) return;
 
-    const chunks = scenarioData[idx].text
-      .split(/(?<=[.!?])\s+/)
-      .filter(Boolean);
-
     if (textIndex > 0) {
       setTextIndex((i) => i - 1);
     } else if (idx > 0) {
@@ -135,11 +132,7 @@ const Main: React.FC = () => {
         </ProgressBarWrapper>
 
         {showTutorial && <TutorialModal onClose={toggleTutorial} />}
-        <CenterWindow
-          currentId={currentId}
-          textIndex={textIndex}
-          handleClick={handleClick}
-        />
+        <CenterWindow currentId={currentId} handleClick={handleClick} />
         <HelpWindow
           toggleUi={toggleUiMode}
           $isUiMode={isUiMode}
@@ -159,10 +152,7 @@ const Main: React.FC = () => {
           isTyping={isTyping}
           goToPrevious={goToPrevious}
           blinkDuration={BLINK_DURATION}
-          canGoBack={
-            textIndex > 0 ||
-            scenarioData.findIndex((item) => item.id === currentId) > 0
-          }
+          canGoBack={textIndex > 0 || scenarioData.findIndex((item) => item.id === currentId) > 0}
         />
         <UiWindow toggleUi={toggleUiMode} />
       </Container>
