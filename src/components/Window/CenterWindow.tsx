@@ -1,12 +1,11 @@
-import React, { useRef, useEffect, useState } from "react";
-import styled, { css } from "styled-components";
-import { scenarioData } from "../../data/scenarioData";
-import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
+import React, { useRef, useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { scenarioData } from '../../data/scenarioData';
+import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 
 interface Props {
   currentId: number;
-  textIndex: number;
   handleClick: () => void;
 }
 
@@ -45,18 +44,7 @@ const ImageBox = styled(motion.div)`
   overflow: hidden;
 `;
 
-const Img = styled.img`
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
-`;
-
-const CenterWindow: React.FC<Props> = ({
-  currentId,
-  textIndex,
-  handleClick
-}) => {
+const CenterWindow: React.FC<Props> = ({ currentId, handleClick }) => {
   const prevId = useRef(currentId);
   const [shouldAnimate, setShouldAnimate] = useState(true);
 
@@ -67,10 +55,9 @@ const CenterWindow: React.FC<Props> = ({
 
   const currentScenario = scenarioData.find((item) => item.id === currentId);
   const content = currentScenario?.content;
-  const isImage = content?.type === "image";
+  const isImage = content?.type === 'image';
 
-  if (!currentScenario)
-    return <Container $isImage={false}>콘텐츠 없음</Container>;
+  if (!currentScenario) return <Container $isImage={false}>콘텐츠 없음</Container>;
 
   return (
     <Container onClick={handleClick} $isImage={isImage}>
@@ -85,8 +72,8 @@ const CenterWindow: React.FC<Props> = ({
           >
             <Image
               src={content.src}
-              alt={content.alt || "시나리오 이미지"}
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              alt={content.alt || '시나리오 이미지'}
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               sizes="(max-width: 768px) 100vw, 750px"
               priority={currentId === 1 || currentId === 2}
             />
@@ -99,7 +86,7 @@ const CenterWindow: React.FC<Props> = ({
             initial={shouldAnimate ? { opacity: 0, y: 30, rotateZ: -2 } : false}
             animate={{ opacity: 1, y: 0, rotateZ: 0 }}
             exit={shouldAnimate ? { opacity: 0, y: -20, rotateZ: 3 } : {}}
-            transition={{ duration: 0.6, ease: "easeInOut" }}
+            transition={{ duration: 0.6, ease: 'easeInOut' }}
           >
             <content.component {...content.props} />
           </MotionBox>

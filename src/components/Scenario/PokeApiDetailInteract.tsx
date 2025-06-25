@@ -144,7 +144,7 @@ export default function PokeApiDetailInteract() {
         grabCursor
         autoplay={{ delay: 2500, disableOnInteraction: false }}
         breakpoints={{
-          640: { slidesPerView: 1.6, spaceBetween: 20 },
+          640: { slidesPerView: 1.6, spaceBetween: 18 },
           768: { slidesPerView: 2, spaceBetween: 24 },
         }}
       >
@@ -156,8 +156,8 @@ export default function PokeApiDetailInteract() {
                 <Image
                   src={poke.sprites.front_default}
                   alt={poke.name}
-                  width={96}
-                  height={96}
+                  width={120}
+                  height={185}
                   unoptimized
                 />
               </ImageBox>

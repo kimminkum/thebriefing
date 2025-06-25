@@ -1,36 +1,36 @@
-import styled, { keyframes, css } from "styled-components";
+import styled, { keyframes } from 'styled-components';
 
-const bounceIn = keyframes`
-  0% { opacity: 0; transform: scale(0.8); }
-  50% { opacity: 1; transform: scale(1.05); }
-  70% { transform: scale(0.95); }
-  100% { transform: scale(1); }
-`;
+// const bounceIn = keyframes`
+//   0% { opacity: 0; transform: scale(0.8); }
+//   50% { opacity: 1; transform: scale(1.05); }
+//   70% { transform: scale(0.95); }
+//   100% { transform: scale(1); }
+// `;
 
 const spin = keyframes`
   to { transform: rotate(360deg); }
 `;
 
 export const typeColorMap: Record<string, string> = {
-  normal: "#DCDCDC",
-  fire: "#FF7043",
-  water: "#4FC3F7",
-  electric: "#FFEB3B",
-  grass: "#81C784",
-  ice: "#81D4FA",
-  fighting: "#E57373",
-  poison: "#BA68C8",
-  ground: "#D7CCC8",
-  flying: "#90CAF9",
-  psychic: "#CE93D8",
-  bug: "#A5D6A7",
-  rock: "#BCAAA4",
-  ghost: "#9575CD",
-  dragon: "#7986CB",
-  dark: "#A1887F",
-  steel: "#B0BEC5",
-  fairy: "#F8BBD0",
-  default: "#ECEFF1"
+  normal: '#DCDCDC',
+  fire: '#FF7043',
+  water: '#4FC3F7',
+  electric: '#FFEB3B',
+  grass: '#81C784',
+  ice: '#81D4FA',
+  fighting: '#E57373',
+  poison: '#BA68C8',
+  ground: '#D7CCC8',
+  flying: '#90CAF9',
+  psychic: '#CE93D8',
+  bug: '#A5D6A7',
+  rock: '#BCAAA4',
+  ghost: '#9575CD',
+  dragon: '#7986CB',
+  dark: '#A1887F',
+  steel: '#B0BEC5',
+  fairy: '#F8BBD0',
+  default: '#ECEFF1',
 };
 
 export const ShowcaseWrapper = styled.div`
@@ -72,9 +72,7 @@ export const CardWrapper = styled.div<{ poketype?: string }>`
   padding: calc(20 / 654 * 100%);
   border-radius: 16px;
   background: ${({ poketype }) =>
-    `linear-gradient(to bottom right, ${
-      typeColorMap[poketype ?? "default"]
-    }, #ffffff)`};
+    `linear-gradient(to bottom right, ${typeColorMap[poketype ?? 'default']}, #ffffff)`};
   border: 2px solid #ddd;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 `;
@@ -198,7 +196,7 @@ export const PokeSpinner = styled.div`
   animation: ${spin} 1s linear infinite;
 
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 50%;
     left: 0;
@@ -208,7 +206,7 @@ export const PokeSpinner = styled.div`
     transform: translateY(-50%);
   }
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     top: 50%;
     left: 50%;

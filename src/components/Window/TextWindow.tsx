@@ -1,14 +1,8 @@
-import React, {
-  useImperativeHandle,
-  forwardRef,
-  useRef,
-  useEffect,
-  useState
-} from "react";
-import styled from "styled-components";
-import { motion, AnimatePresence } from "framer-motion";
-import { scenarioData } from "../../data/scenarioData";
-import Button from "../Button";
+import React, { useImperativeHandle, forwardRef, useRef, useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { motion, AnimatePresence } from 'framer-motion';
+import { scenarioData } from '../../data/scenarioData';
+import Button from '../Button';
 
 interface Props {
   currentId: number;
@@ -37,7 +31,7 @@ const Container = styled.div<{ $isVisible: boolean }>`
   max-height: 180px;
   background: #fdfdfd;
   color: #111;
-  transform: ${({ $isVisible }) => ($isVisible ? "none" : "translateY(100%)")};
+  transform: ${({ $isVisible }) => ($isVisible ? 'none' : 'translateY(100%)')};
   transition: transform 0.4s ease;
   z-index: 4;
   display: flex;
@@ -113,24 +107,23 @@ const TextWindow = forwardRef<TextWindowHandle, Props>(
       setIsVisible,
       canGoBack,
       goToPrevious,
-      blinkDuration
+      blinkDuration,
     },
-    ref
+    ref,
   ) => {
     const typingTimeout = useRef<NodeJS.Timeout | null>(null);
     const typingInterval = useRef<NodeJS.Timeout | null>(null);
-    const [displayText, setDisplayText] = useState("");
+    const [displayText, setDisplayText] = useState('');
     const [isWaiting, setIsWaiting] = useState(false);
 
     useEffect(() => {
-      setDisplayText("");
+      setDisplayText('');
       setIsTyping(true);
       setIsWaiting(true);
 
-      const currentText =
-        scenarioData.find((item) => item.id === currentId)?.text || "";
+      const currentText = scenarioData.find((item) => item.id === currentId)?.text || '';
       const textChunks = currentText.split(/(?<=[.!?])\s+/).filter(Boolean);
-      const fullText = textChunks[textIndex] || "데이터 없음";
+      const fullText = textChunks[textIndex] || '데이터 없음';
 
       let i = 0;
 
@@ -154,10 +147,9 @@ const TextWindow = forwardRef<TextWindowHandle, Props>(
     }, [currentId, textIndex, typingSpeed, setIsTyping, blinkDuration]);
 
     const handleFastForward = () => {
-      const currentText =
-        scenarioData.find((item) => item.id === currentId)?.text || "";
+      const currentText = scenarioData.find((item) => item.id === currentId)?.text || '';
       const textChunks = currentText.split(/(?<=[.!?])\s+/).filter(Boolean);
-      const fullText = textChunks[textIndex] || "데이터 없음";
+      const fullText = textChunks[textIndex] || '데이터 없음';
 
       if (isWaiting) {
         clearTimeout(typingTimeout.current!);
@@ -170,8 +162,10 @@ const TextWindow = forwardRef<TextWindowHandle, Props>(
     };
 
     useImperativeHandle(ref, () => ({
-      forceFinishTyping: handleFastForward
+      forceFinishTyping: handleFastForward,
     }));
+
+    TextWindow.displayName = 'TextWindow';
 
     return (
       <AnimatePresence>
@@ -191,8 +185,8 @@ const TextWindow = forwardRef<TextWindowHandle, Props>(
             animate={{ opacity: [1, 0.5, 1] }}
             transition={{
               duration: 0.6,
-              ease: "easeInOut",
-              times: [0, 0.5, 1]
+              ease: 'easeInOut',
+              times: [0, 0.5, 1],
             }}
           >
             <ToggleButton
@@ -203,7 +197,7 @@ const TextWindow = forwardRef<TextWindowHandle, Props>(
                 setIsVisible((prev) => !prev);
               }}
             >
-              {$isVisible ? "▼" : "▲"}
+              {$isVisible ? '▼' : '▲'}
             </ToggleButton>
             <p className="font-22">{displayText}</p>
 
@@ -228,7 +222,7 @@ const TextWindow = forwardRef<TextWindowHandle, Props>(
         </Container>
       </AnimatePresence>
     );
-  }
+  },
 );
 
 export default TextWindow;

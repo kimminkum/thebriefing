@@ -1,9 +1,9 @@
-import React from "react";
-import styled from "styled-components";
-import { scenarioData } from "../data/scenarioData";
-import useIntersectionObserver from "../styles/useIntersectionObserver";
-import { useRouter } from "next/router";
-import Image from "next/image";
+import React from 'react';
+import styled from 'styled-components';
+import { scenarioData } from '../data/scenarioData';
+import useIntersectionObserver from '../styles/useIntersectionObserver';
+import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 // api 같은거 쓰기
 
@@ -78,19 +78,15 @@ const BackButton = styled.button`
 const DataPage: React.FC = () => {
   const router = useRouter();
 
-  const goHome = () => {
-    router.push("/"); // 예: 메인 페이지로 이동
-  };
-
-  useIntersectionObserver("[data-io]", {
+  useIntersectionObserver('[data-io]', {
     root: null,
     threshold: 0.1,
-    rootMargin: "10%"
+    rootMargin: '10%',
   });
 
   return (
     <Container>
-      <BackButton onClick={() => router.push("/")}>←</BackButton>
+      <BackButton onClick={() => router.push('/')}>←</BackButton>
       <Wrapper className="font-16">
         <h2>데이터 테이블</h2>
 
@@ -127,18 +123,20 @@ const DataPage: React.FC = () => {
             {scenarioData.map((item) => (
               <tr key={item.id}>
                 <Td>{item.id}</Td>
-                <Td className="txttype">{item.content?.type || "없음"}</Td>
+                <Td className="txttype">{item.content?.type || '없음'}</Td>
                 <Td className="txtleft">
-                  {item.content?.type === "image" ? (
-                    <img
-                      src={item.content?.src?.src}
-                      alt={item.content?.alt || ""}
+                  {item.content?.type === 'image' && item.content.src ? (
+                    <Image
+                      src={item.content.src}
+                      alt={item.content.alt || ''}
+                      width={120}
+                      height={185}
+                      unoptimized
                     />
-                  ) : item.content?.type === "component" ? (
-                    "component: " +
-                    ((item.content.component as React.FC)?.name || "Unknown")
+                  ) : item.content?.type === 'component' ? (
+                    'component: ' + ((item.content.component as React.FC)?.name || 'Unknown')
                   ) : (
-                    "none"
+                    'none'
                   )}
                 </Td>
               </tr>
