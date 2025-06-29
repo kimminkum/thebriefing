@@ -1,31 +1,28 @@
 // pages/_app.tsx
-import React, { useEffect } from "react";
-import type { AppProps } from "next/app";
-import { RecoilRoot } from "recoil";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import GlobalFonts from "../styles/GlobalFonts";
-import GlobalStyles from "../styles/GlobalStyles";
-import { JsonDataProvider } from "../context/JsonDataContext";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import React, { useEffect } from 'react';
+import type { AppProps } from 'next/app';
+import { RecoilRoot } from 'recoil';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import GlobalStyles from '../styles/GlobalStyles';
+import { JsonDataProvider } from '../context/JsonDataContext';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 const queryClient = new QueryClient();
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     const repositionInShadowDom = () => {
-      const portal = document.querySelector("nextjs-portal") as HTMLElement;
+      const portal = document.querySelector('nextjs-portal') as HTMLElement;
       if (portal?.shadowRoot) {
-        const toast = portal.shadowRoot.querySelector(
-          "[data-nextjs-toast]"
-        ) as HTMLElement;
+        const toast = portal.shadowRoot.querySelector('[data-nextjs-toast]') as HTMLElement;
         if (toast) {
-          toast.style.top = "0";
-          toast.style.marginTop = "16px";
-          toast.style.left = "16px";
-          toast.style.bottom = "auto";
-          toast.style.right = "auto";
-          toast.style.position = "fixed";
-          toast.style.zIndex = "100";
+          toast.style.top = '0';
+          toast.style.marginTop = '16px';
+          toast.style.left = '16px';
+          toast.style.bottom = 'auto';
+          toast.style.right = 'auto';
+          toast.style.position = 'fixed';
+          toast.style.zIndex = '100';
         }
       }
     };
@@ -41,7 +38,6 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>
         <JsonDataProvider>
-          <GlobalFonts />
           <GlobalStyles />
           <Component {...pageProps} />
         </JsonDataProvider>

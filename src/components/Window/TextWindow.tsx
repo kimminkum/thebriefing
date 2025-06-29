@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { scenarioData } from '../../data/scenarioData';
 import Button from '../Button';
+import { Body, Highlight } from '../../styles/Typhography';
 
 interface Props {
   currentId: number;
@@ -199,7 +200,19 @@ const TextWindow = forwardRef<TextWindowHandle, Props>(
             >
               {$isVisible ? '▼' : '▲'}
             </ToggleButton>
-            <p className="font-22">{displayText}</p>
+
+            {/* ✅ Typography 적용 */}
+            <Body>
+              {displayText
+                .split(' ')
+                .map((word, i) =>
+                  word.includes('프로젝트') ? (
+                    <Highlight key={i}>{word} </Highlight>
+                  ) : (
+                    <span key={i}>{word} </span>
+                  ),
+                )}
+            </Body>
 
             {canGoBack && (
               <StyledBackButton
