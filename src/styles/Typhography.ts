@@ -5,7 +5,7 @@ import styled from 'styled-components';
 export const Body = styled.p`
   font-size: clamp(1rem, 1.3vw, 1.2rem);
   font-weight: 400;
-  line-height: 1.7;
+  line-height: 1.6;
   color: #111;
   transition: all 0.2s ease-in-out;
 `;
@@ -13,24 +13,23 @@ export const Body = styled.p`
 /* 강조 문구 (Highlight) */
 export const Highlight = styled.span`
   display: inline-block;
-  background: linear-gradient(90deg, #fff3c8, #ffd966);
-  font-weight: 700;
-  padding: 0.2rem 0.5rem;
-  border-radius: 6px;
-  color: #000;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
-  animation: pulseHighlight 1.2s ease-in-out infinite alternate;
+  background-color: #fff2b3;
+  font-weight: 600;
+  padding: 2px 6px;
+  margin: 0 2px;
+  border-radius: 4px;
+  color: #222;
+  line-height: 1.5;
+  box-shadow: none;
+`;
 
-  @keyframes pulseHighlight {
-    0% {
-      transform: scale(1);
-      opacity: 1;
-    }
-    100% {
-      transform: scale(1.03);
-      opacity: 0.85;
-    }
-  }
+/* 뱃지 스타일 */
+export const Badge = styled.span`
+  display: inline-block;
+  background-color: #e8f0fe;
+  color: #345a9c;
+  font-weight: 500;
+  border-radius: 999px;
 `;
 
 /* 제목 구조 */
@@ -56,20 +55,6 @@ export const Caption = styled.span`
   color: #888;
   font-weight: 400;
   line-height: 1.4;
-`;
-
-/* 뱃지 스타일 */
-export const Badge = styled.span`
-  display: inline-block;
-  background-color: #e0ecff;
-  color: #124b8d;
-  font-size: clamp(0.75rem, 0.9vw, 0.875rem);
-  font-weight: 600;
-  padding: 0.2rem 0.6rem;
-  margin-right: 0.4rem;
-  border-radius: 999px;
-  white-space: nowrap;
-  box-shadow: 0 0 0 1px #d0dcf5;
 `;
 
 /* 강조된 텍스트 전용 */

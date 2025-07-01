@@ -1,9 +1,10 @@
+// TextWindow.tsx
 import React, { useImperativeHandle, forwardRef, useRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { scenarioData } from '../../data/scenarioData';
 import Button from '../Button';
-import { Body, Highlight } from '../../styles/Typhography';
+import { Body, Highlight, Badge } from '../../styles/Typhography';
 
 interface Props {
   currentId: number;
@@ -200,18 +201,43 @@ const TextWindow = forwardRef<TextWindowHandle, Props>(
             >
               {$isVisible ? '▼' : '▲'}
             </ToggleButton>
-
-            {/* ✅ Typography 적용 */}
             <Body>
-              {displayText
-                .split(' ')
-                .map((word, i) =>
-                  word.includes('프로젝트') ? (
-                    <Highlight key={i}>{word} </Highlight>
-                  ) : (
-                    <span key={i}>{word} </span>
-                  ),
-                )}
+              {(() => {
+                const currentItem = scenarioData.find((item) => item.id === currentId);
+                const highlights = currentItem?.highlights || [];
+                const badges = currentItem?.badges || [];
+
+                let text = displayText;
+
+                // badge 먼저 치환 (겹침 방지)
+                badges.forEach((badge) => {
+                  const safeBadge = badge.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                  const regex = new RegExp(`(${safeBadge})`, 'g');
+                  text = text.replace(regex, '[[BADGE:$1]]');
+                });
+
+                // highlight 치환
+                highlights.forEach((highlight) => {
+                  const safeHighlight = highlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                  const regex = new RegExp(`(${safeHighlight})`, 'g');
+                  text = text.replace(regex, '[[HIGHLIGHT:$1]]');
+                });
+
+                // 마커 분해
+                const tokens = text.split(/(\[\[(?:HIGHLIGHT|BADGE):.*?\]\])/g);
+
+                return tokens.map((token, i) => {
+                  if (token.startsWith('[[HIGHLIGHT:')) {
+                    const word = token.replace('[[HIGHLIGHT:', '').replace(']]', '');
+                    return <Highlight key={i}>{word}</Highlight>;
+                  } else if (token.startsWith('[[BADGE:')) {
+                    const word = token.replace('[[BADGE:', '').replace(']]', '');
+                    return <Badge key={i}>{word}</Badge>;
+                  } else {
+                    return <span key={i}>{token}</span>;
+                  }
+                });
+              })()}
             </Body>
 
             {canGoBack && (
