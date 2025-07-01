@@ -21,9 +21,9 @@ const Title = styled.h3`
 
 const Grid = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: space-around;
-  gap: 16px;
+  gap: 1.2rem;
 `;
 
 const StepBox = styled.div`
