@@ -6,7 +6,6 @@ const Container = styled.div`
   background: linear-gradient(145deg, #ffffff, #f9f9f9);
   border-radius: 20px;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
-  padding: 2rem 2rem 2.5rem;
   margin: 2rem auto;
   border: 2px solid #e0c8a4;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
@@ -66,23 +65,23 @@ const Item = styled.li`
 
 const HelpUXExample: React.FC = () => {
   return (
-    <Container className="font-20">
+    <Container className="font-22">
       <Arrow className="font-32">▼</Arrow>
       <Title className="font-24">UI/UX 요소 구성</Title>
       <List>
-        <Item className="font-16">
+        <Item className="font-18">
           우측 상단의 <strong>'?'</strong> 버튼을 눌러
           <strong>설정창 및 튜토리얼 재확인</strong>이 가능합니다.
         </Item>
-        <Item className="font-16">
+        <Item className="font-18">
           전체 화면일 경우 <strong>X 버튼은 좌측 상단</strong>에, 일반 모드에선
           <strong>하단 좌측에 '닫기 버튼'</strong> 배치를 고려했습니다.
         </Item>
-        <Item className="font-16">
+        <Item className="font-18">
           <strong>모바일 환경 기준</strong>으로 시야 흐름에 따른 자연스러운 위치에 버튼과 컨트롤
           요소를 배치했습니다.
         </Item>
-        <Item className="font-16">
+        <Item className="font-18">
           <strong>모바일 정렬 기준:</strong> 확인(우측), 취소(좌측) 배치를 통해 UX 가이드에
           부합하도록 구성했습니다.
         </Item>

@@ -83,8 +83,9 @@ export default function PokeApiShowcase() {
               src={data.sprites.front_default}
               alt={data.name}
               width={120}
-              height={185}
+              height={200}
               unoptimized // 외부 이미지 최적화가 불가할 때 명시
+              style={{ objectFit: 'cover' }}
             />
           </ImageBox>
           <InfoBox>

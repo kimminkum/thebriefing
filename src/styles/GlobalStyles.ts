@@ -1,73 +1,107 @@
-import { createGlobalStyle } from "styled-components";
+// src/styles/GlobalStyle.ts
+import reset from 'styled-reset';
+import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
+  ${reset}
+
+  /* Pretendard FontFace */
+  @font-face {
+    font-family: 'Pretendard';
+    src: url('/fonts/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Pretendard';
+    src: url('/fonts/Pretendard-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Pretendard';
+    src: url('/fonts/Pretendard-SemiBold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Pretendard';
+    src: url('/fonts/Pretendard-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
   * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
   }
 
   body {
+    font-family: 'Pretendard', sans-serif;
     -ms-overflow-style: none;
   }
 
   body.modal-open {
     overflow: hidden;
   }
-  
-  a {
-      text-decoration: none;
-      color: inherit;
+
+  button, input, textarea {
+    font-family: inherit;
   }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
   li {
     list-style: none;
   }
 
-  .flex {
-    display: flex;
-  }
-
-  .fix {
-    position: relative;
-  }
-
+  /* Utility Font Size - clamp 방식 */
   .font-16 {
     font-size: clamp(12px, calc(16 / 750 * 100vw), 16px);
-    line-height: calc(20 / 16);
+    line-height: 1.25;
   }
+
   .font-18 {
     font-size: clamp(13px, calc(18 / 750 * 100vw), 18px);
-    line-height: calc(24 / 18);
+    line-height: 1.33;
   }
+
   .font-20 {
     font-size: clamp(14px, calc(20 / 750 * 100vw), 20px);
-    line-height: calc(32 / 20);
+    line-height: 1.6;
   }
+
   .font-22 {
-    font-size: clamp(15px, calc(24 / 750 * 100vw), 22px);
-    line-height: calc(34 / 24);
+    font-size: clamp(15px, calc(22 / 750 * 100vw), 22px);
+    line-height: 1.54;
   }
+
   .font-24 {
     font-size: clamp(16px, calc(24 / 750 * 100vw), 24px);
-    line-height: calc(34 / 24);
+    line-height: 1.4;
   }
+
   .font-28 {
-    font-size: clamp(18px, calc(24 / 750 * 100vw), 28px);
-    line-height: calc(36 / 24);
+    font-size: clamp(18px, calc(28 / 750 * 100vw), 28px);
+    line-height: 1.3;
   }
+
   .font-32 {
     font-size: clamp(20px, calc(32 / 750 * 100vw), 32px);
-    line-height: calc(48 / 32);
+    line-height: 1.5;
   }
 
-  .go3489369143 {
-    display: none !important;
-  }
-
-
-  .swiper{
+  /* Swiper Customization */
+  .swiper {
     overflow: visible;
   }
+
   .swiper-pagination {
     position: relative;
     margin-top: calc(50 / 750 * 100%);
@@ -75,14 +109,17 @@ const GlobalStyle = createGlobalStyle`
     font-size: 14px !important;
   }
 
-  .swiper-button-prev {
+  .swiper-button-prev, .swiper-button-next {
     position: absolute;
     top: 50%;
-    left: 10px;
     transform: translateY(-50%);
     width: 30px;
     height: 30px;
     z-index: 10;
+  }
+
+  .swiper-button-prev {
+    left: 10px;
 
     &::after {
       content: "";
@@ -96,15 +133,10 @@ const GlobalStyle = createGlobalStyle`
       border-left: 2px solid #fff;
     }
   }
+
   .swiper-button-next {
-    position: absolute;
-    top: 50%;
     right: 10px;
-    transform: translateY(-50%);
-    width: 30px;
-    height: 30px;
-    z-index: 10;
-    
+
     &::after {
       content: "";
       position: absolute;
@@ -117,22 +149,27 @@ const GlobalStyle = createGlobalStyle`
       border-left: 2px solid #fff;
     }
   }
-  
+
+  /* Utility */
+  .go3489369143 {
+    display: none !important;
+  }
+
+  .slideauto {
+    width: auto;
+  }
+
   button {
     border: none;
     width: 100%;
-    display: block;
     background-color: inherit;
     cursor: pointer;
+    display: block;
   }
 
   img {
     width: 100%;
     display: block;
-  }
-
-  .slideauto {
-    width: auto;
   }
 `;
 

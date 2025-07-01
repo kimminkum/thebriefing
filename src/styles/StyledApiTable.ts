@@ -1,5 +1,5 @@
 // components/Common/StyledApiTable.ts
-import styled from "styled-components";
+import styled from 'styled-components';
 
 // 🔹 전체 컨테이너
 export const Container = styled.div`
@@ -50,8 +50,8 @@ export const Cell = styled.span<{
   ellipsis?: boolean;
   isAuthor?: boolean;
 }>`
-  ${({ width }) => (width ? `width: ${width};` : "")}
-  ${({ grow }) => grow && "flex: 1;"}
+  ${({ width }) => (width ? `width: ${width};` : '')}
+  ${({ grow }) => grow && 'flex: 1;'}
   ${({ ellipsis }) =>
     ellipsis &&
     `
@@ -59,7 +59,7 @@ export const Cell = styled.span<{
     white-space: nowrap;
     text-overflow: ellipsis;
   `}
-  ${({ isAuthor }) => isAuthor && "padding-left: 6px;"}
+  ${({ isAuthor }) => isAuthor && 'padding-left: 6px;'}
 `;
 
 // 🔹 버튼
@@ -88,14 +88,13 @@ export const Header = styled(ListItem)`
 
 export const Controls = styled.div`
   display: flex;
-  gap: 1rem;
+  gap: 0.25rem;
   align-items: center;
   margin-bottom: 1rem;
 `;
 
 export const Input = styled.input`
-  margin-left: 0.5rem;
-  padding: 0.25rem 0.5rem;
+  padding: 0.25rem 0;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 0.9rem;
