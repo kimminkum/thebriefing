@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const Wrapper = styled.div`
   background: #fdfaf5;
@@ -10,29 +10,8 @@ const Wrapper = styled.div`
   max-width: 100%;
 `;
 
-<<<<<<< Updated upstream
 const StepCard = styled.div`
   background: #ffffff;
-=======
-const Title = styled.h3`
-  font-size: 1.4rem;
-  font-weight: 700;
-  margin-bottom: 16px;
-  color: #5d4037;
-`;
-
-const Grid = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  gap: 16px;
-`;
-
-const StepBox = styled.div`
-  flex: 1 1 40%;
-  background: #fff;
-  border: 1px solid #d7ccc8;
->>>>>>> Stashed changes
   border-radius: 12px;
   border: 1px solid #ddd;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
@@ -82,8 +61,7 @@ const FlowChunkSteps: React.FC = () => {
       <StepCard>
         <StepNumber>②</StepNumber>
         <StepText>
-          <strong>같은 id</strong> 안에서는 화면 전환 없이 다음 텍스트가
-          이어집니다.
+          <strong>같은 id</strong> 안에서는 화면 전환 없이 다음 텍스트가 이어집니다.
         </StepText>
       </StepCard>
 
