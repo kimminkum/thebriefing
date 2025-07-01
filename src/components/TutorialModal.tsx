@@ -3,7 +3,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
-import type { Swiper as SwiperType } from 'swiper'; // 타입 임포트
+import type { Swiper as SwiperType } from 'swiper'; // ✅ 타입만 임포트
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -40,6 +40,7 @@ const ModalBox = styled.div`
 `;
 
 const SlideCard = styled.div`
+  width: 100%; // 🔴 반드시 추가
   background: #fff;
   border: 1px solid #eee;
   border-radius: 12px;
@@ -138,53 +139,51 @@ const TutorialModal: React.FC<Props> = ({ onClose }) => {
       <Inner>
         <ModalBox className="font-20" ref={modalRef}>
           <Swiper
-            spaceBetween={100}
             slidesPerView={1}
+            spaceBetween={0}
             pagination={{ type: 'fraction' }}
             modules={[Pagination]}
-            onSwiper={(swiper: SwiperType) => {
-              swiperRef.current = swiper;
-            }}
+            onSwiper={(swiper: SwiperType) => (swiperRef.current = swiper)}
             onSlideChange={(swiper: SwiperType) => setActiveIndex(swiper.activeIndex)}
+            style={{ overflow: 'hidden' }} // 🔴 추가
           >
             <SwiperSlide>
               <SlideCard>
                 <TutoTitle className="font-24">🖱️ 인터랙션 안내</TutoTitle>
-                <TutoTxt className="font-18">간단하게 진행 방식을 설명드리겠습니다.</TutoTxt>
                 <TutoTxt className="font-18">
-                  클릭하면 서류가 넘어가고 텍스트가 타이핑됩니다.
-                  <br />
-                  타이핑 도중 클릭 시 전체 출력이 됩니다.
+                  이 포트폴리오는 시나리오 기반으로 구성되어 있습니다.
                 </TutoTxt>
                 <TutoTxt className="font-18">
-                  텍스트 타이핑 속도 조절기능 또한 설정 창 안에 들어가 있습니다.
+                  화면을 클릭하면 텍스트가 타이핑되며, 클릭 시 전체 출력됩니다.
                 </TutoTxt>
                 <TutoTxt className="font-18">
-                  제가 만든 부분을 어떻게 생각하며 만들었는지 스토리 형식으로 만들었습니다.
+                  튜토리얼은 언제든지 ? 버튼을 눌러 다시 확인할 수 있습니다.
                 </TutoTxt>
-                <TutoTxt className="font-18">잘 봐주시면 감사하겠습니다!</TutoTxt>
               </SlideCard>
             </SwiperSlide>
             <SwiperSlide>
               <SlideCard>
-                <TutoTitle className="font-24">⚙️ ? 버튼</TutoTitle>
-                <TutoTxt className="font-18">텍스트의 진행 속도조절,</TutoTxt>
+                <TutoTitle className="font-24">⚙️ 상단 버튼 기능</TutoTitle>
+                <TutoTxt className="font-18">📘 튜토리얼 다시 보기</TutoTxt>
                 <TutoTxt className="font-18">
-                  데이터를 이용한 방식을 보여주기 위해 사용한 코드를 페이지 링크를 넣었습니다.
+                  📊 데이터 보기 – 프로젝트에서 사용한 JSONPlaceholder 데이터를 보여줍니다.
                 </TutoTxt>
                 <TutoTxt className="font-18">
-                  해당 튜토리얼은 다시 ?버튼안의 내용을 통해 확인하실 수 있습니다.
+                  ✍️ 타이핑 속도 조절 – 타이핑 속도를 자유롭게 설정할 수 있습니다.
                 </TutoTxt>
                 {/* 추가시 넣기 */}
               </SlideCard>
             </SwiperSlide>
             <SwiperSlide>
               <SlideCard>
-                <TutoTitle className="font-24">📝 설명에 대하여</TutoTitle>
+                <TutoTitle className="font-24">📝 자기소개 시나리오</TutoTitle>
                 <TutoTxt className="font-18">
-                  어떤 의도를 갖고 만들었는지와 자기소개서를 적었습니다.
+                  시나리오에는 자기소개서, 보유 기술, 프로젝트 설계가 포함되어 있습니다.
                 </TutoTxt>
-                <TutoTxt className="font-18">다시 한 번 잘 부탁드리겠습니다.</TutoTxt>
+                <TutoTxt className="font-18">화면을 클릭하며 순차적으로 읽어주세요.</TutoTxt>
+                <TutoTxt className="font-18">
+                  마지막에는 GitHub, 블로그 등의 외부 링크도 연결되어 있습니다.
+                </TutoTxt>
               </SlideCard>
             </SwiperSlide>
           </Swiper>

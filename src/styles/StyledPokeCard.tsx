@@ -66,15 +66,20 @@ export const StyledSelect = styled.select`
   }
 `;
 export const CardWrapper = styled.div<{ poketype?: string }>`
-  width: 92%;
-  max-width: 320px;
+  width: 94%;
+  max-width: 360px;
   margin: 0 auto;
-  padding: calc(20 / 654 * 100%);
-  border-radius: 16px;
+  padding: 18px;
+  border-radius: 18px;
   background: ${({ poketype }) =>
     `linear-gradient(to bottom right, ${typeColorMap[poketype ?? 'default']}, #ffffff)`};
-  border: 2px solid #ddd;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  border: 2px solid var(--type-color);
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
 `;
 
 export const NameBar = styled.div`

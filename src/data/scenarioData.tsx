@@ -2,7 +2,6 @@ import React from 'react';
 import type { StaticImageData } from 'next/image';
 import img1 from '@assets/img/scenario/img1.jpg';
 import img2 from '@assets/img/scenario/img2.png';
-import img4 from '@assets/img/scenario/img4.png';
 
 // components
 import HelpUXExample from '../components/Scenario/HelpUXExample';
@@ -17,10 +16,13 @@ import ScenarioFlowDiagram from '../components/Scenario/ScenarioFlowDiagram';
 import PostTable from '../components/Scenario/PostTable';
 import PokeApiShowcase from '../components/Scenario/PokeApiShowcase';
 import PokeApiDetailInteract from '../components/Scenario/PokeApiDetailInteract';
+import OutroTitle from '../components/Scenario/OutroTitle';
 
 export interface ScenarioItem {
   id: number;
   text: string;
+  highlights?: string[];
+  badges?: string[];
   content?: {
     type: 'image' | 'component';
     src?: StaticImageData;
@@ -43,7 +45,9 @@ export const scenarioData: ScenarioItem[] = [
   },
   {
     id: 2,
-    text: '자, 다음은… 이 사람은 뭐지? 경력 1년 퍼블리셔, HTML/CSS/JS 다룰 줄 아는군.',
+    text: '자, 다음은… 김민겸, 경력 1년 3개월차 지원자.',
+    highlights: ['김민겸'],
+    badges: ['경력 1년 3개월차'],
     content: {
       type: 'image',
       src: img2,
@@ -54,6 +58,8 @@ export const scenarioData: ScenarioItem[] = [
   {
     id: 3,
     text: 'React·TypeScript·styled‑components·Next.js 기반으로 구축했고, 데이터를 다루는 능력을 강조하네.',
+    highlights: ['React', 'TypeScript', 'styled‑components', 'Next.js'],
+    badges: ['데이터를 다루는 능력'],
     content: {
       type: 'component',
       component: BriefingIntro,
@@ -62,7 +68,9 @@ export const scenarioData: ScenarioItem[] = [
   // 3. 데이터 다루기: 목록 조회 → 삭제
   {
     id: 4,
-    text: '전역 상태는 Recoil/Zustand로, API 호출은 React Query로 구현해 캐싱·로딩·정렬·필터까지 모두 지원하는 점을 보여주려고 한 페이지야. 배치 상태는 초반에 중요한 걸 보여줘서 조금이라도 집중 시키려고 한 느낌이네',
+    text: '전역 상태는 Recoil·Zustand로, API 호출은 React Query로 구현해 캐싱·로딩·정렬·필터까지 모두 지원하는 점을 보여주려고 한 페이지야.',
+    highlights: ['Recoil', 'Zustand', 'React Query'],
+    badges: ['캐싱', '정렬', '필터'],
     content: {
       type: 'component',
       component: () => <PostTable mode="intro" />,
@@ -70,7 +78,9 @@ export const scenarioData: ScenarioItem[] = [
   },
   {
     id: 5,
-    text: '삭제 기능은 낙관적 업데이트와 디바운스로 매끄럽게 처리했어.',
+    text: '삭제 기능은 낙관적 업데이트와 디바운스로 매끄럽게 처리했어. 실제 서버와 통신하면서도 즉각적인 반응을 주는 구조야.',
+    highlights: ['낙관적 업데이트', '디바운스'],
+    badges: ['삭제 기능', '비동기 처리'],
     content: {
       type: 'component',
       component: () => <PostTable mode="delete" />,
@@ -79,7 +89,10 @@ export const scenarioData: ScenarioItem[] = [
   // 4. 데이터 다루기: 포켓몬 API
   {
     id: 6,
-    text: '시각적으로 보여줄 수 있는 부분도 추가한 부분이네. 유명한 포켓몬 API 데이터를 가져왔어. 도감 형식 구성에서 이미지, 속성, 능력치 등을 시각적으로 잘 정리했어.',
+    text: '실제 API 데이터를 통해 도감 형식 UI를 구현했어. 포켓몬 속성, 키·몸무게, 능력치를 시각적으로 정리해서 데이터 시각화와 UI 구성 능력을 함께 보여주는 구조야.',
+    highlights: ['API 데이터', '도감 형식 UI', '시각적으로 정리'],
+    badges: ['데이터 시각화', 'UI 구성 능력'],
+
     content: {
       type: 'component',
       component: PokeApiShowcase,
@@ -87,7 +100,9 @@ export const scenarioData: ScenarioItem[] = [
   },
   {
     id: 7,
-    text: '쇼케이스는 외부 데이터를 깔끔하게 연결하는 역할이었다면, 이 컴포넌트는 데이터를 시각적으로 풀어내며 인터랙션 연출과 능력 강조를 동시에 보여주는 역할을 담당하네.',
+    text: '타입별 필터링과 슬라이드 UI를 통해 데이터를 시각적으로 풀어내며, 능력치 시각화 중심 구성과 인터랙션 연출을 함께 보여주는 역할을 담당하네.',
+    highlights: ['데이터', '시각적으로', '인터랙션', '강조'],
+    badges: ['외부 API 활용', '능력치 시각화'],
     content: {
       type: 'component',
       component: PokeApiDetailInteract,
@@ -97,7 +112,9 @@ export const scenarioData: ScenarioItem[] = [
   // 5. 시스템 구조 & 흐름
   {
     id: 8,
-    text: '텍스트와 콘텐츠 영역을 분리하고, 시나리오 전체를 하나의 데이터로 관리해 흐름을 설계했어. 이건 재사용성과 유지보수 관점에서 꽤 전략적이야.',
+    text: '이 페이지는 전체 시스템의 흐름을 트리 구조로 시각화한 화면이야. 스크롤을 통해 주요 컴포넌트의 연결 관계를 한눈에 파악할 수 있어. 전체 시나리오 흐름은 하나의 데이터 구조로 통합하고, 텍스트 출력과 콘텐츠 출력을 역할에 따라 분리했지. 이를 바탕으로 컴포넌트 간 의존성을 줄이고, 재사용성과 유지보수를 고려한 구조 설계를 구현했어.',
+    highlights: ['트리 구조로 시각화', '데이터 구조', '역할에 따라 분리', '재사용성', '유지보수'],
+    badges: ['시나리오 설계', '컴포넌트 구조화', 'UX 최적화'],
     content: {
       type: 'component', //컴포넌트? 이미지? 미지정.
       component: ComponentStructureDiagram,
@@ -105,15 +122,19 @@ export const scenarioData: ScenarioItem[] = [
   },
   {
     id: 9,
-    text: '시나리오의 흐름은 텍스트 창과 콘텐츠 칸에 각각 데이터를 설정해 연결하는 방식으로 구성되어 있어. 데이터 하나로 전체 흐름을 제어할 수 있도록 설계했어.',
+    text: '시나리오의 전체 흐름은 scenarioData라는 데이터 구조 하나로 통합해 관리하고 있어. 역할에 따라 분리되어 각각 TextWindow와 CenterWindow에서 처리되도록 설계했고, 하나의 데이터만으로 전 흐름이 자동 연동되도록 구성했지. 이 구조를 시각적으로 정리한 게 바로 이 다이어그램이야.',
+    highlights: ['데이터 구조', '역할에 따라 분리', '자동 연동'],
+    badges: ['데이터 기반 설계', 'UI 흐름 분리', '유지보수 용이'],
     content: {
-      type: 'component', //컴포넌트? 이미지? 미지정.
+      type: 'component',
       component: ScenarioFlowDiagram,
     },
   },
   {
     id: 10,
-    text: ' id 기반 상태 변화만 애니메이션 적용되도록 설계했고, 긴 텍스트는 전환 없이 이어 보여주는 방식으로 사용자 흐름이 끊기지 않게 했네.',
+    text: '이 페이지는 UX 흐름 최적화를 위해 설계되었어. 텍스트는 같은 id 내 전환 없음을 원칙으로 이어 출력되고, id 변화만 애니메이션 전환이 발생해. 게다가 긴 문장은 조각 단위 출력으로 나뉘어 표시돼서, 흐름이 자연스럽고 집중도도 유지되도록 구성했지. 이 진행 방식을 시각적으로 보여준 자료야.',
+    highlights: ['같은 id 내 전환 없음', 'id 변화만 애니메이션', '조각 단위 출력'],
+    badges: ['UX 흐름 최적화', '타이핑 UX 설계', '상태 기반 전환'],
     content: {
       type: 'component',
       component: FlowChunkDemo,
@@ -121,7 +142,9 @@ export const scenarioData: ScenarioItem[] = [
   },
   {
     id: 11,
-    text: '타이핑 효과와 클릭 시 전체 출력 기능까지 고려해서 집중도와 유저 컨트롤을 모두 챙겼어.',
+    text: '텍스트 출력은 사용자 집중도와 컨트롤을 모두 고려했어. 타이핑 효과로 몰입감을 높이되, 클릭 시 전체 출력이 가능하게 설계해서 유저의 리듬에 맞출 수 있도록 했지. 또한 타이핑 속도 조절과 전환 옵션, 이전 버튼, 토글 기능까지 추가해서 UX 자율성을 높였어.',
+    highlights: ['집중도', '컨트롤', 'UX 자율성'],
+    badges: ['타이핑 UX 설계', '사용자 중심 제어', '속도 · 전환 옵션'],
     content: {
       type: 'component',
       component: TypingFlow,
@@ -131,7 +154,9 @@ export const scenarioData: ScenarioItem[] = [
   // 6. UI/UX 디테일
   {
     id: 12,
-    text: '튜토리얼을 배치해 초반 진입 장벽을 낮췄고, 설정 버튼·닫기 버튼·클릭 유도 UI까지 배려한 걸 보니 직관성과 접근성을 고려한 UI 구성인 듯해.',
+    text: '초반 진입 장벽을 낮추기 위해 튜토리얼과 설정창을 배치했고, 환경에 따른 버튼 위치와 클릭 유도 UI까지 세밀하게 설계했어. 이는 모바일 UX 가이드에 맞춘 시야 흐름, 위치 기준, 인터랙션 전략까지 함께 고려한 결과야.',
+    highlights: ['튜토리얼과 설정창', '모바일 UX 가이드', '인터랙션 전략'],
+    badges: ['초기 진입 UX', '디바이스별 대응', 'UX 디테일 설계'],
     content: {
       type: 'component',
       component: HelpUXExample,
@@ -139,7 +164,9 @@ export const scenarioData: ScenarioItem[] = [
   },
   {
     id: 13,
-    text: '튜토리얼의 경우 사람들이 안 볼 경우를 대비해서 우측 하단부의 클릭 유도 버튼도 있네. 직관적인 버튼들을 배치해 둠으로써 이런 점을 고려한 느낌이 들어.',
+    text: '튜토리얼을 보지 않아도 자연스럽게 흐름을 따라갈 수 있도록, 우측 하단에 클릭 유도 버튼을 배치했어. 진행 버튼과 이전 버튼, 콘텐츠 토글 기능까지 갖춘 사용자 배려 UI로 구성했지.',
+    highlights: ['자연스러운 흐름', '클릭 유도 버튼', '콘텐츠 토글 기능'],
+    badges: ['UI 흐름 설계', '진행 제어 UX', '사용자 배려'],
     content: {
       type: 'component',
       component: ClickGuide,
@@ -147,7 +174,9 @@ export const scenarioData: ScenarioItem[] = [
   },
   {
     id: 14,
-    text: '진행도 표시용 프로그레스 바와 반응형 여백 처리도 포함되어 있어. 다만 기술 중심보단 시각적 UX 배려로 봐야겠네.',
+    text: '진행도를 표시하는 진행도 안내 UI인 프로그레스 바는 현재 시나리오 위치를 직관적으로 보여주고, 사용자가 흐름의 끝을 예측할 수 있도록 도와줘. 특히 상단 고정형 구조로 안정성을 확보했고, 모바일에서도 반응형 설계에 따라 여백이 자연스럽게 처리되어 UI 신뢰성을 높였어.',
+    highlights: ['프로그레스 바', '시나리오 위치', '상단 고정형 구조'],
+    badges: ['진행도 안내 UI', 'UX 시각화', '반응형 설계'],
     content: {
       type: 'component',
       component: ProgressBarDemo,
@@ -159,15 +188,14 @@ export const scenarioData: ScenarioItem[] = [
     id: 15,
     text: "전체적으로 UI/UX에 대한 신경을 많이 썼고 데이터의 연결 성이나 활용도를 보여줄려는 생각을 한 느낌이야. '김민겸'지원자는 기억해 둬야 겠어.",
     content: {
-      type: 'image',
-      src: img4,
-      alt: '끝 인사 이미지',
+      type: 'component',
+      component: OutroTitle,
     },
   },
   // 마무리
   {
     id: 16,
-    text: '여기까지 읽어주셔서 정말 감사합니다.\n기술 스택과 프로젝트 흐름 외에도 궁금한 점이 있으시다면 언제든지 연락 부탁드립니다.',
+    text: '여기까지 읽어주셔서 정말 감사합니다. 기술 스택과 프로젝트 흐름 외에도 궁금한 점이 있으시다면 언제든지 연락 부탁드립니다.',
     content: {
       type: 'component',
       component: LastPage,

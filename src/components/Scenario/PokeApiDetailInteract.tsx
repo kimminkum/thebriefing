@@ -139,7 +139,7 @@ export default function PokeApiDetailInteract() {
 
       {/* 카드 슬라이더 */}
       <Swiper
-        spaceBetween={12}
+        spaceBetween={16}
         slidesPerView={1.2}
         grabCursor
         autoplay={{ delay: 2500, disableOnInteraction: false }}
@@ -157,7 +157,8 @@ export default function PokeApiDetailInteract() {
                   src={poke.sprites.front_default}
                   alt={poke.name}
                   width={120}
-                  height={185}
+                  height={200}
+                  style={{ objectFit: 'cover' }}
                   unoptimized
                 />
               </ImageBox>
