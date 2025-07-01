@@ -3,14 +3,36 @@ import styled from "styled-components";
 
 const Wrapper = styled.div`
   background: #fdfaf5;
-  border: 2px solid #ccc;
+  border: 2px solid #e0c8a4;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
   border-radius: 16px;
   padding: calc(40 / 690 * 100%) calc(20 / 690 * 100%);
   max-width: 100%;
 `;
 
+<<<<<<< Updated upstream
 const StepCard = styled.div`
   background: #ffffff;
+=======
+const Title = styled.h3`
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: #5d4037;
+`;
+
+const Grid = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 16px;
+`;
+
+const StepBox = styled.div`
+  flex: 1 1 40%;
+  background: #fff;
+  border: 1px solid #d7ccc8;
+>>>>>>> Stashed changes
   border-radius: 12px;
   border: 1px solid #ddd;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);

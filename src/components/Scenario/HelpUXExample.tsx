@@ -4,12 +4,19 @@ import styled from 'styled-components';
 const Container = styled.div`
   position: relative;
   background: linear-gradient(145deg, #ffffff, #f9f9f9);
+<<<<<<< Updated upstream
   border-radius: 20px;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
   padding: 2rem 2rem 2.5rem;
   margin: 2rem auto;
+=======
+  border: 2px solid #e0c8a4;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  border-radius: 16px;
+  padding: 1rem 1rem 2rem;
+  margin: 0.5rem auto;
+>>>>>>> Stashed changes
   max-width: 720px;
-  border: 2px solid #f1f1f1;
 `;
 
 const Arrow = styled.div`
