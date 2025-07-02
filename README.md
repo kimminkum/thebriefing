@@ -1,77 +1,87 @@
 > React + TypeScript 기반의 인터랙티브 자기소개 포트폴리오  
-> 기존 Vite 기반 프로젝트를 Next.js(15.x)로 구조 전환하여 배포 최적화
+> Vite 기반 프로젝트를 Next.js 15.x로 구조 전환하여 UX 흐름 최적화 & 정적 배포 최적화를 달성했습니다.
 
-# The Briefing
+# THE BRIEFING 📰
 
-React + TypeScript 기반의 인터랙티브 자기소개 포트폴리오
+시나리오 기반 자기소개 포트폴리오
 
-다양한 최신 React 생태계 기술을 접목하여, 시나리오 형태의 텍스트+콘텐츠 흐름과 데이터 페이지를 제공하는 Next.js 애플리케이션입니다.
+면접관이 자연스럽게 읽어갈 수 있는 흐름을 중심으로 구성한 React + Next.js 포트폴리오입니다.  
+텍스트와 콘텐츠의 흐름을 통합한 `scenarioData` 구조를 중심으로 상태 제어, 애니메이션, 데이터 처리까지 아우르는 프론트엔드 인터랙션 설계 능력을 보여주고자 했습니다.
 
-## 기술 스택
+---
 
-- **Next.js 15.3**
-- **TypeScript**
-- **Styled-Components**
-- **Framer Motion**
-- **Recoil** (시나리오 진행 상태 관리)
-- **Zustand** (UI 상태 관리: 튜토리얼 모달, 텍스트 윈도우 토글, 클릭 잠금, 타이핑 속도 등)
-- **React Query** (@tanstack/react-query)
-  - API 데이터 페칭 / 캐싱 / 로딩·에러 처리 / 옵티미스틱 업데이트
-- **axios** (HTTP 클라이언트)
-- **Swiper** (슬라이더)
-- **Vercel** 정적 배포 최적화
+## 🔧 기술 스택
 
-## 주요 기능
+| 분류        | 사용 기술                                    |
+| ----------- | -------------------------------------------- |
+| Framework   | Next.js 15.3, React 18                       |
+| Language    | TypeScript                                   |
+| Styling     | styled-components                            |
+| Animation   | Framer Motion, Swiper                        |
+| 상태 관리   | Recoil (시나리오), Zustand (UI 상태)         |
+| 데이터 처리 | React Query (`@tanstack/react-query`), axios |
+| 배포        | Vercel                                       |
 
-1. **시나리오 기반 자기소개**
+---
 
-   - `scenarioData` 단일 데이터로 텍스트+이미지+컴포넌트 흐름 제어
-   - 타이핑 애니메이션, 문장 단위 청크 분할, 이전/다음 이동
-   - 튜토리얼 모달 & 클릭 유도 UI
+## 💡 주요 기능 요약
 
-2. **UI 설정 패널 (Zustand)**
+### 1. 시나리오 기반 자기소개
 
-   - 튜토리얼 재열기, 데이터 페이지 이동, 텍스트 윈도우 토글
-   - 타이핑 속도 조절 (range: 2–20, 기본 10)
+- `scenarioData` 단일 구조로 텍스트 + 이미지 + 컴포넌트 흐름 제어
+- 타이핑 애니메이션 / 텍스트 분할 / 클릭 유도 UI
+- 튜토리얼 모달, 이전/다음 버튼, 토글 등 유저 흐름 컨트롤
 
-3. **시나리오 진행 상태 관리 (Recoil)**
+### 2. UI 설정 패널 (Zustand)
 
-   - 현재 시나리오 ID, 텍스트 청크 인덱스, 진행도(ProgressBar)
+- 타이핑 속도 조절 (2~20)
+- 튜토리얼 재열기, 텍스트창 토글, 데이터 페이지 이동
 
-4. **데이터 보기 페이지 (React Query)**
+### 3. 시나리오 상태 관리 (Recoil)
 
-   - **조회(Intro)**:
-     - 게시글 목록 50개 요청 → 화면에 10개씩 표시
-     - 검색(제목 디바운스), 정렬(ID/제목↑↓)
-     - Skeleton Loader, debounce 훅 적용
-   - **삭제(Delete)**:
-     - 게시글 삭제 뮤테이션 → 옵티미스틱 업데이트로 즉시 UI 반영
-     - 클릭 디바운스 처리
+- 현재 id, 텍스트 청크 index, 진행도 등 상태 제어
 
-5. **포켓몬 도감 예제 (React Query + Swiper)**
+### 4. 데이터 페이지 (React Query)
 
-   - **PokeAPI**에서 타입 목록 및 포켓몬 상세 조회
-   - 슬라이드 카드로 이미지·스탯 시각화
-   - 로딩 상태 스피너/Skeleton 등 UX 보강
+- 게시글 목록 조회 (검색·정렬·스켈레톤)
+- 삭제 시 옵티미스틱 업데이트 및 디바운스 적용
 
-6. **반응형 & 접근성**
-   - 전반적 UI/UX 고려 (버튼, 포커스, 애니메이션 등)
-   - 모바일 및 데스크탑 대응
+### 5. 포켓몬 도감 예제 (PokeAPI)
 
-## 디렉토리 구조
+- 타입 필터 → 포켓몬 슬라이드 카드
+- 능력치 시각화, 스켈레톤/로딩 UX 보강
+
+### 6. 반응형 UI & UX 설계
+
+- 모바일 대응 및 포커스 흐름 고려
+- 프로그레스 바 / 애니메이션 / 접근성 요소 적용
+
+---
+
+## 📁 디렉토리 구조
 
 ```
 src/
 ├─ components/
 │ ├─ Scenario/ # 시나리오용 컴포넌트
-│ ├─ Window/ # 텍스트·설정·중앙영역 윈도우
-│ └─ Common/ # 공통 스타일, Button 등
-├─ data/ # 시나리오 데이터
+│ ├─ Window/ # TextWindow, CenterWindow, HelpWindow 등
+│ └─ Common/ # 공통 버튼, 스타일 유틸
+├─ data/ # 시나리오 시퀀스 데이터 (scenarioData)
+├─ hooks/ # 커스텀 훅 (디바운스, 포켓몬 등)
 ├─ pages/
-│ ├─ index.tsx # 메인 시나리오
-│ └─ posts.tsx # 데이터 페이지 (조회/삭제 탭)
-├─ stores/ # Zustand UI 상태
-├─ atoms/ # Recoil 상태
-├─ hooks/ # 커스텀 훅 (useDebounce, useDebouncedCallback, usePokemon 등)
-└─ styles/ # 전역 스타일, 테마, 유틸 스타일
+│ ├─ index.tsx # 시나리오 메인 진입
+│ └─ posts.tsx # JSONPlaceholder 데이터 페이지
+├─ stores/ # Zustand - UI 상태 관리
+├─ atoms/ # Recoil - 시나리오 진행 상태
+└─ styles/ # 글로벌 스타일, 테마
 ```
+
+🔗 배포 & 링크
+🔍 데모: https://thebriefing.vercel.app/
+
+📁 GitHub: https://github.com/kimminkum/thebriefing
+
+📌 참고 사항
+본 프로젝트는 지원자 역량과 UI 흐름 구성력을 전달하기 위해 기획된 자기소개형 포트폴리오입니다.
+실제 API 예제와 UX 흐름을 반영해 사용자의 몰입감과 채용 담당자의 이해도를 높이는 데 중점을 두었습니다.
+이 포트폴리오를 통해 저의 프론트엔드 개발자로서의 사고 방식과 문제 해결 접근법을 살펴봐 주세요.

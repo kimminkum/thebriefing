@@ -1,8 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import Image from "next/image";
+import React from 'react';
+import styled from 'styled-components';
 
-import img1 from "../../assets/img/scenario/img1.jpg";
+import img1 from '../../assets/img/scenario/img1.jpg';
 
 const Wrapper = styled.div`
   padding: calc(24 / 690 * 100%);
@@ -71,10 +70,9 @@ const ScenarioDataSummary: React.FC = () => {
             <tr>
               <Td>14</Td>
               <LTd>
-                데이터의 경우 ?버튼으로 Datapage를 확인해보니 각종 타입에 잘
-                대응할 수 있도록 구성했네. 텍스트 부분은 한 라인으로 설명
-                가능하게 하였고, 컨텐츠 부분의 경우 어떤 타입을 넣어도 되게끔
-                만든 뒤에 대응하고 있어.
+                데이터의 경우 ?버튼으로 Datapage를 확인해보니 각종 타입에 잘 대응할 수 있도록
+                구성했네. 텍스트 부분은 한 라인으로 설명 가능하게 하였고, 컨텐츠 부분의 경우 어떤
+                타입을 넣어도 되게끔 만든 뒤에 대응하고 있어.
               </LTd>
             </tr>
           </tbody>
@@ -105,9 +103,9 @@ const ScenarioDataSummary: React.FC = () => {
                   src={img1.src}
                   alt="데이터 페이지 이미지"
                   style={{
-                    maxWidth: "100px",
-                    height: "auto",
-                    margin: "0 auto"
+                    maxWidth: '100px',
+                    height: 'auto',
+                    margin: '0 auto',
                   }}
                 />
               </Td>
