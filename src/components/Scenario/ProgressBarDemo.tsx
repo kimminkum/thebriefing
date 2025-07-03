@@ -1,5 +1,5 @@
-import React from "react";
-import styled, { keyframes } from "styled-components";
+import React from 'react';
+import styled, { keyframes } from 'styled-components';
 
 // 프로그레스 바 애니메이션
 const progressAnimation = keyframes`
@@ -26,7 +26,7 @@ const Title = styled.h3`
   font-size: 1.3rem;
 
   &::before {
-    content: "📍";
+    content: '📍';
     margin-right: 0.5rem;
   }
 `;
@@ -41,7 +41,7 @@ const SubTitle = styled.p`
   margin-bottom: 1.5rem;
 
   &::before {
-    content: "💡";
+    content: '💡';
     font-size: 1.1rem;
   }
 `;
@@ -67,7 +67,7 @@ const ListItem = styled.li`
   line-height: 1.5;
 
   &::before {
-    content: "✔ ";
+    content: '✔ ';
     color: #4caf50;
     margin-right: 0.3rem;
   }
@@ -93,24 +93,15 @@ const ProgressBarDemo: React.FC = () => {
   return (
     <Wrapper className="font-20">
       <Title className="font-28">진행 상황 표시</Title>
-      <SubTitle>
-        이 컴포넌트는 사용자 경험을 고려하여 제작된 예시입니다
-      </SubTitle>
+      <SubTitle>이 컴포넌트는 사용자 경험을 고려하여 제작된 예시입니다</SubTitle>
 
       <DescriptionList>
+        <ListItem>이 컴포넌트는 사용자의 이해를 돕기 위해 만든 예시입니다.</ListItem>
+        <ListItem>프로그레스바는 시나리오 중 현재 위치를 시각적으로 안내합니다.</ListItem>
         <ListItem>
-          이 컴포넌트는 사용자의 이해를 돕기 위해 만든 예시입니다.
+          사용자는 진행 상황을 인지함으로써 남은 양을 예측하며 몰입할 수 있습니다.
         </ListItem>
-        <ListItem>
-          프로그레스바는 시나리오 중 현재 위치를 시각적으로 안내합니다.
-        </ListItem>
-        <ListItem>
-          사용자는 진행 상황을 인지함으로써 남은 양을 예측하며 몰입할 수
-          있습니다.
-        </ListItem>
-        <ListItem>
-          상단 고정형 UI는 시선 이동을 줄여 안정성을 높입니다.
-        </ListItem>
+        <ListItem>상단 고정형 UI는 시선 이동을 줄여 안정성을 높입니다.</ListItem>
       </DescriptionList>
 
       <BarWrapper>

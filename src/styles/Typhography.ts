@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 /* 기본 본문 텍스트 */
 export const Body = styled.p`
-  font-size: clamp(1rem, 1.3vw, 1.2rem);
+  font-size: clamp(0.95rem, 1.3vw, 1.2rem);
   font-weight: 400;
   line-height: 1.6;
   color: #111;
@@ -20,7 +20,11 @@ export const Highlight = styled.span`
   border-radius: 4px;
   color: #222;
   line-height: 1.5;
-  box-shadow: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 0px transparent;
+  &:hover {
+    box-shadow: 0 0 4px #ffe97f;
+  }
 `;
 
 /* 뱃지 스타일 */
@@ -29,7 +33,9 @@ export const Badge = styled.span`
   background-color: #e8f0fe;
   color: #345a9c;
   font-weight: 500;
+  padding: 2px 8px;
   border-radius: 999px;
+  margin: 0 2px;
 `;
 
 /* 제목 구조 */
@@ -63,3 +69,42 @@ export const Emphasis = styled.span`
   font-weight: 700;
   text-decoration: underline;
 `;
+
+// src/styles/Typography.ts
+
+export const Typography = {
+  titleXL: `
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    line-height: 1.3;
+  `,
+  titleLG: `
+    font-size: clamp(1.25rem, 2.5vw, 1.7rem);
+    font-weight: 600;
+    line-height: 1.4;
+  `,
+  subtitle: `
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    font-weight: 500;
+    line-height: 1.5;
+  `,
+  body: `
+    font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+    font-weight: 400;
+    line-height: 1.6;
+  `,
+  caption: `
+    font-size: clamp(0.75rem, 1vw, 0.9rem);
+    font-weight: 300;
+    line-height: 1.4;
+  `,
+  badge: `
+    font-size: 13px;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 8px;
+    background-color: #f0f0f0;
+    color: #333;
+    display: inline-block;
+  `,
+};
