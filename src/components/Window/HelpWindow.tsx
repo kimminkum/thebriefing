@@ -5,11 +5,13 @@ import Button from '../Button';
 import paper from '@assets/img/bg/handmade-paper.png';
 import { useRouter } from 'next/router';
 import { useUIStore } from '../../stores/uiStore';
+import { Body, Highlight, Caption, Heading } from '../../styles/Typhography';
+
 export interface HelpWindowProps {
   toggleUi: () => void;
   $isUiMode: boolean;
-  typingSpeed: number; // ✅ 추가
-  setTypingSpeed: (speed: number) => void; // ✅ 추가
+  typingSpeed: number;
+  setTypingSpeed: (speed: number) => void;
   reopenTutorial: () => void;
 }
 
@@ -19,7 +21,7 @@ const Container = styled.div<{ $isUiMode: boolean }>`
   right: 0;
   width: 100%;
   height: 100%;
-  background-color: #fdfaf5; // ✅ 확정 배경
+  background-color: #fdfaf5;
   background-image: url(${() => paper.src});
   background-repeat: repeat;
   background-size: cover;
@@ -41,13 +43,6 @@ const Section = styled.div`
   gap: 1.4rem;
 `;
 
-const SectionTitle = styled.div`
-  font-weight: 700;
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-  color: #333;
-`;
-
 const Divider = styled.hr`
   width: 100%;
   border: none;
@@ -61,7 +56,6 @@ const StyledBtn = styled(Button)`
   border: 1px solid #111;
   padding: 0.7rem 1.2rem;
   transition: background 0.2s;
-
   &:hover {
     background: #eee;
   }
@@ -79,10 +73,6 @@ const RangeLabel = styled.label`
   font-size: 1.05rem;
 `;
 
-const InputRange = styled.input`
-  width: 60%;
-`;
-
 const HelpWindow: React.FC<HelpWindowProps> = ({ $isUiMode, toggleUi, reopenTutorial }) => {
   const typingSpeed = useUIStore((s) => s.typingSpeed);
   const setTypingSpeed = useUIStore((s) => s.setTypingSpeed);
@@ -91,20 +81,31 @@ const HelpWindow: React.FC<HelpWindowProps> = ({ $isUiMode, toggleUi, reopenTuto
   return (
     <Container $isUiMode={$isUiMode}>
       <Section>
-        <SectionTitle>📘 튜토리얼</SectionTitle>
+        <Heading>📘 튜토리얼</Heading>
+        <Body>
+          <Highlight>초기 흐름을 다시 보고 싶다면?</Highlight> 튜토리얼을 재실행해보세요.
+        </Body>
         <StyledBtn onClick={reopenTutorial}>다시 보기</StyledBtn>
 
         <Divider />
 
-        <SectionTitle>📊 데이터 페이지</SectionTitle>
+        <Heading>📊 데이터 페이지</Heading>
+        <Body>
+          <Highlight>API와 상태 관리 흐름</Highlight>을 체험하고 싶다면 데이터 페이지로 이동하세요.
+        </Body>
         <StyledBtn onClick={() => router.push('/datapage')}>이동</StyledBtn>
 
         <Divider />
 
-        <SectionTitle>✍️ 타이핑 속도</SectionTitle>
+        <Heading>✍️ 타이핑 속도</Heading>
+        <Body>
+          원하는 속도로 <Highlight>타이핑 출력</Highlight>을 조절할 수 있습니다.
+        </Body>
         <RangeBox>
-          <RangeLabel>{typingSpeed}ms</RangeLabel>
-          <InputRange
+          <RangeLabel>
+            현재 속도: <Caption>{typingSpeed}ms</Caption>
+          </RangeLabel>
+          <input
             type="range"
             min={2}
             max={20}
