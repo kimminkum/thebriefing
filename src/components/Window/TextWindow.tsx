@@ -28,9 +28,7 @@ const Container = styled.div<{ $isVisible: boolean }>`
   position: absolute;
   bottom: 0;
   width: 100%;
-  min-height: 150px;
-  height: calc(140 / 750 * 100%);
-  max-height: 180px;
+  height: 160px;
   background: #fdfdfd;
   color: #111;
   transform: ${({ $isVisible }) => ($isVisible ? 'none' : 'translateY(100%)')};

@@ -1,18 +1,19 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
+import { Typography } from '../../styles/Typhography'; // 경로는 상황에 맞게 조정
 
 const DiagramWrapper = styled.div`
   padding: calc(30 / 654 * 100%);
-  max-width: 690px;
   margin: 0 auto;
   background-color: #fdf7e3;
   border: 2px solid #d4b28c;
   border-radius: 4px;
   font-family: Pretendard, sans-serif;
+  ${Typography.body};
 `;
 
 const Title = styled.h3`
-  font-weight: 600;
+  ${Typography.titleLG};
   color: #5d4037;
   margin-bottom: calc(20 / 596 * 100%);
 `;
@@ -34,6 +35,7 @@ const Box = styled.div`
   font-weight: 500;
   color: #3e2723;
   position: relative;
+  ${Typography.body};
 `;
 
 const Arrow = styled.div`
@@ -61,16 +63,17 @@ const CodeBlock = styled.pre`
   color: #4e342e;
   white-space: pre-wrap;
   line-height: 1.5;
+  ${Typography.caption};
 `;
 
 const ScenarioFlowDiagram: React.FC = () => {
   return (
-    <DiagramWrapper className="font-20">
-      <Title className="font-28">📘 시나리오 흐름 구성도</Title>
+    <DiagramWrapper>
+      <Title>📘 시나리오 흐름 구성도</Title>
       <BoxRow>
         <Box>
-          scenarioData{" "}
-          <CodeBlock className="font-16">{`id: 1 ~ scenarioData.length,
+          scenarioData{' '}
+          <CodeBlock>{`id: 1 ~ scenarioData.length,
   text: "예시 텍스트 창의 대사 출력 내용",
   content: {
     type: "image" | "component",

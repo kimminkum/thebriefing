@@ -42,7 +42,7 @@ export const SelectRow = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: calc(12 / 654 * 100%);
+  gap: 12px;
   flex-wrap: wrap;
   margin-bottom: calc(24 / 654 * 100%);
 `;
@@ -53,7 +53,7 @@ export const SelectTitle = styled.label`
   min-width: fit-content;
 `;
 export const StyledSelect = styled.select`
-  padding: 8px 12px;
+  padding: 4px 8px;
   border: 1px solid #ccc;
   border-radius: 6px;
   font-family: Pretendard, sans-serif;
@@ -161,7 +161,7 @@ export const StatLabel = styled.div`
   font-weight: 600;
   color: #333;
   font-size: 0.75rem;
-  text-align: right;
+  text-align: left;
 `;
 
 export const StatBarWrapper = styled.div`

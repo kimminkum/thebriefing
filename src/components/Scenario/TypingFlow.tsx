@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Typography } from '../../styles/Typhography'; // 경로는 프로젝트 구조에 따라 조정
 
 const Wrapper = styled.div`
   padding: calc(32 / 600 * 100%);
@@ -9,11 +10,13 @@ const Wrapper = styled.div`
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
   max-width: 720px;
+  overflow-y: auto;
+  ${Typography.body};
 `;
 
 const Title = styled.h3`
+  ${Typography.titleLG};
   margin-bottom: calc(28 / 600 * 100%);
-  font-weight: 700;
   color: #5d4037;
   display: flex;
   align-items: center;
@@ -28,7 +31,7 @@ const Title = styled.h3`
 const Section = styled.div`
   display: flex;
   flex-direction: column;
-  gap: calc(16 / 600 * 100%);
+  gap: 20px;
 `;
 
 const Item = styled.div`
@@ -56,6 +59,8 @@ const Bullet = styled.div`
 
 const Content = styled.div`
   color: #3e2723;
+  ${Typography.body};
+
   strong {
     color: #d84315;
   }
@@ -63,8 +68,8 @@ const Content = styled.div`
 
 const TypingFlow: React.FC = () => {
   return (
-    <Wrapper className="font-20">
-      <Title className="font-24">텍스트 출력 설계 의도</Title>
+    <Wrapper>
+      <Title>텍스트 출력 설계 의도</Title>
       <Section>
         <Item>
           <Bullet>1</Bullet>

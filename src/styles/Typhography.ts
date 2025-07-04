@@ -15,7 +15,7 @@ export const Highlight = styled.span`
   display: inline-block;
   background-color: #fff2b3;
   font-weight: 600;
-  padding: 2px 6px;
+  padding: 0.05em 0.05em; // 기존보다 좌우 여백 줄임
   margin: 0 2px;
   border-radius: 4px;
   color: #222;
@@ -33,7 +33,7 @@ export const Badge = styled.span`
   background-color: #e8f0fe;
   color: #345a9c;
   font-weight: 500;
-  padding: 2px 8px;
+  padding: 0.05em 0.05em; // 기존보다 좌우 여백 줄임
   border-radius: 999px;
   margin: 0 2px;
 `;
@@ -101,7 +101,7 @@ export const Typography = {
   badge: `
     font-size: 13px;
     font-weight: 600;
-    padding: 2px 6px;
+    padding: 2px 2px;
     border-radius: 8px;
     background-color: #f0f0f0;
     color: #333;

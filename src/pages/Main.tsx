@@ -1,13 +1,12 @@
+// src/pages/Main.tsx
 import React, { useRef, useState, useCallback } from 'react';
 import styled from 'styled-components';
-
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   currentScenarioIdState,
   textChunkIndexState,
   scenarioProgressState,
 } from '../atoms/scenarioAtom';
-
 import { useUIStore } from '../stores/uiStore';
 
 import CenterWindow from '../components/Window/CenterWindow';
@@ -23,7 +22,7 @@ const AppWrapper = styled.div`
   height: 100dvh;
   display: flex;
   justify-content: center;
-  align-items: flex-start; // 중앙 정렬 대신 상단 정렬
+  align-items: flex-start;
   background-color: #faf9f5;
 `;
 
@@ -35,10 +34,9 @@ const Container = styled.div`
   margin: 0 auto;
   position: relative;
   overflow: hidden;
-  padding: clamp(12px, calc(100vw / 750 * 16), 24px);
+  padding: clamp(12px, calc(100vw / 750 * 16), 24px) 0;
   background-color: #fdf7e3;
   color: #111;
-  border-radius: 16px;
   border: 2px solid #d4b28c;
   box-shadow: 0 4px 16px rgba(180, 150, 100, 0.3);
 `;
@@ -65,7 +63,6 @@ const Main: React.FC = () => {
   const [currentId, setCurrentId] = useRecoilState(currentScenarioIdState);
   const [textIndex, setTextIndex] = useRecoilState(textChunkIndexState);
   const progress = useRecoilValue(scenarioProgressState);
-
   const [isTyping, setIsTyping] = useState(false);
   const textWindowRef = useRef<TextWindowHandle>(null);
 

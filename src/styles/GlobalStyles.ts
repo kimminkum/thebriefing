@@ -36,6 +36,7 @@ const GlobalStyle = createGlobalStyle`
 
   * {
     box-sizing: border-box;
+    letter-spacing: -0.02em;
   }
 
   body {

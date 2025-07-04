@@ -9,7 +9,6 @@ export const Container = styled.div`
   font-family: Pretendard, sans-serif;
   border: 1px solid #ddd;
   max-width: 720px;
-  margin: 2rem auto;
 `;
 export const Title = styled.h3`
   font-size: 1.25rem;
