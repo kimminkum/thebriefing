@@ -75,11 +75,11 @@ const BriefingIntro: React.FC = () => {
         API 응답에 따라 UI 상태를 동적으로 렌더링하며, 비동기 흐름을 사용자 중심으로 조절했습니다.
       </Item>
       <Item>
-        <p>
+        <span>
           전역 상태 관리를 위해 <Highlight>Recoil</Highlight> · <Highlight>Zustand</Highlight> 를,{' '}
           <br />
           서버 상태 관리를 위해 <Highlight>React Query</Highlight> 를 활용했습니다.
-        </p>
+        </span>
       </Item>
     </Container>
   );

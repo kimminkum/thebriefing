@@ -10,7 +10,11 @@ const Wrapper = styled.div`
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
   max-width: 720px;
+
+  /* 🔽 추가 */
+  max-height: 80vh;
   overflow-y: auto;
+
   ${Typography.body};
 `;
 

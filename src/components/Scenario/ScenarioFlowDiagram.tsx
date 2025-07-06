@@ -1,68 +1,81 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Typography } from '../../styles/Typhography'; // 경로는 상황에 맞게 조정
+import { Typography } from '../../styles/Typhography';
 
 const DiagramWrapper = styled.div`
-  padding: calc(30 / 654 * 100%);
-  margin: 0 auto;
   background-color: #fdf7e3;
   border: 2px solid #d4b28c;
-  border-radius: 4px;
-  font-family: Pretendard, sans-serif;
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 0 auto;
+  max-width: 760px;
+
+  /* ✅ 적정 높이 조절 + 스크롤 */
+  max-height: 80vh;
+  overflow-y: auto;
+
   ${Typography.body};
 `;
 
 const Title = styled.h3`
   ${Typography.titleLG};
   color: #5d4037;
-  margin-bottom: calc(20 / 596 * 100%);
+  margin-bottom: 2rem;
+  text-align: center;
 `;
 
 const BoxRow = styled.div`
   display: flex;
-  align-items: center;
   flex-direction: column;
-  gap: calc(12 / 586 * 100%);
-  flex-wrap: wrap;
+  gap: 1.6rem;
+  width: 100%;
 `;
 
 const Box = styled.div`
   background-color: #fff;
   border: 2px solid #a1887f;
-  padding: calc(20 / 690 * 100%);
   border-radius: 10px;
+  padding: 1rem;
   text-align: center;
   font-weight: 500;
   color: #3e2723;
-  position: relative;
   ${Typography.body};
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 const Arrow = styled.div`
-  flex: 0;
-  font-size: 20px;
+  font-size: 1.5rem;
   color: #6d4c41;
-  margin: 0 30px;
+  text-align: center;
 `;
 
-const Flex = styled.div`
+const FlexRow = styled.div`
   display: flex;
   justify-content: center;
-  gap: calc(30 / 600 * 100%);
+  align-items: stretch;
+  gap: 1.5rem;
+  flex-wrap: wrap;
 
   > div {
-    width: 50%;
+    flex: 1;
+    min-width: 160px;
   }
 `;
 
 const CodeBlock = styled.pre`
+  margin-top: 1rem;
   background: #fff8e1;
   border: 1px dashed #a1887f;
-  padding: calc(16 / 439 * 100%);
+  padding: 1rem;
   border-radius: 8px;
   color: #4e342e;
   white-space: pre-wrap;
-  line-height: 1.5;
+  width: 100%;
+  overflow-x: auto;
   ${Typography.caption};
 `;
 
@@ -72,33 +85,32 @@ const ScenarioFlowDiagram: React.FC = () => {
       <Title>📘 시나리오 흐름 구성도</Title>
       <BoxRow>
         <Box>
-          scenarioData{' '}
+          scenarioData
           <CodeBlock>{`id: 1 ~ scenarioData.length,
-  text: "예시 텍스트 창의 대사 출력 내용",
-  content: {
-    type: "image" | "component",
-    src?: string,
-    alt?: string,
-    component?: React.FC<any>,
-    props?: Record<string, any>
-  }`}</CodeBlock>
+text: "예시 텍스트 창의 대사 출력 내용",
+content: {
+  type: "image" | "component",
+  src?: string,
+  alt?: string,
+  component?: React.FC<any>,
+  props?: Record<string, any>
+}`}</CodeBlock>
         </Box>
-        <Flex>
-          <Arrow>⬇️</Arrow>
-          <Arrow>⬇️</Arrow>
-        </Flex>
-        <Flex>
+
+        <Arrow>⬇️</Arrow>
+
+        <FlexRow>
           <Box>
             TextWindow
             <br />
-            "예시 텍스트 창의 대사 출력 내용"
+            <span>"예시 텍스트 창의 대사 출력 내용"</span>
           </Box>
           <Box>
             CenterWindow
             <br />
-            "img 또는 컴포넌트 내용 출력"
+            <span>"img 또는 컴포넌트 내용 출력"</span>
           </Box>
-        </Flex>
+        </FlexRow>
       </BoxRow>
     </DiagramWrapper>
   );

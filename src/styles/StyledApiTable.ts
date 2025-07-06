@@ -1,7 +1,6 @@
-// components/Common/StyledApiTable.ts
+// src/styles/StyledApiTable.ts
 import styled from 'styled-components';
 
-// 🔹 전체 컨테이너
 export const Container = styled.div`
   padding: 1.5rem;
   background: #fff;
@@ -10,6 +9,7 @@ export const Container = styled.div`
   border: 1px solid #ddd;
   max-width: 720px;
 `;
+
 export const Title = styled.h3`
   font-size: 1.25rem;
   font-weight: bold;
@@ -43,7 +43,10 @@ export const ListItem = styled.li`
   }
 `;
 
-export const Cell = styled.span<{
+// ✅ boolean 속성을 DOM에 전달하지 않도록 커스텀 필터링
+export const Cell = styled('span').withConfig({
+  shouldForwardProp: (prop) => !['grow', 'ellipsis', 'isAuthor'].includes(prop),
+})<{
   width?: string;
   grow?: boolean;
   ellipsis?: boolean;
@@ -61,7 +64,6 @@ export const Cell = styled.span<{
   ${({ isAuthor }) => isAuthor && 'padding-left: 6px;'}
 `;
 
-// 🔹 버튼
 export const ActionButton = styled.button`
   padding: 6px 12px;
   margin-bottom: 1rem;
@@ -72,14 +74,12 @@ export const ActionButton = styled.button`
   cursor: pointer;
 `;
 
-// 🔹 리스트 전체 (ul 역할)
 export const List = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 8px;
 `;
 
-// 🔹 Header 행
 export const Header = styled(ListItem)`
   font-weight: bold;
   background: #f9f9f9;

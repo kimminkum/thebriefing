@@ -1,15 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Typography } from '../../styles/Typhography'; // 경로는 프로젝트 구조에 따라 조정
 
 const Container = styled.div`
   background: linear-gradient(135deg, #fffde7, #fff9c4);
   border: 2px solid #e0c8a4;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   border-radius: 16px;
   padding: calc(32 / 690 * 100%);
   margin: 0 auto;
   color: #333;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+  /* 🔽 스크롤 가능하도록 설정 */
+  max-height: 80vh;
+  overflow-y: auto;
+
+  ${Typography.body};
 `;
 
 const ParagraphGroup = styled.div`
@@ -22,6 +28,7 @@ const Title = styled.h3`
   font-weight: 700;
   margin-bottom: calc(10 / 690 * 100%);
   color: #4e342e;
+  ${Typography.titleMD};
 
   &::before {
     content: attr(data-icon);
@@ -32,6 +39,7 @@ const Title = styled.h3`
 
 const Paragraph = styled.p`
   margin-bottom: calc(14 / 690 * 100%);
+  ${Typography.body};
 `;
 
 const BoxLabel = styled.div`
@@ -46,6 +54,7 @@ const BoxLabel = styled.div`
   justify-content: center;
   gap: 0.6rem;
   box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.05);
+  ${Typography.body};
 
   span {
     display: inline-block;
@@ -56,7 +65,7 @@ const BoxLabel = styled.div`
   @keyframes bounce {
     0%,
     100% {
-      transform: translateY(0) rotate(0);
+      transform: translateY(0);
     }
     50% {
       transform: translateY(5px);
@@ -66,7 +75,7 @@ const BoxLabel = styled.div`
 
 const ClickGuide: React.FC = () => {
   return (
-    <Container className="font-20">
+    <Container>
       <ParagraphGroup>
         <Title data-icon="🧭">자연스러운 흐름 유도</Title>
         <Paragraph>

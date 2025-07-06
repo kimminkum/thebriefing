@@ -83,6 +83,11 @@ export const Typography = {
     font-weight: 600;
     line-height: 1.4;
   `,
+  titleMD: `
+    font-size: clamp(1.1rem, 2vw, 1.4rem);  // 🔹 titleLG보다 작고 subtitle보다 명확하게
+    font-weight: 500;
+    line-height: 1.5;
+  `,
   subtitle: `
     font-size: clamp(1.1rem, 2vw, 1.4rem);
     font-weight: 500;

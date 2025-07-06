@@ -22,12 +22,6 @@
     "allowJs": true,
     "incremental": true
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "src",
-    "src/types/global.d.ts"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src", "src/types/global.d.ts"],
   "exclude": ["node_modules"]
 }
