@@ -1,24 +1,39 @@
-// src/components/BriefingIntro.tsx
 import React from 'react';
 import styled from 'styled-components';
 import { Highlight } from '../../styles/Typhography';
 
 const Container = styled.div`
-  padding: calc(30 / 690 * 100%);
+  flex: 1;
+  box-sizing: border-box;
+
+  padding: clamp(16px, 4vw, 32px);
   border: 2px solid #aaa;
   background: #fefefe;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  overflow-y: auto; // ✅ 내용 길 경우 스크롤
+
+  @media (max-width: 768px) {
+    height: auto;
+    max-height: none;
+  }
 `;
 
 const SectionTitle = styled.h3`
-  margin-bottom: calc(50 / 654 * 100%);
+  margin-bottom: clamp(20px, 5vw, 40px);
   font-weight: bold;
+  font-size: clamp(1.4rem, 2.5vw, 1.8rem);
 `;
 
 const Item = styled.p`
-  margin: calc(20 / 589 * 100%) 0;
+  margin: clamp(6px, 2.5vw, 12px) 0;
   display: flex;
-  line-height: calc(26 / 20);
+  line-height: 1.6;
   gap: 4px;
+  font-size: clamp(1rem, 2.2vw, 1.125rem);
 
   &:before {
     content: '📌 ';
@@ -27,14 +42,11 @@ const Item = styled.p`
 
 const BriefingIntro: React.FC = () => {
   return (
-    <Container className="font-20">
-      <SectionTitle className="font-28">📄 프로젝트 소개: 더 브리핑</SectionTitle>
+    <Container>
+      <SectionTitle>📄 프로젝트 소개: 더 브리핑</SectionTitle>
       <Item>시나리오 기반의 인터랙티브 자기소개서입니다.</Item>
       <Item>
-        <p>
-          <Highlight>React + Styled Components + TypeScript + Framer Motion</Highlight>
-          사용했습니다.
-        </p>
+        <Highlight>React + Styled Components + TypeScript + Framer Motion</Highlight> 사용했습니다.
       </Item>
       <Item>재사용성, 유지보수를 생각해 컴포넌트화하였습니다.</Item>
       <Item>상태전환 및 애니메이션의 전환 부분도 고려하였습니다.</Item>
@@ -50,10 +62,11 @@ const BriefingIntro: React.FC = () => {
         API 응답에 따라 UI 상태를 동적으로 렌더링하며, 비동기 흐름을 사용자 중심으로 조절했습니다.
       </Item>
       <Item>
-        <p>
-          전역 상태 관리를 위해 <Highlight>Recoil</Highlight>·<Highlight>Zustand</Highlight>
-          를, 서버 상태 관리를 위해 <Highlight>React Query</Highlight>를 활용했습니다.
-        </p>
+        <span>
+          전역 상태 관리를 위해 <Highlight>Recoil</Highlight> · <Highlight>Zustand</Highlight> 를,{' '}
+          <br />
+          서버 상태 관리를 위해 <Highlight>React Query</Highlight> 를 활용했습니다.
+        </span>
       </Item>
     </Container>
   );

@@ -139,6 +139,11 @@ export default function PostTable({ mode }: Props) {
         {mode === 'intro' ? '📋 게시글 목록 (검색 가능)' : '🗑 게시글 삭제'}
       </Title>
 
+      <p className="font-14" style={{ color: '#d32f2f', marginBottom: '1rem' }}>
+        ※ 이 컴포넌트는 시각적 안내용입니다. <strong>텍스트창을 클릭</strong>해야 다음 시나리오로
+        진행됩니다.
+      </p>
+
       {mode === 'intro' && (
         <Controls>
           <Input

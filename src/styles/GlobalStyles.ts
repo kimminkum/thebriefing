@@ -1,4 +1,3 @@
-// src/styles/GlobalStyle.ts
 import reset from 'styled-reset';
 import { createGlobalStyle } from 'styled-components';
 
@@ -35,8 +34,13 @@ const GlobalStyle = createGlobalStyle`
     font-display: swap;
   }
 
+
+  /* Firefox */
   * {
     box-sizing: border-box;
+    letter-spacing: -0.02em;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
   }
 
   body {
@@ -61,41 +65,15 @@ const GlobalStyle = createGlobalStyle`
     list-style: none;
   }
 
-  /* Utility Font Size - clamp 방식 */
-  .font-16 {
-    font-size: clamp(12px, calc(16 / 750 * 100vw), 16px);
-    line-height: 1.25;
-  }
 
-  .font-18 {
-    font-size: clamp(13px, calc(18 / 750 * 100vw), 18px);
-    line-height: 1.33;
-  }
+  /* 유틸리티 클래스 */
+  .font-16 { font-size: clamp(1rem, calc(100vw / 750 * 16), 1.2rem); }
+  .font-18 { font-size: clamp(1.125rem, calc(100vw / 750 * 18), 1.375rem); }
+  .font-20 { font-size: clamp(1.25rem, calc(100vw / 750 * 20), 1.5rem); }
+  .font-24 { font-size: clamp(1.5rem, calc(100vw / 750 * 24), 2rem); }
+  .font-28 { font-size: clamp(1.75rem, calc(100vw / 750 * 28), 2.25rem); }
+  .font-32 { font-size: clamp(2rem, calc(100vw / 750 * 32), 2.5rem); }
 
-  .font-20 {
-    font-size: clamp(14px, calc(20 / 750 * 100vw), 20px);
-    line-height: 1.6;
-  }
-
-  .font-22 {
-    font-size: clamp(15px, calc(22 / 750 * 100vw), 22px);
-    line-height: 1.54;
-  }
-
-  .font-24 {
-    font-size: clamp(16px, calc(24 / 750 * 100vw), 24px);
-    line-height: 1.4;
-  }
-
-  .font-28 {
-    font-size: clamp(18px, calc(28 / 750 * 100vw), 28px);
-    line-height: 1.3;
-  }
-
-  .font-32 {
-    font-size: clamp(20px, calc(32 / 750 * 100vw), 32px);
-    line-height: 1.5;
-  }
 
   /* Swiper Customization */
   .swiper {
@@ -169,6 +147,7 @@ const GlobalStyle = createGlobalStyle`
 
   img {
     width: 100%;
+    height: auto;
     display: block;
   }
 `;

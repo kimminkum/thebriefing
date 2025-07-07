@@ -6,9 +6,7 @@ const TreeWrapper = styled.div`
   padding: 1rem;
   border-radius: 12px;
   border: 2px solid #ddd;
-  max-width: 640px;
-  margin: 2rem auto;
-  max-height: 70vh;
+  height: auto;
   overflow-y: auto;
 `;
 

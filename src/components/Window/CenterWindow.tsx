@@ -1,52 +1,61 @@
+// src/components/Window/CenterWindow.tsx
 import React, { useRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { scenarioData } from '../../data/scenarioData';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
+import { useUIStore } from '../../stores/uiStore';
 
 interface Props {
   currentId: number;
   handleClick: () => void;
 }
 
-interface ContainerProps {
-  $isImage: boolean;
-}
-
-const Container = styled.div<ContainerProps>`
+const Container = styled.div<{ $isTextVisible: boolean }>`
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   width: 100%;
-  min-height: 100%;
+  transition: 0.3s height;
+  height: ${({ $isTextVisible }) =>
+    $isTextVisible ? 'calc(100vh - 202px)' : 'calc(100vh - 72px)'};
+
+  padding: clamp(12px, 4vw, 32px);
+  border-radius: 16px;
+  margin: clamp(12px, 4vw, 32px) 0;
+  box-shadow: 0 2px 8px rgba(180, 150, 100, 0.12);
   box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+  overflow: hidden;
+`;
+
+const ImageBox = styled(motion.div)`
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #fffaf3;
+
+  img {
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+  }
 `;
 
 const MotionBox = styled(motion.div)`
   width: 100%;
-  padding: min(calc(120 / 734 * 100%), 80px) calc(40 / 734 * 100%) 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-  background-color: transparent;
-  border-radius: 8px;
-  font-family: Pretendard, sans-serif;
-
-  & > *:not(:last-child) {
-    margin-bottom: calc(40 / 742 * 100%);
-  }
-`;
-
-const ImageBox = styled(motion.div)`
-  width: 100%;
-  height: 100vh;
-  padding: calc(80 / 742 * 100%) calc(40 / 742 * 100%);
-  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
 const CenterWindow: React.FC<Props> = ({ currentId, handleClick }) => {
   const prevId = useRef(currentId);
   const [shouldAnimate, setShouldAnimate] = useState(true);
+  const isTextVisible = useUIStore((s) => s.textWindowVisible);
 
   useEffect(() => {
     setShouldAnimate(prevId.current !== currentId);
@@ -57,36 +66,38 @@ const CenterWindow: React.FC<Props> = ({ currentId, handleClick }) => {
   const content = currentScenario?.content;
   const isImage = content?.type === 'image';
 
-  if (!currentScenario) return <Container $isImage={false}>콘텐츠 없음</Container>;
+  if (!currentScenario) {
+    return <Container $isTextVisible={isTextVisible}>콘텐츠 없음</Container>;
+  }
 
   return (
-    <Container onClick={handleClick} $isImage={isImage}>
+    <Container onClick={handleClick} $isTextVisible={isTextVisible}>
       <AnimatePresence mode="wait">
         {isImage && content?.src && (
           <ImageBox
-            key={`${currentId}`}
+            key={`${currentId}-image`}
             initial={shouldAnimate ? { opacity: 0 } : false}
             animate={{ opacity: 1 }}
             exit={shouldAnimate ? { opacity: 0 } : {}}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.5 }}
           >
             <Image
               src={content.src}
               alt={content.alt || '시나리오 이미지'}
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              fill
               sizes="(max-width: 768px) 100vw, 750px"
-              priority={currentId === 1 || currentId === 2}
+              priority={currentId <= 2}
+              style={{ objectFit: 'cover' }}
             />
           </ImageBox>
         )}
-
         {!isImage && content?.component && (
           <MotionBox
-            key={`${currentId}`}
-            initial={shouldAnimate ? { opacity: 0, y: 30, rotateZ: -2 } : false}
-            animate={{ opacity: 1, y: 0, rotateZ: 0 }}
-            exit={shouldAnimate ? { opacity: 0, y: -20, rotateZ: 3 } : {}}
-            transition={{ duration: 0.6, ease: 'easeInOut' }}
+            key={`${currentId}-component`}
+            initial={shouldAnimate ? { opacity: 0, y: 30 } : false}
+            animate={{ opacity: 1, y: 0 }}
+            exit={shouldAnimate ? { opacity: 0, y: -20 } : {}}
+            transition={{ duration: 0.5 }}
           >
             <content.component {...content.props} />
           </MotionBox>

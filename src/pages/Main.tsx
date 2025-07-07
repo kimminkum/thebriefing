@@ -1,13 +1,12 @@
+// src/pages/Main.tsx
 import React, { useRef, useState, useCallback } from 'react';
 import styled from 'styled-components';
-
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   currentScenarioIdState,
   textChunkIndexState,
   scenarioProgressState,
 } from '../atoms/scenarioAtom';
-
 import { useUIStore } from '../stores/uiStore';
 
 import CenterWindow from '../components/Window/CenterWindow';
@@ -21,20 +20,25 @@ import type { TextWindowHandle } from '../types/window';
 const AppWrapper = styled.div`
   width: 100%;
   height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: #faf9f5;
 `;
 
 const Container = styled.div`
-  background: #fdf7e3;
-  color: #111;
   width: 100%;
-  max-width: 750px;
   min-width: 375px;
-  height: 100dvh;
+  max-width: 750px;
+  height: 100vh;
   margin: 0 auto;
   position: relative;
   overflow: hidden;
-  border: 4px solid #d4b28c;
-  border-top: none;
+  padding: clamp(12px, calc(100vw / 750 * 16), 24px) 0;
+  background-color: #fdf7e3;
+  color: #111;
+  border: 2px solid #d4b28c;
+  box-shadow: 0 4px 16px rgba(180, 150, 100, 0.3);
 `;
 
 const ProgressBarWrapper = styled.div`
@@ -42,16 +46,16 @@ const ProgressBarWrapper = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  height: 4px;
-  background: #d4b28c;
+  height: 6px;
+  background: #f0e7d4;
   z-index: 10;
 `;
 
 const ProgressBarInner = styled.div<{ $percent: number }>`
-  position: absolute;
   width: ${({ $percent }) => $percent}%;
   height: 100%;
   background: linear-gradient(to right, #d4b28c, #7ca4bd);
+  border-radius: 3px;
   transition: width 0.3s ease;
 `;
 
@@ -59,8 +63,8 @@ const Main: React.FC = () => {
   const [currentId, setCurrentId] = useRecoilState(currentScenarioIdState);
   const [textIndex, setTextIndex] = useRecoilState(textChunkIndexState);
   const progress = useRecoilValue(scenarioProgressState);
-
   const [isTyping, setIsTyping] = useState(false);
+  const textWindowRef = useRef<TextWindowHandle>(null);
 
   const typingSpeed = useUIStore((s) => s.typingSpeed);
   const setTypingSpeed = useUIStore((s) => s.setTypingSpeed);
@@ -74,7 +78,6 @@ const Main: React.FC = () => {
   const lockClickTemporarily = useUIStore((s) => s.lockClickTemporarily);
 
   const BLINK_DURATION = 611;
-  const textWindowRef = useRef<TextWindowHandle>(null);
 
   const playSound = useCallback(() => {
     const audio = new Audio('/sound/papersound.mp3');
