@@ -20,19 +20,6 @@ const Container = styled.div`
     height: auto;
     max-height: none;
   }
-
-  &::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: #ccc;
-    border-radius: 3px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background-color: transparent;
-  }
 `;
 
 const SectionTitle = styled.h3`

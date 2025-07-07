@@ -34,9 +34,13 @@ const GlobalStyle = createGlobalStyle`
     font-display: swap;
   }
 
+
+  /* Firefox */
   * {
     box-sizing: border-box;
     letter-spacing: -0.02em;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
   }
 
   body {

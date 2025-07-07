@@ -33,7 +33,11 @@ const Container = styled.div<{ $isUiMode: boolean }>`
   z-index: 9;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+
+  /** 스크롤 처리 */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 4rem; /* 닫기 버튼 여유 공간 확보 */
 `;
 
 const Section = styled.div`
@@ -41,6 +45,14 @@ const Section = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 1.4rem;
+  flex-grow: 1;
+`;
+
+const StickyBottom = styled.div`
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+  padding-top: 1rem;
 `;
 
 const Divider = styled.hr`
@@ -116,7 +128,9 @@ const HelpWindow: React.FC<HelpWindowProps> = ({ $isUiMode, toggleUi, reopenTuto
         </RangeBox>
       </Section>
 
-      <StyledBtn onClick={toggleUi}>닫기</StyledBtn>
+      <StickyBottom>
+        <StyledBtn onClick={toggleUi}>닫기</StyledBtn>
+      </StickyBottom>
     </Container>
   );
 };

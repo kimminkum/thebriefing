@@ -11,7 +11,29 @@ const Container = styled.div`
   padding: 1.5rem 1.2rem 2rem;
   margin: 1rem auto;
   max-width: 720px;
+  overflow-y: auto;
+
   ${Typography.body};
+
+  &::-webkit-scrollbar {
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
 `;
 
 const Arrow = styled.div`
