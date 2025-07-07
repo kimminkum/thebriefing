@@ -143,8 +143,8 @@ const TutorialModal: React.FC<Props> = ({ onClose }) => {
             slidesPerView={1}
             pagination={{ type: 'fraction' }}
             modules={[Pagination]}
-            onSwiper={(swiper) => (swiperRef.current = swiper)}
-            onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
+            onSwiper={(swiper: SwiperType) => (swiperRef.current = swiper)}
+            onSlideChange={(swiper: SwiperType) => setActiveIndex(swiper.activeIndex)}
             style={{ overflow: 'hidden' }}
           >
             <SwiperSlide>
