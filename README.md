@@ -91,6 +91,7 @@ src/
 
 - 🌐 데모 사이트: [thebriefing.vercel.app](https://thebriefing.vercel.app/)
 - 📁 GitHub: [github.com/kimminkum/thebriefing](https://github.com/kimminkum/thebriefing)
+- 📝 Notion 이력서: [notion.site/9b41e1408c4e4328940baef77dc503b7](https://thoughtful-kidney-7f2.notion.site/9b41e1408c4e4328940baef77dc503b7)
 
 ---
 
