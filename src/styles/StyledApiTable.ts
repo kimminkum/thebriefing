@@ -101,7 +101,7 @@ export const Input = styled.input`
 
 export const Select = styled.select`
   margin-left: 0.5rem;
-  padding: 0.25rem 0.5rem;
+  padding: 0.25rem 0.3rem;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 0.9rem;
