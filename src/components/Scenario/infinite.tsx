@@ -38,9 +38,9 @@ export default function InfiniteScrollPage({ deletedIds, deletePost }: InfiniteS
 
       {status === 'error' && <p>에러 발생</p>}
 
-      <PostList posts={allPosts} deletedIds={deletedIds} onDelete={deletePost} />
+      <PostList posts={allPosts} deleteIds={deletedIds} onDelete={deletePost} />
 
-      <ObserverTrigger intersect={fetchNextPage} enabled={!!hasNextPage} />
+      <ObserverTrigger onIntersect={fetchNextPage} enabled={!!hasNextPage} />
 
       {isFetchingNextPage && <p>다음 페이지 불러오는 중...</p>}
       {!hasNextPage && <p>더 이상 데이터가 없습니다.</p>}
