@@ -49,13 +49,14 @@ export default function InfiniteScrollPage() {
       <Title>📄 무한스크롤 게시글 목록</Title>
 
       <Controls>
-        <ActionButton onClick={resetDeleted}>삭제 초기화</ActionButton>
+        <ActionButton onClick={resetDeleted} style={{ marginBottom: 0 }}>
+          삭제 초기화
+        </ActionButton>
         <Select
           value={sortOrder}
           onChange={(e) => {
             if (e.target.value !== sortOrder) toggleSortOrder();
           }}
-          style={{ marginBottom: 0 }}
         >
           <option value="asc">오름차순</option>
           <option value="desc">내림차순</option>
