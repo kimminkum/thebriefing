@@ -97,12 +97,20 @@ export const Input = styled.input`
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 0.9rem;
+
+  @media (max-width: 400px) {
+    max-width: 160px; /* ✅ 작은 화면에서 Input 최대 너비 제한 */
+  }
 `;
 
 export const Select = styled.select`
   margin-left: 0.5rem;
-  padding: 0.25rem 0.5rem;
+  padding: 0.25rem 0.3rem;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 0.9rem;
+
+  @media (max-width: 400px) {
+    max-width: 120px;
+  }
 `;
