@@ -40,7 +40,7 @@ const ImageBox = styled(motion.div)`
     width: 100%;
     height: auto;
     max-height: 100%;
-    object-fit: contain;
+    object-fit: cover;
     display: block;
   }
 `;
