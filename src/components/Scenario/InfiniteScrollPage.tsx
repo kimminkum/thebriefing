@@ -1,7 +1,7 @@
 // src/components/Scenario/InfiniteScrollPage.tsx
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import axios from 'axios';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useInfiniteScrollStore } from '../../stores/useInfi';
 import {
   Container,
@@ -13,6 +13,7 @@ import {
   Cell,
   Header,
   ActionButton,
+  Input,
 } from '../../styles/StyledApiTable';
 import ObserverTrigger from './observerTrigger';
 
@@ -28,7 +29,9 @@ const fetchPosts = async ({ pageParam = 1 }) => {
 };
 
 export default function InfiniteScrollPage() {
-  const { deletePost, resetDeleted, sortOrder, toggleSortOrder } = useInfiniteScrollStore();
+  const [search, setSearch] = useState('');
+  const [sortKey, setSortKey] = useState<'id' | 'title'>('id');
+  const [sort, setSort] = useState<'asc' | 'desc'>('asc');
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } = useInfiniteQuery({
     queryKey: ['posts-infinite'],
@@ -38,28 +41,92 @@ export default function InfiniteScrollPage() {
     staleTime: 1000 * 60 * 5,
   });
 
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: async (id: number) => {
+      await axios.delete(`https://jsonplaceholder.typicode.com/posts/${id}`);
+    },
+    onMutate: async (deletedId) => {
+      // Step 1: 기존 데이터 취소 및 백업
+      await queryClient.cancelQueries({ queryKey: ['posts-infinite'] });
+
+      const previousData = queryClient.getQueryData(['posts-infinite']);
+
+      // Step 2: 낙관적 캐시 업데이트
+      queryClient.setQueryData(['posts-infinite'], (oldData: any) => {
+        return {
+          ...oldData,
+          pages: oldData.pages.map((page: any) => ({
+            ...page,
+            posts: page.posts.filter((post: any) => post.id !== deletedId),
+          })),
+        };
+      });
+
+      return { previousData };
+    },
+    onError: (err, deletedId, context) => {
+      // Step 3: 에러 시 롤백
+      if (context?.previousData) {
+        queryClient.setQueryData(['posts-infinite'], context.previousData);
+      }
+    },
+    onSettled: () => {
+      // Step 4: 성공/실패 상관없이 리패치
+      queryClient.invalidateQueries({ queryKey: ['posts-infinite'] });
+    },
+  });
+
   const allPosts = data?.pages.flatMap((page) => page.posts) || [];
 
-  const sortedPosts = [...allPosts].sort((a, b) =>
-    sortOrder === 'asc' ? a.id - b.id : b.id - a.id,
-  );
+  const filterandSort = useMemo(() => {
+    const filtered = allPosts.filter(
+      (post) =>
+        post.title.toLowerCase().includes(search.toLowerCase()) ||
+        post.body.toLowerCase().includes(search.toLowerCase()),
+    );
+
+    const sorted = filtered.sort((a, b) => {
+      const aValue = a[sortKey];
+      const bValue = b[sortKey];
+
+      if (typeof aValue === 'number' && typeof bValue === 'number') {
+        return sort === 'asc' ? aValue - bValue : bValue - aValue;
+      }
+
+      if (typeof aValue === 'string' && typeof bValue === 'string') {
+        return sort === 'asc' ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+      }
+
+      return 0;
+    });
+
+    return sorted;
+  }, [allPosts, search, sortKey, sort]);
 
   return (
     <Container onClick={(e) => e.stopPropagation()}>
       <Title>📄 무한스크롤 게시글 목록</Title>
 
       <Controls>
-        <ActionButton onClick={resetDeleted} style={{ marginBottom: 0 }}>
-          삭제 초기화
-        </ActionButton>
+        <Input
+          placeholder="제목으로 검색"
+          value={search}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value)}
+        />
         <Select
-          value={sortOrder}
+          value={`${sortKey}_${sort}`}
           onChange={(e) => {
-            if (e.target.value !== sortOrder) toggleSortOrder();
+            const [key, order] = e.target.value.split('_');
+            setSortKey(key as 'id' | 'title');
+            setSort(order as 'asc' | 'desc');
           }}
         >
-          <option value="asc">오름차순</option>
-          <option value="desc">내림차순</option>
+          <option value="id_asc">ID ↑</option>
+          <option value="id_desc">ID ↓</option>
+          <option value="title_asc">제목 ↑</option>
+          <option value="title_desc">제목 ↓</option>
         </Select>
       </Controls>
 
@@ -72,7 +139,7 @@ export default function InfiniteScrollPage() {
           <Cell width="100px">삭제</Cell>
         </Header>
 
-        {sortedPosts.map((post) => (
+        {filterandSort.map((post) => (
           <ListItem key={post.id}>
             <Cell width="40px" style={{ textAlign: 'center' }}>
               {post.id}
@@ -81,7 +148,7 @@ export default function InfiniteScrollPage() {
               {post.title}
             </Cell>
             <Cell width="100px">
-              <ActionButton onClick={() => deletePost(post.id)}>삭제</ActionButton>
+              <ActionButton onClick={() => mutation.mutate(post.id)}>삭제</ActionButton>
             </Cell>
           </ListItem>
         ))}
