@@ -8,6 +8,8 @@ export const Container = styled.div`
   font-family: Pretendard, sans-serif;
   border: 1px solid #ddd;
   max-width: 720px;
+
+  overflow-y: auto;
 `;
 
 export const Title = styled.h3`

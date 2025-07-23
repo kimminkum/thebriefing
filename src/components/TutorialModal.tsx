@@ -39,7 +39,6 @@ const ModalBox = styled.div`
 const SlideCard = styled.div`
   width: 100%;
   background: #fff;
-  border: 1px solid #eee;
   border-radius: 12px;
   display: flex;
   flex-direction: column;
