@@ -1,8 +1,15 @@
 import React from 'react';
 import PostItem from './PostItem';
 
+interface Post {
+  id: number;
+  title: string;
+  body: string;
+  likes: number;
+}
+
 interface PostListProps {
-  posts: { id: number; title: string; body: string }[];
+  posts: Post[];
   deleteIds: number[];
   onDelete: (id: number) => void;
 }
