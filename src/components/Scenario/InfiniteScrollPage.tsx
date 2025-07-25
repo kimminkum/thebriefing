@@ -49,9 +49,6 @@ export default function InfiniteScrollPage() {
       <Title>📄 무한스크롤 게시글 목록</Title>
 
       <Controls>
-        <ActionButton onClick={resetDeleted} style={{ marginBottom: 0 }}>
-          삭제 초기화
-        </ActionButton>
         <Select
           value={sortOrder}
           onChange={(e) => {
@@ -69,7 +66,6 @@ export default function InfiniteScrollPage() {
           <Cell grow ellipsis>
             제목
           </Cell>
-          <Cell width="100px">삭제</Cell>
         </Header>
 
         {sortedPosts.map((post) => (
@@ -79,9 +75,6 @@ export default function InfiniteScrollPage() {
             </Cell>
             <Cell grow ellipsis>
               {post.title}
-            </Cell>
-            <Cell width="100px">
-              <ActionButton onClick={() => deletePost(post.id)}>삭제</ActionButton>
             </Cell>
           </ListItem>
         ))}
