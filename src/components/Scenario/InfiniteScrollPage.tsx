@@ -136,7 +136,6 @@ export default function InfiniteScrollPage() {
           <Cell grow ellipsis>
             제목
           </Cell>
-          <Cell width="100px">삭제</Cell>
         </Header>
 
         {filterandSort.map((post) => (
@@ -146,9 +145,6 @@ export default function InfiniteScrollPage() {
             </Cell>
             <Cell grow ellipsis>
               {post.title}
-            </Cell>
-            <Cell width="100px">
-              <ActionButton onClick={() => mutation.mutate(post.id)}>삭제</ActionButton>
             </Cell>
           </ListItem>
         ))}
