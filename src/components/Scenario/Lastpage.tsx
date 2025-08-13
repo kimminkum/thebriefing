@@ -78,6 +78,9 @@ const LastPage: React.FC = () => {
     localStorage.setItem('currentIndex', '1');
     window.location.reload();
   };
+  const goToCommerce = () => {
+    window.open('https://kmkcommerce.vercel.app/', '_blank');
+  };
 
   const goToGitHub = () => {
     window.open('https://github.com/kimminkum/thebriefing', '_blank');
@@ -100,6 +103,7 @@ const LastPage: React.FC = () => {
       <StyledBtn onClick={goToDatapage}>🔍 DataPage로 이동</StyledBtn>
       <StyledBtn onClick={goToStart}>🔁 처음부터 다시 보기</StyledBtn>
       <StyledBtn onClick={goToGitHub}>🛠 GitHub 소스 보기</StyledBtn>
+      <StyledBtn onClick={goToCommerce}> 이커머스 데모 페이지 보기</StyledBtn>
       <StyledBtn onClick={goToStory}>📘 티스토리 블로그</StyledBtn>
       <StyledBtn onClick={goToSecond}>🍕 도미노 클론 보기</StyledBtn>
     </Wrapper>

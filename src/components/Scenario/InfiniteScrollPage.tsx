@@ -1,8 +1,11 @@
 // src/components/Scenario/InfiniteScrollPage.tsx
 import React, { useMemo, useState } from 'react';
-import axios from 'axios';
-import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { useInfiniteScrollStore } from '../../stores/useInfi';
+import axios, { AxiosResponse } from 'axios';
+import {
+  useInfiniteQuery,
+  type InfiniteData,
+  type QueryFunctionContext,
+} from '@tanstack/react-query';
 import {
   Container,
   Title,
@@ -12,14 +15,34 @@ import {
   ListItem,
   Cell,
   Header,
-  ActionButton,
   Input,
 } from '../../styles/StyledApiTable';
 import ObserverTrigger from './observerTrigger';
 
-const fetchPosts = async ({ pageParam = 1 }) => {
-  const res = await axios.get(
+// ===== Domain Types =====
+export interface Post {
+  userId: number;
+  id: number;
+  title: string;
+  body: string;
+  likes?: number;
+}
+
+interface PageData {
+  posts: Post[];
+  nextPage: number;
+  isLast: boolean;
+}
+
+// ===== QueryFn (v5 시그니처) =====
+// QueryFunctionContext<TQueryKey, TPageParam> 사용
+const fetchPosts = async ({
+  pageParam = 1,
+  signal,
+}: QueryFunctionContext<['posts-infinite'], number>): Promise<PageData> => {
+  const res: AxiosResponse<Post[]> = await axios.get(
     `https://jsonplaceholder.typicode.com/posts?_page=${pageParam}&_limit=10`,
+    { signal },
   );
   return {
     posts: res.data,
@@ -33,7 +56,14 @@ export default function InfiniteScrollPage() {
   const [sortKey, setSortKey] = useState<'id' | 'title'>('id');
   const [sort, setSort] = useState<'asc' | 'desc'>('asc');
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } = useInfiniteQuery({
+  // 제네릭 5개를 명시하여 data.pages의 page 타입을 PageData로 고정
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } = useInfiniteQuery<
+    PageData, // TQueryFnData (각 페이지에 대한 반환 타입)
+    Error, // TError
+    InfiniteData<PageData, number>, // TData (hook이 최종 반환하는 타입) - 생략 가능하지만 명시하면 TS가 더 안정적
+    ['posts-infinite'], // TQueryKey
+    number // TPageParam
+  >({
     queryKey: ['posts-infinite'],
     queryFn: fetchPosts,
     getNextPageParam: (lastPage) => (lastPage.isLast ? undefined : lastPage.nextPage),
@@ -41,64 +71,29 @@ export default function InfiniteScrollPage() {
     staleTime: 1000 * 60 * 5,
   });
 
-  const queryClient = useQueryClient();
+  // pages -> posts 평탄화 (deps 경고 방지용으로 메모이즈)
+  const allPosts: Post[] = useMemo(() => data?.pages.flatMap((page) => page.posts) ?? [], [data]);
 
-  const mutation = useMutation({
-    mutationFn: async (id: number) => {
-      await axios.delete(`https://jsonplaceholder.typicode.com/posts/${id}`);
-    },
-    onMutate: async (deletedId) => {
-      // Step 1: 기존 데이터 취소 및 백업
-      await queryClient.cancelQueries({ queryKey: ['posts-infinite'] });
+  // 검색 + 정렬
+  const filteredAndSorted = useMemo(() => {
+    const q = search.trim().toLowerCase();
 
-      const previousData = queryClient.getQueryData(['posts-infinite']);
+    const filtered = q
+      ? allPosts.filter(
+          (p) => p.title.toLowerCase().includes(q) || p.body.toLowerCase().includes(q),
+        )
+      : allPosts;
 
-      // Step 2: 낙관적 캐시 업데이트
-      queryClient.setQueryData(['posts-infinite'], (oldData: any) => {
-        return {
-          ...oldData,
-          pages: oldData.pages.map((page: any) => ({
-            ...page,
-            posts: page.posts.filter((post: any) => post.id !== deletedId),
-          })),
-        };
-      });
+    const sorted = [...filtered].sort((a, b) => {
+      const aVal = a[sortKey];
+      const bVal = b[sortKey];
 
-      return { previousData };
-    },
-    onError: (err, deletedId, context) => {
-      // Step 3: 에러 시 롤백
-      if (context?.previousData) {
-        queryClient.setQueryData(['posts-infinite'], context.previousData);
+      if (typeof aVal === 'number' && typeof bVal === 'number') {
+        return sort === 'asc' ? aVal - bVal : bVal - aVal;
       }
-    },
-    onSettled: () => {
-      // Step 4: 성공/실패 상관없이 리패치
-      queryClient.invalidateQueries({ queryKey: ['posts-infinite'] });
-    },
-  });
-
-  const allPosts = data?.pages.flatMap((page) => page.posts) || [];
-
-  const filterandSort = useMemo(() => {
-    const filtered = allPosts.filter(
-      (post) =>
-        post.title.toLowerCase().includes(search.toLowerCase()) ||
-        post.body.toLowerCase().includes(search.toLowerCase()),
-    );
-
-    const sorted = filtered.sort((a, b) => {
-      const aValue = a[sortKey];
-      const bValue = b[sortKey];
-
-      if (typeof aValue === 'number' && typeof bValue === 'number') {
-        return sort === 'asc' ? aValue - bValue : bValue - aValue;
+      if (typeof aVal === 'string' && typeof bVal === 'string') {
+        return sort === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
       }
-
-      if (typeof aValue === 'string' && typeof bValue === 'string') {
-        return sort === 'asc' ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
-      }
-
       return 0;
     });
 
@@ -138,7 +133,7 @@ export default function InfiniteScrollPage() {
           </Cell>
         </Header>
 
-        {filterandSort.map((post) => (
+        {filteredAndSorted.map((post) => (
           <ListItem key={post.id}>
             <Cell width="40px" style={{ textAlign: 'center' }}>
               {post.id}
@@ -154,7 +149,6 @@ export default function InfiniteScrollPage() {
             <ListItem key={`skeleton-${i}`}>
               <Cell width="40px" style={{ background: '#eee', height: '1rem' }} />
               <Cell grow style={{ background: '#eee', height: '1rem' }} />
-              <Cell width="100px" style={{ background: '#eee', height: '1rem' }} />
             </ListItem>
           ))}
       </List>
