@@ -105,7 +105,6 @@ const LastPage: React.FC = () => {
       <StyledBtn onClick={goToGitHub}>🛠 GitHub 소스 보기</StyledBtn>
       <StyledBtn onClick={goToCommerce}> 이커머스 데모 페이지 보기</StyledBtn>
       <StyledBtn onClick={goToStory}>📘 티스토리 블로그</StyledBtn>
-      <StyledBtn onClick={goToSecond}>🍕 도미노 클론 보기</StyledBtn>
     </Wrapper>
   );
 };
