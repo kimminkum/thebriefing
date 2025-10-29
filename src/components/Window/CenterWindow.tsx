@@ -85,8 +85,10 @@ const CenterWindow: React.FC<Props> = ({ currentId, handleClick }) => {
               src={content.src}
               alt={content.alt || '시나리오 이미지'}
               fill
-              sizes="(max-width: 768px) 100vw, 750px"
+              sizes="(max-width: 640px) 100vw, (max-width: 750px) 100vw, 750px"
               priority={currentId <= 2}
+              placeholder="blur"
+              blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
               style={{ objectFit: 'cover' }}
             />
           </ImageBox>

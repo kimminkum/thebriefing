@@ -4,34 +4,42 @@ import { createGlobalStyle } from 'styled-components';
 const GlobalStyle = createGlobalStyle`
   ${reset}
 
-  /* Pretendard FontFace */
+  /* Pretendard FontFace - Optimized */
   @font-face {
     font-family: 'Pretendard';
-    src: url('/fonts/Pretendard-Regular.woff') format('woff');
+    src: url('/fonts/Pretendard-Regular.woff2') format('woff2'),
+         url('/fonts/Pretendard-Regular.woff') format('woff');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
+    unicode-range: U+AC00-D7AF, U+1100-11FF, U+3130-318F, U+A960-A97F, U+D7B0-D7FF;
   }
   @font-face {
     font-family: 'Pretendard';
-    src: url('/fonts/Pretendard-Medium.woff') format('woff');
+    src: url('/fonts/Pretendard-Medium.woff2') format('woff2'),
+         url('/fonts/Pretendard-Medium.woff') format('woff');
     font-weight: 500;
     font-style: normal;
     font-display: swap;
+    unicode-range: U+AC00-D7AF, U+1100-11FF, U+3130-318F, U+A960-A97F, U+D7B0-D7FF;
   }
   @font-face {
     font-family: 'Pretendard';
-    src: url('/fonts/Pretendard-SemiBold.woff') format('woff');
+    src: url('/fonts/Pretendard-SemiBold.woff2') format('woff2'),
+         url('/fonts/Pretendard-SemiBold.woff') format('woff');
     font-weight: 600;
     font-style: normal;
     font-display: swap;
+    unicode-range: U+AC00-D7AF, U+1100-11FF, U+3130-318F, U+A960-A97F, U+D7B0-D7FF;
   }
   @font-face {
     font-family: 'Pretendard';
-    src: url('/fonts/Pretendard-Bold.woff') format('woff');
+    src: url('/fonts/Pretendard-Bold.woff2') format('woff2'),
+         url('/fonts/Pretendard-Bold.woff') format('woff');
     font-weight: 700;
     font-style: normal;
     font-display: swap;
+    unicode-range: U+AC00-D7AF, U+1100-11FF, U+3130-318F, U+A960-A97F, U+D7B0-D7FF;
   }
 
 

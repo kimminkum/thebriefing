@@ -8,12 +8,31 @@ import {
   scenarioProgressState,
 } from '../atoms/scenarioAtom';
 import { useUIStore } from '../stores/uiStore';
+import CustomHead from '../components/Head';
 
-import CenterWindow from '../components/Window/CenterWindow';
-import HelpWindow from '../components/Window/HelpWindow';
-import TextWindow from '../components/Window/TextWindow';
-import UiWindow from '../components/Window/UiWindow';
-import TutorialModal from '../components/TutorialModal';
+// 동적 임포트로 컴포넌트 지연 로딩
+import dynamic from 'next/dynamic';
+
+const CenterWindow = dynamic(() => import('../components/Window/CenterWindow'), {
+  loading: () => <div style={{ height: 'calc(100vh - 202px)', background: '#fffaf3' }} />,
+});
+
+const HelpWindow = dynamic(() => import('../components/Window/HelpWindow'), {
+  loading: () => <div />,
+});
+
+const TextWindow = dynamic(() => import('../components/Window/TextWindow'), {
+  loading: () => <div />,
+});
+
+const UiWindow = dynamic(() => import('../components/Window/UiWindow'), {
+  loading: () => <div />,
+});
+
+const TutorialModal = dynamic(() => import('../components/TutorialModal'), {
+  loading: () => <div />,
+});
+
 import { scenarioData } from '../data/scenarioData';
 import type { TextWindowHandle } from '../types/window';
 
@@ -128,38 +147,41 @@ const Main: React.FC = () => {
   };
 
   return (
-    <AppWrapper onClick={handleClick}>
-      <Container onClick={(e) => e.stopPropagation()}>
-        <ProgressBarWrapper>
-          <ProgressBarInner $percent={progress} />
-        </ProgressBarWrapper>
+    <>
+      <CustomHead />
+      <AppWrapper onClick={handleClick}>
+        <Container onClick={(e) => e.stopPropagation()}>
+          <ProgressBarWrapper>
+            <ProgressBarInner $percent={progress} />
+          </ProgressBarWrapper>
 
-        {showTutorial && <TutorialModal onClose={toggleTutorial} />}
-        <CenterWindow currentId={currentId} handleClick={handleClick} />
-        <HelpWindow
-          toggleUi={toggleUiMode}
-          $isUiMode={isUiMode}
-          typingSpeed={typingSpeed}
-          setTypingSpeed={setTypingSpeed}
-          reopenTutorial={toggleTutorial}
-        />
-        <TextWindow
-          ref={textWindowRef}
-          currentId={currentId}
-          textIndex={textIndex}
-          handleClick={handleClick}
-          typingSpeed={typingSpeed}
-          setIsTyping={setIsTyping}
-          $isVisible={isTextVisible}
-          setIsVisible={toggleTextWindowVisible}
-          isTyping={isTyping}
-          goToPrevious={goToPrevious}
-          blinkDuration={BLINK_DURATION}
-          canGoBack={textIndex > 0 || scenarioData.findIndex((item) => item.id === currentId) > 0}
-        />
-        <UiWindow toggleUi={toggleUiMode} />
-      </Container>
-    </AppWrapper>
+          {showTutorial && <TutorialModal onClose={toggleTutorial} />}
+          <CenterWindow currentId={currentId} handleClick={handleClick} />
+          <HelpWindow
+            toggleUi={toggleUiMode}
+            $isUiMode={isUiMode}
+            typingSpeed={typingSpeed}
+            setTypingSpeed={setTypingSpeed}
+            reopenTutorial={toggleTutorial}
+          />
+          <TextWindow
+            ref={textWindowRef}
+            currentId={currentId}
+            textIndex={textIndex}
+            handleClick={handleClick}
+            typingSpeed={typingSpeed}
+            setIsTyping={setIsTyping}
+            $isVisible={isTextVisible}
+            setIsVisible={toggleTextWindowVisible}
+            isTyping={isTyping}
+            goToPrevious={goToPrevious}
+            blinkDuration={BLINK_DURATION}
+            canGoBack={textIndex > 0 || scenarioData.findIndex((item) => item.id === currentId) > 0}
+          />
+          <UiWindow toggleUi={toggleUiMode} />
+        </Container>
+      </AppWrapper>
+    </>
   );
 };
 

@@ -5,9 +5,22 @@ import { RecoilRoot } from 'recoil';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import GlobalStyles from '../styles/GlobalStyles';
 import { JsonDataProvider } from '../context/JsonDataContext';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import dynamic from 'next/dynamic';
 
-const queryClient = new QueryClient();
+// React Query DevTools를 동적 임포트로 변경
+const ReactQueryDevtools = dynamic(
+  () => import('@tanstack/react-query-devtools').then((d) => ({ default: d.ReactQueryDevtools })),
+  { ssr: false },
+);
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000, // 5분
+      cacheTime: 10 * 60 * 1000, // 10분
+    },
+  },
+});
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
