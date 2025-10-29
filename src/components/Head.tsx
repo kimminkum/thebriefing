@@ -18,21 +18,21 @@ const CustomHead: React.FC<CustomHeadProps> = ({
       {/* Preload Critical Resources */}
       <link
         rel="preload"
-        href="/fonts/Pretendard-Regular.woff2"
+        href="/fonts/Pretendard-Regular.woff"
         as="font"
-        type="font/woff2"
+        type="font/woff"
         crossOrigin="anonymous"
       />
       <link
         rel="preload"
-        href="/fonts/Pretendard-Medium.woff2"
+        href="/fonts/Pretendard-Medium.woff"
         as="font"
-        type="font/woff2"
+        type="font/woff"
         crossOrigin="anonymous"
       />
 
-      {/* Preload Critical Images */}
-      <link rel="preload" href="/_next/static/media/img1.webp" as="image" type="image/webp" />
+      {/* Preload Critical Images - 실제 이미지 경로로 수정 */}
+      <link rel="preload" href="/sound/papersound.mp3" as="audio" />
 
       {/* DNS Prefetch */}
       <link rel="dns-prefetch" href="//fonts.googleapis.com" />
