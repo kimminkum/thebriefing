@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kimminkum.github.io/thebriefing/sitemap.xml

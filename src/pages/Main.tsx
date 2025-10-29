@@ -8,6 +8,7 @@ import {
   scenarioProgressState,
 } from '../atoms/scenarioAtom';
 import { useUIStore } from '../stores/uiStore';
+import CustomHead from '../components/Head';
 
 import CenterWindow from '../components/Window/CenterWindow';
 import HelpWindow from '../components/Window/HelpWindow';
@@ -129,38 +130,41 @@ const Main: React.FC = () => {
   };
 
   return (
-    <AppWrapper onClick={handleClick}>
-      <Container onClick={(e) => e.stopPropagation()}>
-        <ProgressBarWrapper>
-          <ProgressBarInner $percent={progress} />
-        </ProgressBarWrapper>
+    <>
+      <CustomHead />
+      <AppWrapper onClick={handleClick}>
+        <Container onClick={(e) => e.stopPropagation()}>
+          <ProgressBarWrapper>
+            <ProgressBarInner $percent={progress} />
+          </ProgressBarWrapper>
 
-        {showTutorial && <TutorialModal onClose={toggleTutorial} />}
-        <CenterWindow currentId={currentId} handleClick={handleClick} />
-        <HelpWindow
-          toggleUi={toggleUiMode}
-          $isUiMode={isUiMode}
-          typingSpeed={typingSpeed}
-          setTypingSpeed={setTypingSpeed}
-          reopenTutorial={toggleTutorial}
-        />
-        <TextWindow
-          ref={textWindowRef}
-          currentId={currentId}
-          textIndex={textIndex}
-          handleClick={handleClick}
-          typingSpeed={typingSpeed}
-          setIsTyping={setIsTyping}
-          $isVisible={isTextVisible}
-          setIsVisible={toggleTextWindowVisible}
-          isTyping={isTyping}
-          goToPrevious={goToPrevious}
-          blinkDuration={BLINK_DURATION}
-          canGoBack={textIndex > 0 || scenarioData.findIndex((item) => item.id === currentId) > 0}
-        />
-        <UiWindow toggleUi={toggleUiMode} />
-      </Container>
-    </AppWrapper>
+          {showTutorial && <TutorialModal onClose={toggleTutorial} />}
+          <CenterWindow currentId={currentId} handleClick={handleClick} />
+          <HelpWindow
+            toggleUi={toggleUiMode}
+            $isUiMode={isUiMode}
+            typingSpeed={typingSpeed}
+            setTypingSpeed={setTypingSpeed}
+            reopenTutorial={toggleTutorial}
+          />
+          <TextWindow
+            ref={textWindowRef}
+            currentId={currentId}
+            textIndex={textIndex}
+            handleClick={handleClick}
+            typingSpeed={typingSpeed}
+            setIsTyping={setIsTyping}
+            $isVisible={isTextVisible}
+            setIsVisible={toggleTextWindowVisible}
+            isTyping={isTyping}
+            goToPrevious={goToPrevious}
+            blinkDuration={BLINK_DURATION}
+            canGoBack={textIndex > 0 || scenarioData.findIndex((item) => item.id === currentId) > 0}
+          />
+          <UiWindow toggleUi={toggleUiMode} />
+        </Container>
+      </AppWrapper>
+    </>
   );
 };
 
