@@ -86,10 +86,6 @@ const LastPage: React.FC = () => {
     window.open('https://github.com/kimminkum/thebriefing', '_blank');
   };
 
-  const goToSecond = () => {
-    window.open('https://kimminkum.github.io/react-pj-second/', '_blank');
-  };
-
   const goToStory = () => {
     window.open('https://flvrabbit.tistory.com/', '_blank');
   };

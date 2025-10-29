@@ -2,25 +2,22 @@ import React from 'react';
 import type { StaticImageData } from 'next/image';
 import img1 from '@assets/img/scenario/img1.webp';
 import img2 from '@assets/img/scenario/img2.webp';
-import dynamic from 'next/dynamic';
 
-// 동적 임포트로 컴포넌트 지연 로딩
-const HelpUXExample = dynamic(() => import('../components/Scenario/HelpUXExample'));
-const ClickGuide = dynamic(() => import('../components/Scenario/ClickGuide'));
-const ProgressBarDemo = dynamic(() => import('../components/Scenario/ProgressBarDemo'));
-const BriefingIntro = dynamic(() => import('../components/Scenario/BriefingIntro'));
-const ComponentStructureDiagram = dynamic(
-  () => import('../components/Scenario/ComponentStructureDiagram'),
-);
-const FlowChunkDemo = dynamic(() => import('../components/Scenario/FlowChunkDemo'));
-const TypingFlow = dynamic(() => import('../components/Scenario/TypingFlow'));
-const LastPage = dynamic(() => import('../components/Scenario/Lastpage'));
-const ScenarioFlowDiagram = dynamic(() => import('../components/Scenario/ScenarioFlowDiagram'));
-const PostTable = dynamic(() => import('../components/Scenario/PostTable'));
-const PokeApiShowcase = dynamic(() => import('../components/Scenario/PokeApiShowcase'));
-const PokeApiDetailInteract = dynamic(() => import('../components/Scenario/PokeApiDetailInteract'));
-const OutroTitle = dynamic(() => import('../components/Scenario/OutroTitle'));
-const InfiniteScrollPage = dynamic(() => import('../components/Scenario/InfiniteScrollPage'));
+// components
+import HelpUXExample from '../components/Scenario/HelpUXExample';
+import ClickGuide from '../components/Scenario/ClickGuide';
+import ProgressBarDemo from '../components/Scenario/ProgressBarDemo';
+import BriefingIntro from '../components/Scenario/BriefingIntro';
+import ComponentStructureDiagram from '../components/Scenario/ComponentStructureDiagram';
+import FlowChunkDemo from '../components/Scenario/FlowChunkDemo';
+import TypingFlow from '../components/Scenario/TypingFlow';
+import LastPage from '../components/Scenario/Lastpage';
+import ScenarioFlowDiagram from '../components/Scenario/ScenarioFlowDiagram';
+import PostTable from '../components/Scenario/PostTable';
+import PokeApiShowcase from '../components/Scenario/PokeApiShowcase';
+import PokeApiDetailInteract from '../components/Scenario/PokeApiDetailInteract';
+import OutroTitle from '../components/Scenario/OutroTitle';
+import InfiniteScrollPage from '../components/Scenario/InfiniteScrollPage';
 
 export interface ScenarioItem {
   id: number;
